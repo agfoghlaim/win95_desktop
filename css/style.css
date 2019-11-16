@@ -1,0 +1,252 @@
+@font-face {
+	font-family: 'px_sans_nouveauxregular';
+	src: url('px_sans_nouveaux.woff2') format('woff2'),
+	url('px_sans_nouveaux.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+
+}
+
+
+:root{
+	font-size: 16px;
+	--green: #007c7f;
+	--gray: #d4d0c7;
+	--white: #fffeee;
+	--blue: #020180;
+}
+
+html {
+	box-sizing: border-box;
+  font-size: 10px;
+  height:100vh;
+}
+
+body{
+	margin:0;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+	font-family: 'px_sans_nouveauxregular', sans-serif;
+}
+
+.page-wrap{
+	display: grid;
+	overflow: hidden;
+	grid-template-areas: "files" "taskbar";
+}
+
+.file-container{
+	background: var(--green);
+	grid-gap:1rem;
+	grid-area:files;
+	padding:1rem;
+	display: grid;
+	height:90vh;
+	/* grid-template-columns: repeat(10, 1fr); */
+	grid-template-columns: repeat( auto-fit, minmax(150px, 1fr) );;
+
+}
+
+.taskbar-container{
+	grid-area: taskbar;
+	display:grid;
+	height:10vh;
+	width:100vw;
+	background:var(--gray);
+	grid-template-columns: 12rem 1fr 150px;
+	padding: 1rem;
+}
+
+.mid-taskbar{
+	display: grid;
+	grid-gap:3rem;
+  grid-auto-flow: column;
+  justify-content: start;
+}
+
+
+/*
+
+start-menu
+
+*/
+
+.start-btn{
+	border-radius: 0px;
+	background: url(../img/Galway_Bus_Spotter_36px.png);
+  background-repeat: repeat;
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-size: auto auto;
+	background-position: left;
+	background-repeat: no-repeat;
+	width: 6rem;
+  height: 3rem;
+	text-align: right;
+	font-weight: bold;
+	font-size:0.8rem;
+}
+
+.start-menu{
+	position: fixed;
+	bottom:10vh;
+	display: none;
+	grid-auto-rows: 1fr;
+	background: var(--gray);
+	width:12.5rem;
+	font-size: 0.8rem;
+	padding: 0.2rem;
+	box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.5);
+}
+
+.start-menu-1{
+	position: fixed;
+	bottom:10vh;
+}
+
+
+
+
+.start-menu-2{
+	position:fixed;
+	bottom:20vh;
+	left:13.45rem;
+}
+
+.start-menu-3{
+
+	position:fixed;
+	bottom:30vh;
+	left:25.95rem;
+
+}
+
+.start-menu.show{
+	display: grid;
+}
+
+.start-item{
+	display:grid;
+	grid-template-columns: 4rem 1fr 1fr;
+	align-content:center;
+	padding: 0.5rem;
+}
+
+.start-item:hover{
+	background: var(--blue);
+	color:var(--white);
+	cursor: default;
+}
+
+.start-item p{
+	height: 100%;
+	margin: 0;
+	margin-top: 5px;
+	margin-bottom: 5px;
+
+}
+
+span.arrow{
+	text-align: right;
+	line-height: 2rem;
+}
+
+.file img{
+	width: 60px;
+}
+
+.item-p{
+	text-align: left;
+	color: var(--white);
+	margin: 0;
+	text-shadow: 1px 1px 1px #0000004d;
+}
+
+p.menu-item-p:first-letter {
+	text-decoration: underline;
+}
+
+.modal{
+	border: 3px solid var(--gray);
+	width: 50vw;
+	display:none;
+}
+
+.modal-main{
+	background:var(--white); 
+}
+
+.bar{
+	background: var(--blue);
+	height: 2rem;
+	/* position: relative; */
+	display: grid;
+	align-items: center;
+	justify-content: end;
+	padding: 0.2rem;
+}
+
+button:active{
+	outline: none;
+}
+
+.show{
+	display:grid;
+}
+
+.modal-close{
+	border-radius: 0px;
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	background: var(--gray);
+	height: 1.5rem;
+	width: 1.5rem;
+	padding-bottom: 0.5rem;
+	/* for firefox */
+	justify-content: center;
+	display: grid;
+	align-content: center;
+	font-weight: bold;
+	line-height: 1rem;
+}
+
+
+/*	
+
+taskbar
+
+*/
+p.clock-p{
+	text-align: right;
+	margin: 0;
+	font-weight: 400;
+	border: 1px inset
+	white;
+	padding: 0 0.5rem;
+}
+
+.explorer-btn{
+	background-image: url(../img/file.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	width: 40px;
+	height: 40px;
+	display: block;
+}
+	
+.outline{
+	border: 0.5px dashed rgba(255,255,255,0.2);
+}	
+
+@media only screen and (max-width: 600px) {
+  :root {
+    font-size:12px;
+  }
+}
+
