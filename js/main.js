@@ -31,49 +31,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
   });
 
-  // TODO - restructure start-menu html, this is a mess 
-  
-  // mouse out of menu3 => hide unless mousing into menu-2
-  document.querySelector('.start-menu-3').addEventListener('mouseleave', (e) => {
-  
-    if(!e.target.classList.contains('start-menu-3')) return;
- 
-    if(!e.relatedTarget.classList.contains('start-menu-2')){
-      e.target.classList.remove('show')
-    }
-   
-  });
-
-  // mouse out of menu-2 => unless mousing into menu-3 hide both sub menus
-  document.querySelector('.start-menu-2').addEventListener('mouseleave', (e) => {
-  
-    if(!e.target.classList.contains('start-menu-2')) return;
-  
-    if(!e.relatedTarget.classList.contains('start-menu-3')){
-      e.target.classList.remove('show')
-      document.querySelector('.start-menu-3').classList.remove('show')
-    }
-   
-  });
-
   // show, hide start menu 
-  //document.addEventListener('click', closeContextMenu);
   document.addEventListener('click', toggleStartMenu);
-
-  document.querySelector('.left-taskbar').addEventListener('mouseover', (e)=>{
-    const el = e.target;
-
-    if(el.classList.contains('with-subitem') ){
-      e.target.parentElement.nextElementSibling.classList.add('show');
-    } 
-
-    if(el.parentElement.classList.contains('with-subitem')){
-      e.target.parentElement.parentElement.nextElementSibling.classList.add('show');
-    } 
-   
-    return;
-  })
-
 
   // drag files
   const container = document.querySelector('.file-container');
@@ -82,16 +41,11 @@ document.addEventListener('DOMContentLoaded', function(){
   container.addEventListener('dragover', dragOver); // prevent default
   container.addEventListener('drop', dragDrop); // emptySpace
   
-  
   // open & close modals
   container.addEventListener('dblclick', openModal);
 
   const modalContainer = document.querySelector('.modal-container');
   modalContainer.addEventListener('click', closeModal);
-
-
-  
- 
 
   // drag modals
   document.querySelector('.modal-container').addEventListener('dragstart', dragModal);
@@ -101,10 +55,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   document.querySelector('.modal-container').addEventListener('dragend', dropModal);
 
-
-  
 });
-
 
 function dragModal(e){
 
@@ -205,7 +156,6 @@ function openModal(e){
   .classList.add('show');
 }
 
-
 function getHiddenModalHtml(folderNo){
   const modalContent = myFolders[folderNo].modalContent;
 
@@ -264,9 +214,6 @@ function hideDropTargetOutline(){
   });
 }
 
-
-
-
 // start menu
 function toggleStartMenu(e){
   if( e.target.classList.contains('start-menu') ||
@@ -279,18 +226,10 @@ function toggleStartMenu(e){
   const menus = document.querySelectorAll('.start-menu');
   if(e.target.classList.contains('start-btn')){
     mainMenu.classList.toggle('show');
-
-    if(!mainMenu.classList.contains('show')){
-      menus.forEach(m=>m.classList.remove('show'));
-    }
-
-    //add event listener to accessories || can i add above with display none??
   }else{
     menus.forEach(m=>m.classList.remove('show'));
-    //menu.classList = 'start-menu';	
   }
 }
-
 
 function clock(){
   let d = new Date() ;

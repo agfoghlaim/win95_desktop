@@ -8,6 +8,7 @@
 }
 
 
+
 :root{
 	font-size: 14px;
 	--green: #007c7f;
@@ -101,13 +102,14 @@ start-menu
 	box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.5);
 }
 
+.start-menu .with-subitem:hover > ul{
+  display:grid;
+}
+
 .start-menu-1{
 	position: fixed;
 	bottom:10vh;
 }
-
-
-
 
 .start-menu-2{
 	position:fixed;
@@ -116,11 +118,9 @@ start-menu
 }
 
 .start-menu-3{
-
 	position:fixed;
 	bottom:30vh;
 	left:25.95rem;
-
 }
 
 .start-menu.show{
@@ -132,6 +132,8 @@ start-menu
 	grid-template-columns: 4rem 1fr 1fr;
 	align-content:center;
 	padding: 0.5rem;
+	color:black;
+
 }
 
 .start-item:hover{
@@ -145,7 +147,7 @@ start-menu
 	margin: 0;
 	margin-top: 5px;
 	margin-bottom: 5px;
-
+	
 }
 
 span.arrow{
@@ -164,8 +166,10 @@ span.arrow{
 	text-shadow: 1px 1px 1px #0000004d;
 }
 
+
 p.menu-item-p:first-letter {
 	text-decoration: underline;
+	/* color: var(--black); */
 }
 
 .modal{
