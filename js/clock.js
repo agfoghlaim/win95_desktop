@@ -3,7 +3,14 @@ document.addEventListener('DOMContentLoaded', function(){
 
   createClockFace();
 
-})
+  document.querySelector('.clock-close').addEventListener('click', toggleClock);
+  document.querySelector('.clock-p').addEventListener('click', toggleClock);
+
+});
+
+function toggleClock(e){
+  document.querySelector('.calendar-wrap').classList.toggle('show');
+}
 
 function createClockFace(){
 

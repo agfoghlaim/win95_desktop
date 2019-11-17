@@ -1,31 +1,26 @@
-
-
-
-
 :root{
-/* --gray: #c0c0c0; */
 --windows-blue: #000080;
 --windows-green: #008080;
-/* font-size:10px; */
 }
 
 *{
-box-sizing: border-box;
-/* font-family: 'px_sans_nouveauxregular'; */
+  box-sizing: border-box;
 }
 
 
 .calendar-wrap{
-background : var(--gray);
-position:fixed;
-bottom: 12vh;
-    right: 4vh;
-width: 60vw;
-border: 3px solid var(--gray);
-
-
+  display:none;
+  background : var(--gray);
+  position:fixed;
+  bottom: 12vh;
+  right: 4vh;
+  min-width: 44rem;
+  border: 3px solid var(--gray);
+  box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.5);
 }
-
+.calendar-wrap.show{
+	display: grid;
+}
 .blue-heading{
   color: var(--white);
   font-size: 1rem;
@@ -35,24 +30,23 @@ border: 3px solid var(--gray);
 }
 
 .insideDiv{
-margin:2rem 1rem;
-box-shadow: 3px 3px 10px #404040;
-border-radius:4px;
-display:grid;
-background:var(--gray);
-max-height: 100%;
-grid-template-columns: 50% 50%;
-grid-template-rows: 3fr 3rem;
-grid-template-areas: 'calendar clock' 'timezone timezone';
-border:5px groove var(--gray);
-
+  margin:2rem 1rem;
+  box-shadow: 3px 3px 10px #404040;
+  border-radius:4px;
+  display:grid;
+  background:var(--gray);
+  max-height: 100%;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 3fr 3rem;
+  grid-template-areas: 'calendar clock' 'timezone timezone';
+  border:5px groove var(--gray);
 }
+
 .timezone{
-/* border:3px solid black; */
-grid-area:timezone;
-margin-left: 30px;
-display:grid;
-align-content: center;
+  grid-area:timezone;
+  margin-left: 30px;
+  display:grid;
+  align-content: center;
 }
 
 .calendar:before{
@@ -88,12 +82,10 @@ align-content: center;
   grid-template-rows: 3rem 1fr;
   border: 3px ridge gray;
   height: 16rem;
-  /* width: 15rem;
-  justify-self: center; */
 }
 
 .insideRidgeCalendar{
-margin: 1rem;
+  margin: 1rem;
   position: relative;
   border: 3px groove var(--white);
   display: grid;
@@ -102,7 +94,7 @@ margin: 1rem;
 }
 
 .insideRidgeClock{
-margin: 1rem;
+  margin: 1rem;
   position: relative;
   border: 3px groove #e1e1e1;
   display: grid;
@@ -111,112 +103,101 @@ margin: 1rem;
   justify-content: center;
 }
 
-
-
 .insideRidgeCalendar:after{
-content:'Date';
-position: absolute;
-top:-1rem;
-left:8px;
-font-weight: lighter;
-font-size: 0.8rem;
-background:var(--gray);
-padding: 0 4px;
+  content:'Date';
+  position: absolute;
+  top:-1rem;
+  left:8px;
+  font-weight: lighter;
+  font-size: 0.8rem;
+  background:var(--gray);
+  padding: 0 4px;
 }
 
 .insideRidgeClock:after{
-content:'Time';
-position: absolute;
-top:-1rem;
-left:8px;
-font-weight: lighter;
-font-size: 0.8rem;
-background:var(--gray);
-padding: 0 4px;
+  content:'Time';
+  position: absolute;
+  top:-1rem;
+  left:8px;
+  font-weight: lighter;
+  font-size: 0.8rem;
+  background:var(--gray);
+  padding: 0 4px;
 }
 
 .weekdays {
-/* width: 294px;
-height: 12px; */
-width: 100%;
-background: gray;
-color: var(--white);
-margin: 0;
-padding: 1rem 0;
-display: grid;
-grid-template-columns: repeat(7, 14.2857%);
-padding: 1rem;
-overflow: hidden;
-align-content: center;
+  width: 100%;
+  background: gray;
+  color: var(--white);
+  margin: 0;
+  padding: 1rem 0;
+  display: grid;
+  grid-template-columns: repeat(7, 14.2857%);
+  padding: 1rem;
+  overflow: hidden;
+  align-content: center;
 }
 
 .weekdays li{
-display: inline-block;
-width: 14.2857%;
-color: #000;
-text-align: center;
+  display: inline-block;
+  width: 14.2857%;
+  color: #000;
+  text-align: center;
 }
 
 .days {
-padding: 1rem;
-  /* max-height: 220px;
-  max-width: 300px; */
-  /* padding: 0; */
+  padding: 1rem;
   margin: 0;
   display: grid;
   grid-template-columns: repeat(7, 14.2857%);
 }
 
 .days li {
-list-style-type: none;
-display: inline-block;
-width: 13.6%;
-display: grid;
-align-content: center;
-font-size: 1rem;
-color: black;
-min-height: 1.6rem;
+  list-style-type: none;
+  display: inline-block;
+  width: 13.6%;
+  display: grid;
+  align-content: center;
+  font-size: 1rem;
+  color: black;
+  min-height: 1.6rem;
+}
 
-}
-li.notBlank{
-/* border:2px solid transparent; */
-}
 
 .days li .active {
-padding: 0.5rem;
-background: #1abc9c;
-color: white !important
+  padding: 0.5rem;
+  background: #1abc9c;
+  color: white !important;
 }
 
 .clock{
-grid-area:clock;
-position: relative;
-max-height: 400px;
-display: grid;
-padding: 1rem 0;
+  grid-area:clock;
+  position: relative;
+  max-height: 400px;
+  display: grid;
+  padding: 1rem 0;
 }
 
 ul{
-list-style-type: none;
-display:flex;
+  list-style-type: none;
+  display:flex;
 }
+
 .monthYearDiv{
-display: grid;
-grid-template-columns: 50% 50%;
-grid-auto-flow: column;
-justify-content: space-between;
-align-content: center;
-padding: 12px 0;
-
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-auto-flow: column;
+  justify-content: space-between;
+  align-content: center;
+  padding: 12px 0;
 }
-
 
 .monthYearInput{
-max-width: 100%;
-display: grid;
-grid-auto-flow: column;
-justify-content: start;
-max-height: 2rem;
+  max-width: 100%;
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
+  max-height: 2rem;
 }
 
 .yearInput{
@@ -224,52 +205,43 @@ max-height: 2rem;
   justify-self: flex-end;
 }
 
-
 .monthname, .year{
-background: white;
-width: 7rem;
+  background: white;
+  width: 7rem;
   border: 2px inset white;
-  /* width: 100px; */
   display: inline-block;
 }
+
 .up{
-position:relative;
-height:1rem;
+  position:relative;
+  height:1rem;
 }
 
 .next, .prev, .nextYear, .prevYear{
-position: relative;
-/* height: 14px; */
-width: 2rem;
+  position: relative;
+  width: 2rem;
 }
 .next:after, .nextYear:after{
-content:'▲';
-position: absolute;
-top:-0.1625rem;
-left:0.4375rem;
-font-size:0.75rem;
-line-height: 0.75rem;
-z-index:99;
-
+  content:'▲';
+  position: absolute;
+  top:-0.1625rem;
+  left:0.4375rem;
+  font-size:0.75rem;
+  line-height: 0.75rem;
+  z-index:99;
 }
 .prev:after, .prevYear:after{
-content:'▼';
-position: absolute;
-top:-0.1625rem;
-left:0.4375rem;
-font-size: 0.75rem;
-line-height: 0.75rem;
-z-index:99;
-
-}
-
-
-.monthname{
-
+  content:'▼';
+  position: absolute;
+  top:-0.1625rem;
+  left:0.4375rem;
+  font-size: 0.75rem;
+  line-height: 0.75rem;
+  z-index:99;
 }
 
 .upDownArrowsDiv{
-display: grid;
+  display: grid;
 }
 
 
@@ -281,80 +253,56 @@ Clock
 
 
 .clockface{
-
-border-radius: 50%;
-width: 12.5rem;
-height: 16rem;
-position: relative; 
-
+  border-radius: 50%;
+  width: 12.5rem;
+  height: 16rem;
+  position: relative; 
 }
-
-/* .clockface:after{
-content:'';
-position:absolute;
-width:8px;
-height:8px;
-left: 50%;
-background:var(--windows-green);
-
-} */
 
 .quarter{ 
-width:1rem;
-height:1rem;
-background:var(--windows-green);
+  width:1rem;
+  height:1rem;
+  background:var(--windows-green);
 }
-
-
 
 .hand-min{
-POSITION: ABSOLUTE;
-left: 47%;
-top: 0.625rem;
-transform:rotate(90deg);
-transform-origin:bottom;
-height:5.625rem;
+  position: absolute;
+  left: 47%;
+  top: 0.625rem;
+  transform:rotate(90deg);
+  transform-origin:bottom;
+  height:5.625rem;
 }
 .hand-min img{
-height: 6.25rem;
+  height: 6.25rem;
 }
 
 .hand-hour{
-POSITION: ABSOLUTE;
-left: 44%;
-top: 1.25rem;
-transform-origin:bottom;
-height: 5rem;
-
+  position: absolute;
+  left: 44%;
+  top: 1.25rem;
+  transform-origin:bottom;
+  height: 5rem;
 }
 
 .hand-hour img{
-height: 6.25rem;
+  height: 6.25rem;
 }
 
 .hand-sec{
-POSITION: ABSOLUTE;
-left: 48.5%;
-top: 0.625rem;
-transform-origin: bottom;
-height: 5.625rem;
-
-
+  position: absolute;
+  left: 48.5%;
+  top: 0.625rem;
+  transform-origin: bottom;
+  height: 5.625rem;
 }
 
 .hand-sec img{
-/* height: 100px; */
-height: 6.875rem;
+  height: 6.875rem;
 }
 
 
-@media only screen and (max-width: 1150px) {
-  .calendar-wrap{
-    width: 90vw;
-  }
-}
-
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 560px) {
   .calendar-wrap{
     width: 96vw;
     right: 2vw;
@@ -362,5 +310,20 @@ height: 6.875rem;
   .insideDiv{
     margin-left: 0;
     margin-right: 0;
+  }
+}
+
+@media only screen and (max-width: 390px) {
+ 
+  .insideDiv{
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 3rem;
+    grid-template-areas:
+    'calendar' 'clock' 'timezone';
+  }
+  .calendar-wrap{
+
+    min-width: 22rem;
+  
   }
 }

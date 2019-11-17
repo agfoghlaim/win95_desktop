@@ -9,7 +9,7 @@
 
 
 :root{
-	font-size: 16px;
+	font-size: 14px;
 	--green: #007c7f;
 	--gray: #d4d0c7;
 	--white: #fffeee;
@@ -18,7 +18,7 @@
 
 html {
 	box-sizing: border-box;
-  font-size: 10px;
+  font-size: 14px;
   height:100vh;
 }
 
@@ -172,6 +172,7 @@ p.menu-item-p:first-letter {
 	border: 3px solid var(--gray);
 	width: 50vw;
 	display:none;
+	box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.5);
 }
 
 .modal-main{
@@ -196,21 +197,7 @@ button:active{
 	display:grid;
 }
 
-.modal-close{
-	/* border-radius: 0px;
-	position: absolute;
-	right: 5px;
-	top: 5px;
-	background: var(--gray);
-	height: 1.5rem;
-	width: 1.5rem;
-	padding-bottom: 0.5rem;
-	justify-content: center;
-	display: grid;
-	align-content: center;
-	font-weight: bold;
-	line-height: 1rem; */
-
+.close-btn{
 	border-radius: 0px;
 	position: absolute;
 	right: 5px;
@@ -219,9 +206,6 @@ button:active{
 	height: 2rem;
 	width: 2rem;
 	padding-left: 2.1px;
-	/* justify-content: center; */
-	/* display: grid; */
-	/* align-content: center; */
 	font-weight: bold;
 	line-height: 1rem;
 	justify-items: center;
@@ -267,7 +251,7 @@ p.clock-p{
   }
 }
 
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 560px) {
   :root {
     font-size:9px;
   }

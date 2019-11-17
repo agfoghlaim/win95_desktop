@@ -113,18 +113,16 @@ function dragModal(e){
   const modal = e.target.dataset.modalno;
 
   e.dataTransfer.setData('text/plain', null);
-  // const img = new Image(); 
-  // img.src = 'img/programs.ico'; 
-  // e.dataTransfer.setDragImage(img, 10, 10);
+  const img = new Image(); 
+  img.src = 'img/programs.ico'; 
+  e.dataTransfer.setDragImage(img, 10, 10);
 
 }
 
 function saveMouseCoordinatesAfterEveryDrop(e){
   e.preventDefault();
   LASTDROPCOORDINATES.clientX = e.clientX;
-  LASTDROPCOORDINATES.clientY = e.clientY
-  console.log("LASTDROPCOORDINATES ", LASTDROPCOORDINATES)
-
+  LASTDROPCOORDINATES.clientY = e.clientY;
 }
 
 function dropModal(e){
@@ -215,7 +213,7 @@ function getHiddenModalHtml(folderNo){
   <div draggable="true"  style="position:absolute;top:${folderNo}rem; left:${folderNo}rem; "class="modal modal-${folderNo}">
 
     <div draggable="true"   class="bar" data-modalno=${folderNo}>
-      <button class="modal-close">X</button>
+      <button class="modal-close close-btn">X</button>
     </div>
 
     <div class="modal-main">
