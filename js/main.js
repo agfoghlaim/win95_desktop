@@ -128,20 +128,15 @@ function saveMouseCoordinatesAfterEveryDrop(e){
 }
 
 function dropModal(e){
-   e.preventDefault();
-   console.log("ended")
-
+  e.preventDefault();
+   
   if(!e.target.classList.contains('bar')) return;
   const modalNo = e.target.dataset.modalno;
   const modal = document.querySelector(`.modal-${modalNo}`);
 
-  // modal.style.top = `${e.clientY}px`;
-  // modal.style.left = `${e.clientX}px`;
-  // use global LASTDROPCOORDINATES because e.clientX, e.clientY not available in Firefox
+  // e.clientX, e.clientY not available in Firefox - use LASTDROPCOORDINATES 
   modal.style.top = `${LASTDROPCOORDINATES.clientY}px`;
   modal.style.left = `${LASTDROPCOORDINATES.clientX}px`;
-  console.log(modalNo, e.clientX, e.clientY)
-
 }
 
 function dragStart(e){
@@ -246,8 +241,12 @@ function populateFiles(){
 
   </div>`;
 
-  const modal = getHiddenModalHtml(i);
-  document.querySelector('.modal-container').innerHTML += modal;
+  // only add modals if they don't already exist
+   if(!document.querySelector(`.modal-${i}`)){
+    const modal = getHiddenModalHtml(i);
+    document.querySelector('.modal-container').innerHTML += modal;
+   }
+  
   });
 }
 

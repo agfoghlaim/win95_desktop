@@ -3,10 +3,10 @@
 
 
 :root{
---windows-gray: #c0c0c0;
+/* --gray: #c0c0c0; */
 --windows-blue: #000080;
 --windows-green: #008080;
-font-size:10px;
+/* font-size:10px; */
 }
 
 *{
@@ -16,23 +16,22 @@ box-sizing: border-box;
 
 
 .calendar-wrap{
-background : var(--windows-gray);
+background : var(--gray);
 position:fixed;
 bottom: 12vh;
     right: 4vh;
-max-width: 70vw;
+width: 60vw;
+border: 3px solid var(--gray);
 
-border-radius: 3px;
 
 }
 
 .blue-heading{
-background: var(--windows-blue);
-color:white;
-font-size:0.8rem;
-font-weight: bold;
-padding:5px 10px;
-border-radius: 3px 3px 0 0;
+  color: var(--white);
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  margin-left:3px;
 }
 
 .insideDiv{
@@ -40,12 +39,12 @@ margin:2rem 1rem;
 box-shadow: 3px 3px 10px #404040;
 border-radius:4px;
 display:grid;
-background:var(--windows-gray);
-max-height: 40vh;
+background:var(--gray);
+max-height: 100%;
 grid-template-columns: 50% 50%;
 grid-template-rows: 3fr 3rem;
 grid-template-areas: 'calendar clock' 'timezone timezone';
-border:5px groove var(--windows-gray);
+border:5px groove var(--gray);
 
 }
 .timezone{
@@ -57,51 +56,46 @@ align-content: center;
 }
 
 .calendar:before{
-box-sizing: border-box;
-content: 'Date & Time';
-border-radius:4px;
-position:absolute;
-top:-1.533333rem;
-font-size:0.8rem;
-z-index: 8888;
-left:-5px;
-height:2rem;
-padding:2px 5px;
-border-width: 0 1px 1px 0;
-background:var(--windows-gray);
-border-top-left-radius: 4px;
-border-top-right-radius: 4px;
-border-bottom-right-radius: 4px;
-border-left:5px groove var(--windows-gray);
-border-top:5px groove var(--windows-gray);
-border-right:5px groove var(--windows-gray);
-
+  box-sizing: border-box;
+  content: 'Date & Time';
+  border-radius:4px;
+  position:absolute;
+  top:-1.533333rem;
+  font-size:0.8rem;
+  z-index: 8888;
+  left:-5px;
+  height:2rem;
+  padding:2px 5px;
+  border-width: 0 1px 1px 0;
+  background:var(--gray);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-left:5px groove var(--gray);
+  border-top:5px groove var(--gray);
+  border-right:5px groove var(--gray);
 }
 .calendar{
-grid-area: calendar;
-position: relative;
-display: grid;
-padding: 1rem;
+  grid-area: calendar;
+  position: relative;
+  display: grid;
+  padding: 1rem 0;
 
 }
 .calendar-window{
-
-background: white;
-/* max-width: 294px; */
-/* height: 220px; */
-display: grid;
-
-/* justify-content: center; */
-border: 3px ridge gray;
-
-
-
+  background: white;
+  display: grid;
+  grid-template-rows: 3rem 1fr;
+  border: 3px ridge gray;
+  height: 16rem;
+  /* width: 15rem;
+  justify-self: center; */
 }
 
 .insideRidgeCalendar{
 margin: 1rem;
   position: relative;
-  border: 3px groove #e1e1e1;
+  border: 3px groove var(--white);
   display: grid;
   padding: 0.625rem;
   grid-template-rows: 1fr 4fr;
@@ -126,7 +120,7 @@ top:-1rem;
 left:8px;
 font-weight: lighter;
 font-size: 0.8rem;
-background:var(--windows-gray);
+background:var(--gray);
 padding: 0 4px;
 }
 
@@ -137,7 +131,7 @@ top:-1rem;
 left:8px;
 font-weight: lighter;
 font-size: 0.8rem;
-background:var(--windows-gray);
+background:var(--gray);
 padding: 0 4px;
 }
 
@@ -146,7 +140,7 @@ padding: 0 4px;
 height: 12px; */
 width: 100%;
 background: gray;
-color: white;
+color: var(--white);
 margin: 0;
 padding: 1rem 0;
 display: grid;
@@ -199,7 +193,7 @@ grid-area:clock;
 position: relative;
 max-height: 400px;
 display: grid;
-padding: 1rem;
+padding: 1rem 0;
 }
 
 ul{
@@ -208,7 +202,7 @@ display:flex;
 }
 .monthYearDiv{
 display: grid;
-/* grid-auto-columns: 1fr; */
+grid-template-columns: 50% 50%;
 grid-auto-flow: column;
 justify-content: space-between;
 align-content: center;
@@ -218,21 +212,25 @@ padding: 12px 0;
 
 
 .monthYearInput{
+max-width: 100%;
 display: grid;
 grid-auto-flow: column;
 justify-content: start;
 max-height: 2rem;
-
 }
 
+.yearInput{
+  display: grid;
+  justify-self: flex-end;
+}
 
 
 .monthname, .year{
 background: white;
+width: 7rem;
   border: 2px inset white;
   /* width: 100px; */
   display: inline-block;
-
 }
 .up{
 position:relative;
@@ -286,7 +284,7 @@ Clock
 
 border-radius: 50%;
 width: 12.5rem;
-height: 12.5rem;
+height: 16rem;
 position: relative; 
 
 }
@@ -349,39 +347,20 @@ height: 5.625rem;
 height: 6.875rem;
 }
 
-/* to fix margins */
-/* @media only screen and (max-width: 900px) {
-:root{
-  font-size:15px;
-}
-}
-@media only screen and (max-width: 850px) {
-:root{
-  font-size:12px !important;
-}
-}
 
-div.calendar, div.clock{
-  padding:1rem;
-}
-div.insideRidgeCalendar, div.insideRidgeClock{
-  margin:1rem;
-}
-
-
-@media only screen and (max-width: 580px) {
-:root{
-  font-size:10px !important;
-}
-}
-
-@media only screen and (max-width: 480px) {
-:root{
-  font-size:8px !important;
-}
-} */
-
-@media only screen and (max-width: 990px) {
-  :root{
-    font-size:8px !important;
+@media only screen and (max-width: 1150px) {
+  .calendar-wrap{
+    width: 90vw;
   }
+}
+
+@media only screen and (max-width: 550px) {
+  .calendar-wrap{
+    width: 96vw;
+    right: 2vw;
+  }
+  .insideDiv{
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

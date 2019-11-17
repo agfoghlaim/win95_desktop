@@ -184,7 +184,7 @@ p.menu-item-p:first-letter {
 	/* position: relative; */
 	display: grid;
 	align-items: center;
-	justify-content: end;
+	/* justify-content: end; */
 	padding: 0.2rem;
 }
 
@@ -255,10 +255,21 @@ p.clock-p{
 .outline{
 	border: 0.5px dashed rgba(255,255,255,0.2);
 }	
+@media only screen and (max-width: 1150px) {
+  :root {
+    font-size:14px;
+  }
+}
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
   :root {
     font-size:12px;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  :root {
+    font-size:9px;
   }
 }
 
