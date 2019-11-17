@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/clock.css">
     <title>DT</title>
     <style>
 
@@ -21,7 +22,7 @@
       <div class="taskbar-container">
 
         <div class="left-taskbar">
-          
+
         <button class="start-btn">Start</button>
 
           <div class="start-menu start-menu-1">
@@ -91,10 +92,95 @@
             <p class="clock-p"><span class="clock"></span></p>
         </div>
       </div>
+
+      <!-- clock/calendar -->
+      <div class="calendar-wrap">
+     
+          <h2 class="blue-heading">Date/Time Properties</h2>
+          <div class="insideDiv">
+      
+            <div class="calendar">
+      
+              <div class="insideRidge insideRidgeCalendar">
+      
+                <div class="monthYearDiv" >      
+                  
+                    <div class="monthYearInput">
+                        <div class="monthname"></div>
+                        <div class="upDownArrowsDiv">
+                            <button class="next"></button>
+                            <button class="prev"></button>
+                        </div>
+                    
+                    </div>
+                    
+                    <div class="monthYearInput">
+                        <div class="year"></div>
+                        <div class="upDownArrowsDiv">
+                            <button class="nextYear"></button>
+                            <button class="prevYear"></button>
+                        </div>
+                    </div>
+                      
+                   
+                </div>
+      
+                <div class="calendar-window">   
+                  <ul class="weekdays">
+                    <li>Mo</li>
+                    <li>Tu</li>
+                    <li>We</li>
+                    <li>Th</li>
+                    <li>Fr</li>
+                    <li>Sa</li>
+                    <li>Su</li>
+                  </ul>
+                
+                  <ul class="days"></ul>
+                </div>
+                <!-- end cal window -->
+              </div>  
+             
+            </div> <!-- end cal  -->
+      
+            <div class="clock">
+                <div class="insideRidge insideRidgeClock">
+                  <div class="clockface">
+                    
+                    <div class="hand hand-sec">
+                        <img src="img/secondhand.png" alt="">
+                    </div>
+                    
+                   <div class="hand hand-min">
+                      <img src="img/minutehand.png" alt="">
+                   </div>
+      
+                   <div class="hand hand-hour">
+                      <img src="img/hourhand.png" alt="">
+                    </div>
+                   <div class="hand hand-sec"></div>
+                   
+                  </div>
+                  <div class="digitalclock">digital version here</div>
+                </div> 
+            </div>
+      
+            <div class="timezone">
+              <p class="timezoneText">
+                Current time Zone: Irish Time
+              </p>
+            </div>
+      
+          </div>
+       
+        </div>  
+
     </div><!-- end page-wrap -->
 
-  <script type="module" src="js/main.js">
-  </script>
+  <script type="module" src="js/main.js"></script>
+   <script src="js/calendar.js"></script>
+  <script src="js/clock.js"></script>
+  
   </body>
 </html>
 

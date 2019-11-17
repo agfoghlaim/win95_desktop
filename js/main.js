@@ -10,7 +10,13 @@ const DRAGPROCESS = {
   html: '',
   inProgress:true,
   droppedSafe:false
-}
+};
+
+// So modals can be dragged on Firefox
+const LASTDROPCOORDINATES = {
+  clientX: 0,
+  clientY: 0
+};
 
 // clock
 setInterval(clock, 1000);
@@ -56,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   document.querySelector('.left-taskbar').addEventListener('mouseover', (e)=>{
     const el = e.target;
-console.log("aee")
+
     if(el.classList.contains('with-subitem') ){
       e.target.parentElement.nextElementSibling.classList.add('show');
     } 
@@ -69,48 +75,105 @@ console.log("aee")
   })
 
 
-
-  // drag-related listeners
+  // drag files
   const container = document.querySelector('.file-container');
   container.addEventListener('dragstart', dragStart);
   container.addEventListener('dragend', dragEnd); // change class filled empty
   container.addEventListener('dragover', dragOver); // prevent default
   container.addEventListener('drop', dragDrop); // emptySpace
+  
+  
+  // open & close modals
   container.addEventListener('dblclick', openModal);
 
-  // close modals
   const modalContainer = document.querySelector('.modal-container');
   modalContainer.addEventListener('click', closeModal);
 
+
+  
+ 
+
+  // drag modals
+  document.querySelector('.modal-container').addEventListener('dragstart', dragModal);
+
+   /* problem with Firefox, can't get mouse positions from dragend event, see here https://bugzilla.mozilla.org/show_bug.cgi?id=505521 */
+  document.addEventListener('drop', saveMouseCoordinatesAfterEveryDrop);
+
+  document.querySelector('.modal-container').addEventListener('dragend', dropModal);
+
+
+  
 });
 
-// "drag" modal
-document.addEventListener('dragstart', dragModal);
+
 function dragModal(e){
- 
+
   if(!e.target.classList.contains('bar')) return;
-  e.dataTransfer.effectAllowed = "none";
+
   const modal = e.target.dataset.modalno;
-  console.log(modal)
 
-  const img = new Image(); 
-  img.src = 'img/programs.ico'; 
-  
-  e.dataTransfer.setDragImage(img, 10, 10);
-
+  e.dataTransfer.setData('text/plain', null);
+  // const img = new Image(); 
+  // img.src = 'img/programs.ico'; 
+  // e.dataTransfer.setDragImage(img, 10, 10);
 
 }
 
-document.addEventListener('dragend', dropModal);
+function saveMouseCoordinatesAfterEveryDrop(e){
+  e.preventDefault();
+  LASTDROPCOORDINATES.clientX = e.clientX;
+  LASTDROPCOORDINATES.clientY = e.clientY
+  console.log("LASTDROPCOORDINATES ", LASTDROPCOORDINATES)
+
+}
+
 function dropModal(e){
+   e.preventDefault();
+   console.log("ended")
+
   if(!e.target.classList.contains('bar')) return;
   const modalNo = e.target.dataset.modalno;
   const modal = document.querySelector(`.modal-${modalNo}`);
-  console.log(modal)
-  modal.style.top = `${e.clientY}px`;
-  modal.style.left = `${e.clientX}px`;
+
+  // modal.style.top = `${e.clientY}px`;
+  // modal.style.left = `${e.clientX}px`;
+  // use global LASTDROPCOORDINATES because e.clientX, e.clientY not available in Firefox
+  modal.style.top = `${LASTDROPCOORDINATES.clientY}px`;
+  modal.style.left = `${LASTDROPCOORDINATES.clientX}px`;
   console.log(modalNo, e.clientX, e.clientY)
 
+}
+
+function dragStart(e){
+  showDropTargetOutline();
+
+  DRAGPROCESS.html = '';
+  if(e.target.matches('img')){
+    DRAGPROCESS.droppedSafe = false;
+    DRAGPROCESS.html = e.target.parentElement.parentElement.innerHTML;
+  }
+}
+
+function dragEnd(e){
+  e.preventDefault();
+  if(DRAGPROCESS.droppedSafe === true){
+    e.target.parentElement.parentElement.classList.replace("filledSpace", "emptySpace");
+    e.target.parentElement.parentElement.innerHTML = '';	
+  }
+  hideDropTargetOutline();
+}
+
+function dragOver(e){
+  e.preventDefault();
+}
+
+function dragDrop(e){
+  if(e.target.classList.contains('emptySpace') && DRAGPROCESS.html !== ''){
+    e.target.innerHTML = DRAGPROCESS.html;
+    e.target.classList.replace("emptySpace", "filledSpace");
+    DRAGPROCESS.droppedSafe = true;
+  }
+  e.preventDefault();
 }
 
 function  closeModal(e){
@@ -154,10 +217,10 @@ function getHiddenModalHtml(folderNo){
   const modalContent = myFolders[folderNo].modalContent;
 
   return `
-  <div style="position:absolute;top:${folderNo}rem; left:${folderNo}rem; "class="modal modal-${folderNo}">
+  <div draggable="true"  style="position:absolute;top:${folderNo}rem; left:${folderNo}rem; "class="modal modal-${folderNo}">
 
-    <div class="bar" data-modalno=${folderNo}>
-      <button class="modal-close">x</button>
+    <div draggable="true"   class="bar" data-modalno=${folderNo}>
+      <button class="modal-close">X</button>
     </div>
 
     <div class="modal-main">
@@ -204,37 +267,7 @@ function hideDropTargetOutline(){
   });
 }
 
-function dragStart(e){
-  showDropTargetOutline();
 
-  DRAGPROCESS.html = '';
-  if(e.target.matches('img')){
-    DRAGPROCESS.droppedSafe = false;
-    DRAGPROCESS.html = e.target.parentElement.parentElement.innerHTML;
-  }
-}
-
-function dragEnd(e){
-  e.preventDefault();
-  if(DRAGPROCESS.droppedSafe === true){
-    e.target.parentElement.parentElement.classList.replace("filledSpace", "emptySpace");
-    e.target.parentElement.parentElement.innerHTML = '';	
-  }
-  hideDropTargetOutline();
-}
-
-function dragOver(e){
-  e.preventDefault();
-}
-
-function dragDrop(e){
-  if(e.target.classList.contains('emptySpace') && DRAGPROCESS.html !== ''){
-    e.target.innerHTML = DRAGPROCESS.html;
-    e.target.classList.replace("emptySpace", "filledSpace");
-    DRAGPROCESS.droppedSafe = true;
-  }
-  e.preventDefault();
-}
 
 
 // start menu

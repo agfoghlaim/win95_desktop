@@ -46,9 +46,7 @@ body{
 	padding:1rem;
 	display: grid;
 	height:90vh;
-	/* grid-template-columns: repeat(10, 1fr); */
 	grid-template-columns: repeat( auto-fit, minmax(150px, 1fr) );;
-
 }
 
 .taskbar-container{
@@ -182,7 +180,7 @@ p.menu-item-p:first-letter {
 
 .bar{
 	background: var(--blue);
-	height: 2rem;
+	height: 3rem;
 	/* position: relative; */
 	display: grid;
 	align-items: center;
@@ -199,7 +197,7 @@ button:active{
 }
 
 .modal-close{
-	border-radius: 0px;
+	/* border-radius: 0px;
 	position: absolute;
 	right: 5px;
 	top: 5px;
@@ -207,12 +205,26 @@ button:active{
 	height: 1.5rem;
 	width: 1.5rem;
 	padding-bottom: 0.5rem;
-	/* for firefox */
 	justify-content: center;
 	display: grid;
 	align-content: center;
 	font-weight: bold;
+	line-height: 1rem; */
+
+	border-radius: 0px;
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	background: var(--gray);
+	height: 2rem;
+	width: 2rem;
+	padding-left: 2.1px;
+	/* justify-content: center; */
+	/* display: grid; */
+	/* align-content: center; */
+	font-weight: bold;
 	line-height: 1rem;
+	justify-items: center;
 }
 
 
