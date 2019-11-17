@@ -7,8 +7,6 @@
 
 }
 
-
-
 :root{
 	font-size: 14px;
 	--green: #007c7f;
@@ -147,7 +145,6 @@ start-menu
 	margin: 0;
 	margin-top: 5px;
 	margin-bottom: 5px;
-	
 }
 
 span.arrow{

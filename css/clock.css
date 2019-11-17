@@ -21,6 +21,24 @@
 .calendar-wrap.show{
 	display: grid;
 }
+
+.digitalclock{
+  display:grid;
+  grid-auto-flow: column;
+  max-height: 2rem;
+}
+.digital-time{
+  display:grid;
+  background:white;
+  border:2px inset white;
+  align-items: center;
+  align-content:center;
+  justify-content: center;
+  justify-items: center;
+  width: 10rem;
+  
+}
+
 .blue-heading{
   color: var(--white);
   font-size: 1rem;
