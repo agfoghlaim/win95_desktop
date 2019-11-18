@@ -1,6 +1,6 @@
 import { desktopIcons } from './content.js';
 import { Modal } from './modal.js';
-import { Tetris } from './tetris.js';
+import { Tetris } from './tetris/tetris.js';
 
 // init
 populateFileSpaces();
@@ -48,16 +48,34 @@ document.addEventListener('DOMContentLoaded', function(){
   /* problem with Firefox, can't get mouse positions from dragend event, see here https://bugzilla.mozilla.org/show_bug.cgi?id=505521 */
   document.addEventListener('drop', e => Modal.saveMouseCoordinatesAfterEveryDrop(e));
 
-
-  // Tetris
+  // Tetris in start menu
   document.querySelector('.menu-tetris').addEventListener('click', launchTetris);
 
 });
 
-function launchTetris(){
-  console.log("will launch")
-}
 
+function launchTetris(){
+
+  // Tetris Modal
+  const modalContent = Tetris.getHtml();
+  const tetrisModal = new Modal('modal-container', 'start-item', `menu-tetris`, `${modalContent}`);
+  tetrisModal.showDirect('modal-menu-tetris');
+
+  // Tetris Canvas
+  const canvas = document.getElementById('tetris');
+  const ctx = canvas.getContext('2d');
+  ctx.scale(40,40);
+
+  // Init Game
+  let tetris = new Tetris(ctx);
+  
+  // Listen for Keyboard Events
+  tetris.addKeyboardListeners(tetris);
+
+  //listen for tetris closing (game will stop when current shape collides... that's acceptable!)
+  document.querySelector('.close-btn-menu-tetris').addEventListener('tetrisClosed', (e) => tetris.setGameOver(true), false);
+
+}
 
 // Drag Drop Files
 function startFileDrag(e){
@@ -102,8 +120,6 @@ function dropFile(e){
   }
   e.preventDefault();
 }
-
-
 
 function getNumFileSpaces(){
   // TODO check for tiny screens - not enough space for all files case

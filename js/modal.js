@@ -10,7 +10,7 @@ export  class Modal{
   //   offset:[0,0]
   // }
 
-  constructor(parent, relatedParent, related, content, offset, draggable = false){
+  constructor(parent, relatedParent, related, content, offset){
 
     this.parent = parent;
     this.parentContainer = document.querySelector(`.${relatedParent}`);
@@ -19,23 +19,16 @@ export  class Modal{
     this.content = content;
     [this.top, this.left] = offset || [5, 5];
 
-   
-
-    
-
     this.init();
   }
 
   init(){
-   
     this.addToDOM();
     this.addListenerToRelated();
     this.addCloseListener();
-
   }
 
   make(){
-
     return `
     <div draggable="true"  style="position:absolute;top:${this.top}rem; left:${this.left}rem; "class="modal modal-${this.related}">
   
@@ -56,7 +49,6 @@ export  class Modal{
   }
 
   addListenerToRelated(){
- 
     this.parentContainer.addEventListener( 'click', (e) => this.show(e));
   }
 
@@ -64,25 +56,39 @@ export  class Modal{
       this.container.addEventListener('click', (e)=>this.close(e))
   }
 
-
-
-
   show(e){
-  // data-modal-class should be the class of the modal to show
-  if(e.target.dataset.modalClass !== `${this.related}`) return;
+    // data-modal-class should be the class of the modal to show
+
+    if(e.target.dataset.modalClass !== `${this.related}`) return;
 
     document.querySelector(`.modal-${this.related}`)
     .classList.add('show');
+    
+  }
+
+  // will be static..?
+  showDirect(modalClass){
   
+    if(modalClass){
+      document.querySelector(`.${modalClass}`)
+      .classList.add('show');
+    }
   }
 
   close(e){
     if(!e.target.classList.contains(`close-btn-${this.related}`)) return;
+
+    // if tetris modal is closing, dispatch event to stop it running in the background
+    if(e.target.classList.contains('close-btn-menu-tetris')){
+      const closeTetris = new Event('tetrisClosed');
+      e.target.dispatchEvent(closeTetris);
+    }
+
     document.querySelector(`.modal-${this.related}`).classList.remove('show');
+    
   }
 
   static dragModal(e){
-
     if(!e.target.classList.contains('bar')) return;
 
     e.dataTransfer.setData('text/plain', null);
@@ -109,4 +115,5 @@ export  class Modal{
     LASTDROPCOORDINATES.clientX = e.clientX;
     LASTDROPCOORDINATES.clientY = e.clientY;
   }
+
 }
