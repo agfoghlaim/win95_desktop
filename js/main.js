@@ -1,4 +1,6 @@
-import { myFolders } from './content.js';
+import { desktopIcons } from './content.js';
+import { Modal } from './modal.js';
+import { Tetris } from './tetris.js';
 
 // init
 populateFileSpaces();
@@ -6,19 +8,14 @@ populateFiles();
 
 
 //	draggable
-const DRAGPROCESS = {
+const FILEDRAG = {
   html: '',
   inProgress:true,
   droppedSafe:false
 };
 
-// So modals can be dragged on Firefox
-const LASTDROPCOORDINATES = {
-  clientX: 0,
-  clientY: 0
-};
-
 // clock
+// TODO - this is old, should use same as clock.js clock
 setInterval(clock, 1000);
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -31,79 +28,60 @@ document.addEventListener('DOMContentLoaded', function(){
 
   });
 
-  // show, hide start menu 
+
+  // Show / Hide Start Menu 
   document.addEventListener('click', toggleStartMenu);
 
-  // drag files
+
+  // Drag Files - Listeners
   const container = document.querySelector('.file-container');
-  container.addEventListener('dragstart', dragStart);
-  container.addEventListener('dragend', dragEnd); // change class filled empty
-  container.addEventListener('dragover', dragOver); // prevent default
-  container.addEventListener('drop', dragDrop); // emptySpace
+  container.addEventListener('dragstart', startFileDrag);
+  container.addEventListener('dragend', endFileDrag); 
+  container.addEventListener('dragover', dragOver); 
+  container.addEventListener('drop', dropFile); 
   
-  // open & close modals
-  container.addEventListener('dblclick', openModal);
 
-  const modalContainer = document.querySelector('.modal-container');
-  modalContainer.addEventListener('click', closeModal);
+  // Drag Modals - Listeners
+  document.querySelector('.modal-container').addEventListener('dragstart', e => Modal.dragModal(e));
+  document.querySelector('.modal-container').addEventListener('dragend', e => Modal.dropModal(e));
 
-  // drag modals
-  document.querySelector('.modal-container').addEventListener('dragstart', dragModal);
+  /* problem with Firefox, can't get mouse positions from dragend event, see here https://bugzilla.mozilla.org/show_bug.cgi?id=505521 */
+  document.addEventListener('drop', e => Modal.saveMouseCoordinatesAfterEveryDrop(e));
 
-   /* problem with Firefox, can't get mouse positions from dragend event, see here https://bugzilla.mozilla.org/show_bug.cgi?id=505521 */
-  document.addEventListener('drop', saveMouseCoordinatesAfterEveryDrop);
 
-  document.querySelector('.modal-container').addEventListener('dragend', dropModal);
+  // Tetris
+  document.querySelector('.menu-tetris').addEventListener('click', launchTetris);
 
 });
 
-function dragModal(e){
-
-  if(!e.target.classList.contains('bar')) return;
-
-  const modal = e.target.dataset.modalno;
-
-  e.dataTransfer.setData('text/plain', null);
-  const img = new Image(); 
-  img.src = 'img/programs.ico'; 
-  e.dataTransfer.setDragImage(img, 10, 10);
-
+function launchTetris(){
+  console.log("will launch")
 }
 
-function saveMouseCoordinatesAfterEveryDrop(e){
-  e.preventDefault();
-  LASTDROPCOORDINATES.clientX = e.clientX;
-  LASTDROPCOORDINATES.clientY = e.clientY;
-}
 
-function dropModal(e){
-  e.preventDefault();
-   
-  if(!e.target.classList.contains('bar')) return;
-  const modalNo = e.target.dataset.modalno;
-  const modal = document.querySelector(`.modal-${modalNo}`);
-
-  // e.clientX, e.clientY not available in Firefox - use LASTDROPCOORDINATES 
-  modal.style.top = `${LASTDROPCOORDINATES.clientY}px`;
-  modal.style.left = `${LASTDROPCOORDINATES.clientX}px`;
-}
-
-function dragStart(e){
+// Drag Drop Files
+function startFileDrag(e){
+ 
   showDropTargetOutline();
-
-  DRAGPROCESS.html = '';
+ 
+  FILEDRAG.html = '';
+  FILEDRAG.inProgress=true;
   if(e.target.matches('img')){
-    DRAGPROCESS.droppedSafe = false;
-    DRAGPROCESS.html = e.target.parentElement.parentElement.innerHTML;
+    FILEDRAG.droppedSafe = false;
+    FILEDRAG.html = e.target.parentElement.parentElement.innerHTML;
   }
 }
 
-function dragEnd(e){
+function endFileDrag(e){
   e.preventDefault();
-  if(DRAGPROCESS.droppedSafe === true){
+
+  if(FILEDRAG.droppedSafe === true){
+
     e.target.parentElement.parentElement.classList.replace("filledSpace", "emptySpace");
+    FILEDRAG.inProgress=false;
     e.target.parentElement.parentElement.innerHTML = '';	
   }
+
   hideDropTargetOutline();
 }
 
@@ -111,25 +89,24 @@ function dragOver(e){
   e.preventDefault();
 }
 
-function dragDrop(e){
-  if(e.target.classList.contains('emptySpace') && DRAGPROCESS.html !== ''){
-    e.target.innerHTML = DRAGPROCESS.html;
+function dropFile(e){
+  
+  if(!FILEDRAG.inProgress){
+    return;
+  }
+
+  if(e.target.classList.contains('emptySpace') && FILEDRAG.html !== ''){
+    e.target.innerHTML = FILEDRAG.html;
     e.target.classList.replace("emptySpace", "filledSpace");
-    DRAGPROCESS.droppedSafe = true;
+    FILEDRAG.droppedSafe = true;
   }
   e.preventDefault();
 }
 
-function  closeModal(e){
-  if(!e.target.classList.contains('modal-close')) return;
 
-  const modalNo = e.target.parentElement.dataset.modalno;
 
-  document.querySelector(`.modal-${modalNo}`).classList.remove('show');
-}
-
-// TODO check for tiny screens - not enough space for all files case
 function getNumFileSpaces(){
+  // TODO check for tiny screens - not enough space for all files case
   const minWidth = 150;
   const minHeight = 200;
   const numSpaces = (window.innerWidth / minWidth) * (window.innerHeight / minHeight);
@@ -149,51 +126,31 @@ function populateFileSpaces(){
   }
 }
 
-function openModal(e){
-  if(!e.target.matches('img')) return;
-  
-  document.querySelector( `.${e.target.parentNode.dataset.modal}`)
-  .classList.add('show');
-}
-
-function getHiddenModalHtml(folderNo){
-  const modalContent = myFolders[folderNo].modalContent;
-
-  return `
-  <div draggable="true"  style="position:absolute;top:${folderNo}rem; left:${folderNo}rem; "class="modal modal-${folderNo}">
-
-    <div draggable="true"   class="bar" data-modalno=${folderNo}>
-      <button class="modal-close close-btn">X</button>
-    </div>
-
-    <div class="modal-main">
-    <p>${modalContent}</p>
-    </div>
-
-  </div>`;
-}
-
 // populate files
 function populateFiles(){
   const spaces = document.querySelectorAll('.space');
 
-  myFolders.forEach( (folder,i) => {
-
-  spaces[i].classList.replace("emptySpace", "filledSpace");
+  desktopIcons.forEach( (icon,i) => {
+    
+    // TODO cover case where screen is too small to show all files
+    spaces[i].classList.replace("emptySpace", "filledSpace");
   
-  spaces[i].innerHTML = `
-    <div draggable="true" class="file ${folder.theClass}" data-modal="${folder.dataModal}" data-modalno=${i} data-context="${folder.contextClass}">
+    spaces[i].innerHTML = `
+    <div draggable="true" class="file ${icon.class}" data-modal="${icon.dataModal}" data-modalno=${i} data-context="${icon.contextClass}">
 
-      <img src="img/${folder.img}" alt="">
-      <p class="item-p" id="${folder.theClass}">${folder.p}</p>
+      <img data-modal-class=${icon.class} src="img/${icon.img}" alt="">
+      <p class="item-p" id="${icon.class}">${icon.p}</p>
 
-  </div>`;
+    </div>`;
 
-  // only add modals if they don't already exist
-   if(!document.querySelector(`.modal-${i}`)){
-    const modal = getHiddenModalHtml(i);
-    document.querySelector('.modal-container').innerHTML += modal;
-   }
+    // only add modals if they don't already exist
+    if(!document.querySelector(`.modal-${icon.class}`)){
+    
+      const modalContent = desktopIcons[`${i}`].modalContent;
+
+      new Modal('modal-container', 'file-container', `${icon.class}`, `${modalContent}`);
+
+    }
   
   });
 }

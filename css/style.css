@@ -112,13 +112,19 @@ start-menu
 .start-menu-2{
 	position:fixed;
 	bottom:20vh;
-	left:13.45rem;
+	left:13.3rem;
 }
 
 .start-menu-3{
 	position:fixed;
 	bottom:30vh;
-	left:25.95rem;
+	left:25.8rem;
+}
+
+.start-menu-4{
+	position:fixed;
+	bottom:35vh;
+	left:38rem;
 }
 
 .start-menu.show{
