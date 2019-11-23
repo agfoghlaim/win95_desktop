@@ -36,6 +36,8 @@ export  class Modal{
     const container = document.querySelector('.modal-container');
     container.addEventListener('dragstart', e =>this.dragModal(e));
     container.addEventListener('dragend', e => this.dropModal(e)); 
+
+    /* problem with Firefox, can't get mouse positions from dragend event, see here https://bugzilla.mozilla.org/show_bug.cgi?id=505521 */
     document.addEventListener('drop', e =>this.saveMouseCoordinatesAfterEveryDrop(e));
   }
 
@@ -60,6 +62,7 @@ export  class Modal{
   }
 
   addListenerToRelated(){
+    console.log("adding to parent ", this.parentContainer)
     this.parentContainer.addEventListener( 'click', (e) => this.show(e));
   }
 

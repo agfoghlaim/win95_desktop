@@ -1,14 +1,21 @@
 import { desktopIcons } from './content.js';
 import { Modal } from './modal.js';
 import { Tetris } from './tetris/tetris.js';
+import { TimeUI } from './time/timeUI.js';
+import { Month } from './time/calendar.js';
 import { DesktopIcon } from './desktopicon.js';
+
 
 document.addEventListener('DOMContentLoaded', () => {
 
   
   /*
+
    Clock & Calendar should launch properly inside a modal
    Change to something like classes = ClockCalendarUI, Clock, DigitalClock, Month/Year 
+
+   ...this is in progress, make sure no unnecesserary listners on modals if Modal.showDirect() used
+
   */
 
   // TODO - should use same as clock.js clock
@@ -18,12 +25,15 @@ document.addEventListener('DOMContentLoaded', () => {
   populateFileSpaces();
   populateFiles();
 
+    //temp - will launch in modal
+    //tempTime();
+
   // add empty spaces, populate files on resize
   window.addEventListener('resize', () => {
     populateFileSpaces();
     populateFiles();
+    
   });
-
 
   // Start Menu 
   document.addEventListener('click', toggleStartMenu);
@@ -36,6 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Tetris in start menu
   document.querySelector('.menu-tetris').addEventListener('click', launchTetris);
+
+  // Launch Calendar-Clock
+  document.querySelector('.right-taskbar').addEventListener('click', tempTime);
 
 });
 
@@ -132,5 +145,17 @@ document.addEventListener('DOMContentLoaded', () => {
     d.setTime( d.getTime() - new Date().getTimezoneOffset()*60*1000 );
     document.querySelector('.clock').textContent = d.toUTCString().substr(17,5)
   } 
+
+  function tempTime(){
+
+    const time = new TimeUI();
+    const timeHTML = time.getHTML();
+    const timeModal = new Modal('modal-container', 'right-taskbar', `clock-p`, `${timeHTML}`);
+    timeModal.showDirect('modal-clock-p');
+
+    const month = time.initMonth();
+    time.addListeners();
+  }
+
 
 
