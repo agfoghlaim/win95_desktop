@@ -11,13 +11,13 @@ export  class Modal{
   // }
 
   // parent = '.modal-container', where to put modal
-  // relatedParent = '.file-container' , get rid of this
+  // relatedParent = '.file-container', add 'show' listener because innerHTML overwritten
   // related = click this to open modal
   
   constructor(parent, relatedParent, related, content, offset){
 
     this.parent = parent;
-    //this.parentContainer = document.querySelector(`.${relatedParent}`);
+    this.parentContainer = document.querySelector(`.${relatedParent}`);
     this.container = document.querySelector(`.${this.parent}`);
     this.related = related;
     this.content = content;
@@ -32,7 +32,14 @@ export  class Modal{
     this.addCloseListener();
   }
 
-  make(){
+  static addListeners(){
+    const container = document.querySelector('.modal-container');
+    container.addEventListener('dragstart', e =>this.dragModal(e));
+    container.addEventListener('dragend', e => this.dropModal(e)); 
+    document.addEventListener('drop', e =>this.saveMouseCoordinatesAfterEveryDrop(e));
+  }
+
+  getHTML(){
     return `
     <div draggable="true"  style="position:absolute;top:${this.top}rem; left:${this.left}rem; "class="modal modal-${this.related}">
   
@@ -48,13 +55,12 @@ export  class Modal{
   }
 
   addToDOM(){
-    const html = this.make();
+    const html = this.getHTML();
     this.container.innerHTML += html;
   }
 
   addListenerToRelated(){
-    document.querySelector(`.${this.related}`).addEventListener( 'click', (e) => this.show(e));
-    //this.parentContainer.addEventListener( 'click', (e) => this.show(e));
+    this.parentContainer.addEventListener( 'click', (e) => this.show(e));
   }
 
   addCloseListener(){
