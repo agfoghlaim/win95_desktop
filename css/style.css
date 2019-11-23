@@ -9,6 +9,8 @@
 
 :root{
 	font-size: 14px;
+	max-height: 100vh;
+	overflow: hidden;
 	--green: #007c7f;
 	--gray: #d4d0c7;
 	--white: #fffeee;
@@ -182,7 +184,7 @@ p.menu-item-p:first-letter {
 	box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.5);
 }
 
-/* width exception for tetris */
+/* width exception for tetris (canvas width:400px) */
 .modal-menu-tetris{
 	min-width:410px;
 }

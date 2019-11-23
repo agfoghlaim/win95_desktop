@@ -48,7 +48,7 @@ export class Tetris{
   }
 
   addKeyboardListeners(){
-    console.log("s okay")
+    
     const KEYCODES = [40, 39, 37, 38];
     // Keyboard Controls
     document.addEventListener('keydown',  e => {

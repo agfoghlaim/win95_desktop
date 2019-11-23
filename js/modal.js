@@ -10,10 +10,14 @@ export  class Modal{
   //   offset:[0,0]
   // }
 
+  // parent = '.modal-container', where to put modal
+  // relatedParent = '.file-container' , get rid of this
+  // related = click this to open modal
+  
   constructor(parent, relatedParent, related, content, offset){
 
     this.parent = parent;
-    this.parentContainer = document.querySelector(`.${relatedParent}`);
+    //this.parentContainer = document.querySelector(`.${relatedParent}`);
     this.container = document.querySelector(`.${this.parent}`);
     this.related = related;
     this.content = content;
@@ -49,7 +53,8 @@ export  class Modal{
   }
 
   addListenerToRelated(){
-    this.parentContainer.addEventListener( 'click', (e) => this.show(e));
+    document.querySelector(`.${this.related}`).addEventListener( 'click', (e) => this.show(e));
+    //this.parentContainer.addEventListener( 'click', (e) => this.show(e));
   }
 
   addCloseListener(){
@@ -58,7 +63,7 @@ export  class Modal{
 
   show(e){
     // data-modal-class should be the class of the modal to show
-
+    // ie. <button data-modal-class="whatever">  shows <modal modalno="whatever">
     if(e.target.dataset.modalClass !== `${this.related}`) return;
 
     document.querySelector(`.modal-${this.related}`)
@@ -66,7 +71,7 @@ export  class Modal{
     
   }
 
-  // will be static..?
+  // show whatever modal corresponds to class passed
   showDirect(modalClass){
   
     if(modalClass){
@@ -85,7 +90,7 @@ export  class Modal{
     }
 
     document.querySelector(`.modal-${this.related}`).classList.remove('show');
-    
+
   }
 
   static dragModal(e){

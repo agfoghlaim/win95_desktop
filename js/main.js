@@ -18,7 +18,7 @@ const FILEDRAG = {
 // TODO - this is old, should use same as clock.js clock
 setInterval(clock, 1000);
 
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', () => {
 
   // add empty spaces, populate files on resize
   window.addEventListener('resize', () => {
@@ -29,11 +29,11 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 
 
-  // Show / Hide Start Menu 
+  // Start Menu 
   document.addEventListener('click', toggleStartMenu);
 
 
-  // Drag Files - Listeners
+  // Drag Files 
   const container = document.querySelector('.file-container');
   container.addEventListener('dragstart', startFileDrag);
   container.addEventListener('dragend', endFileDrag); 
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function(){
   container.addEventListener('drop', dropFile); 
   
 
-  // Drag Modals - Listeners
+  // Drag Modals 
   document.querySelector('.modal-container').addEventListener('dragstart', e => Modal.dragModal(e));
   document.querySelector('.modal-container').addEventListener('dragend', e => Modal.dropModal(e));
 
