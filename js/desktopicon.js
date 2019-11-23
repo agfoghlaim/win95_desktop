@@ -26,7 +26,7 @@ export class DesktopIcon{
 
 
   static addListners(){
-    console.log("add")
+    
     // NB .file-container is hardcoded
     const container = document.querySelector('.file-container');
     container.addEventListener('dragstart', e =>this.startFileDrag(e));

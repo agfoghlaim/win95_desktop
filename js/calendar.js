@@ -125,8 +125,6 @@ document.addEventListener('DOMContentLoaded', function(){
     
     month = new Month(currentMonthPrevYear.name, currentMonthPrevYear.year, currentMonthPrevYear.num);
   })
-
-  
 })
 
 function initMonth(){
@@ -137,6 +135,7 @@ function initMonth(){
 }
 
 function getCurrentMonth(month, prev=false){
+  
   // get month, yr from current instance of month
   const yr= month.getYear();
   let mt= month.getMonth()+1;

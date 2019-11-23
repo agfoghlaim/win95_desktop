@@ -86,7 +86,14 @@ function setTime(){
   minuteHand.style.transform = `rotate(${minuteDegrees}deg)`;
   hourHand.style.transform = `rotate(${hourDegrees}deg)`;
 
-  const digitalClock = document.querySelector('.digital-time').textContent = `${hour}:${minute}:${second}`
+  const hourStr = String(hour).padStart(2, '0');
+  const minuteStr = String(minute).padStart(2, '0');
+  const secondStr = String(second).padStart(2, '0');
+
+//digital clock
+ document.querySelector('.digital-time').textContent = `${hourStr}:${minuteStr}:${secondStr}`;
+
+
 }
 
 setInterval(setTime, 1000);

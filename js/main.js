@@ -3,41 +3,41 @@ import { Modal } from './modal.js';
 import { Tetris } from './tetris/tetris.js';
 import { DesktopIcon } from './desktopicon.js';
 
+document.addEventListener('DOMContentLoaded', () => {
 
- 
+  
+  /*
+   Clock & Calendar should launch properly inside a modal
+   Change to something like classes = ClockCalendarUI, Clock, DigitalClock, Month/Year 
+  */
 
-  document.addEventListener('DOMContentLoaded', () => {
-     // clock
-  // TODO - this is old, should use same as clock.js clock
+  // TODO - should use same as clock.js clock
   setInterval(clock, 1000);
+
   // init
   populateFileSpaces();
   populateFiles();
-    // add empty spaces, populate files on resize
-    window.addEventListener('resize', () => {
 
-      populateFileSpaces();
-      populateFiles();
-      //DesktopIcon.addListners();
-
-    });
-
-
-    // Start Menu 
-    document.addEventListener('click', toggleStartMenu);
-
-
-    // Drag Files 
-    DesktopIcon.addListners();
-
-    // Modals 
-    Modal.addListeners();
-
-
-    // Tetris in start menu
-    document.querySelector('.menu-tetris').addEventListener('click', launchTetris);
-
+  // add empty spaces, populate files on resize
+  window.addEventListener('resize', () => {
+    populateFileSpaces();
+    populateFiles();
   });
+
+
+  // Start Menu 
+  document.addEventListener('click', toggleStartMenu);
+
+  // Drag Files 
+  DesktopIcon.addListners();
+
+  // Modals 
+  Modal.addListeners();
+
+  // Tetris in start menu
+  document.querySelector('.menu-tetris').addEventListener('click', launchTetris);
+
+});
 
 
   function launchTetris(){
@@ -50,7 +50,7 @@ import { DesktopIcon } from './desktopicon.js';
     // Tetris Canvas
     const canvas = document.getElementById('tetris');
     const ctx = canvas.getContext('2d');
-    ctx.scale(40,40);
+    ctx.scale(40, 40);
 
     // Init Game
     let tetris = new Tetris(ctx);
@@ -58,11 +58,10 @@ import { DesktopIcon } from './desktopicon.js';
     // Listen for Keyboard Events
     tetris.addKeyboardListeners(tetris);
 
-    //listen for tetris closing (game will stop when current shape collides... that's acceptable!)
+    //listen for tetris closing (game will stop when current shape collides)
     document.querySelector('.close-btn-menu-tetris').addEventListener('tetrisClosed', (e) => tetris.setGameOver(true), false);
 
   }
-
 
   function getNumFileSpaces(){
     // TODO check for tiny screens - not enough space for all files case
@@ -91,14 +90,12 @@ import { DesktopIcon } from './desktopicon.js';
     const spaces = document.querySelectorAll('.space');
 
     // TODO cover case where screen is too small to show all files
-    // will be new DeskTopIcon() for each
+    desktopIcons.forEach( (icon, i) => {
 
-    desktopIcons.forEach( (icon,i) => {
-
-      let dticon = new DesktopIcon(icon.class, icon.dataModal, icon.img, icon.p, i)
+      let dtIcon = new DesktopIcon(icon.class, icon.dataModal, icon.img, icon.p, i)
     
       spaces[i].classList.replace("emptySpace", "filledSpace");
-      spaces[i].innerHTML = dticon.getHtml(i);
+      spaces[i].innerHTML = dtIcon.getHtml(i);
   
       // only add modals if they don't already exist
       if(!document.querySelector(`.modal-${icon.class}`)){
@@ -112,7 +109,6 @@ import { DesktopIcon } from './desktopicon.js';
     });
     
   }
-
 
   // start menu
   function toggleStartMenu(e){
