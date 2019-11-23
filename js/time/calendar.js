@@ -32,7 +32,6 @@ export class Month{
   }
 
   getNumBlanks(d){
-    console.log(d)
     switch(d){
       case 0: return 6;
       case 1: return 0;

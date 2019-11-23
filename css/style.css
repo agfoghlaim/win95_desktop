@@ -189,6 +189,11 @@ p.menu-item-p:first-letter {
 	min-width:410px;
 }
 
+/* width exception for clock-calendar */
+.modal-clock-p{
+	min-width:80vw;
+}
+
 .modal-main{
 	background:var(--white); 
 }

@@ -2,7 +2,7 @@ import { desktopIcons } from './content.js';
 import { Modal } from './modal.js';
 import { Tetris } from './tetris/tetris.js';
 import { TimeUI } from './time/timeUI.js';
-import { Month } from './time/calendar.js';
+//import { Month } from './time/calendar.js';
 import { DesktopIcon } from './desktopicon.js';
 
 
@@ -19,14 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
   */
 
   // TODO - should use same as clock.js clock
-  setInterval(clock, 1000);
+  //setInterval(clock, 1000);
 
   // init
   populateFileSpaces();
   populateFiles();
 
     //temp - will launch in modal
-    //tempTime();
+    tempTime();
 
   // add empty spaces, populate files on resize
   window.addEventListener('resize', () => {
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Tetris in start menu
   document.querySelector('.menu-tetris').addEventListener('click', launchTetris);
 
-  // Launch Calendar-Clock
+  // UNCOMMENT WHEN IT WORKS Launch Calendar-Clock 
   document.querySelector('.right-taskbar').addEventListener('click', tempTime);
 
 });
@@ -152,9 +152,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const timeHTML = time.getHTML();
     const timeModal = new Modal('modal-container', 'right-taskbar', `clock-p`, `${timeHTML}`);
     timeModal.showDirect('modal-clock-p');
-
+    const clock = time.initClock();
     const month = time.initMonth();
     time.addListeners();
+
+    
   }
 
 

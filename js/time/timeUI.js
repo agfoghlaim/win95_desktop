@@ -1,10 +1,13 @@
 
 import { Month } from './calendar.js';
+import { Clock } from './clock.js';
+
 export class TimeUI{
   constructor(){
 
     // set when initMonth called (after html in DOM)
     this.month = undefined;  
+    this.clock = undefined;
   }
 
   getHTML(){
@@ -96,6 +99,11 @@ export class TimeUI{
     this.display();
   }
 
+  initClock(){
+    this.clock = new Clock();
+  }
+
+  // TODO rename, this is displaying calendar stuff specifically
   display(){
     this.showMonth();
     this.showYear();
@@ -129,7 +137,6 @@ export class TimeUI{
       html += `<li class="notBlank">${i}</li>`;
       document.querySelector('.days').innerHTML =  html;
     }
-    
   }
 
   // returns monthname, year & month number [0...11] of date passed
@@ -141,7 +148,6 @@ export class TimeUI{
   }
 
   addListeners(){
-    console.log("will add")
     const nextBtn = document.querySelector('.next');
     const prevBtn = document.querySelector('.prev');
     const nextYearBtn = document.querySelector('.nextYear');
@@ -161,7 +167,7 @@ export class TimeUI{
 
   prevMonth(){
     const currentMonth = this.getCurrentMonth(this.month, true);
-    console.log(currentMonth)
+    
     this.month = new Month(currentMonth.name, currentMonth.year, currentMonth.num);
     this.display();
   }

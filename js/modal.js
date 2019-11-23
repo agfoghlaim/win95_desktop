@@ -62,7 +62,7 @@ export  class Modal{
   }
 
   addListenerToRelated(){
-    console.log("adding to parent ", this.parentContainer)
+    
     this.parentContainer.addEventListener( 'click', (e) => this.show(e));
   }
 

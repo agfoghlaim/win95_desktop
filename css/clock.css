@@ -246,7 +246,7 @@ ul{
   left:0.4375rem;
   font-size:0.75rem;
   line-height: 0.75rem;
-  z-index:99;
+  /* z-index:99; */
 }
 .prev:after, .prevYear:after{
   content:'▼';
@@ -255,7 +255,7 @@ ul{
   left:0.4375rem;
   font-size: 0.75rem;
   line-height: 0.75rem;
-  z-index:99;
+  /* z-index:99; */
 }
 
 .upDownArrowsDiv{
