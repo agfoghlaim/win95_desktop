@@ -151,50 +151,50 @@ export class TimeUI{
     const nextYearBtn = document.querySelector('.nextYear');
     const prevYearBtn = document.querySelector('.prevYear');
 
-    nextBtn.addEventListener('click', () => this.nextMonth());
-    prevBtn.addEventListener('click', () => this.prevMonth());
-    nextYearBtn.addEventListener('click', () => this.nextYear());
-    prevYearBtn.addEventListener('click', () => this.prevYear());
+    // nextBtn.addEventListener('click', () => this.nextMonth());
+    // prevBtn.addEventListener('click', () => this.prevMonth());
+    // nextYearBtn.addEventListener('click', () => this.nextYear());
+    // prevYearBtn.addEventListener('click', () => this.prevYear());
+    nextBtn.addEventListener('click', () => this.changeMonth());
+    prevBtn.addEventListener('click', () => this.changeMonth(true));
+    nextYearBtn.addEventListener('click', () => this.changeYear(1));
+    prevYearBtn.addEventListener('click', () => this.changeYear(-1));
   }
 
-  nextMonth(e){
-    const currentMonth = this.getCurrentMonth(this.month);
-    this.month = new Month(currentMonth.name, currentMonth.year, currentMonth.num);
-    this.display();
-  }
+  // nextMonth(e){
+  //   const currentMonth = this.getCurrentMonth(this.month);
+  //   this.month = new Month(currentMonth.name, currentMonth.year, currentMonth.num);
+  //   this.display();
+  // }
 
-  prevMonth(){
-    const currentMonth = this.getCurrentMonth(this.month, true);
+  // prevMonth(){
+  //   const currentMonth = this.getCurrentMonth(this.month, true);
+    
+  //   this.month = new Month(currentMonth.name, currentMonth.year, currentMonth.num);
+  //   this.display();
+  // }
+
+  changeMonth(prev = false){
+    const currentMonth = this.getOffsetMonth(this.month, prev);
     
     this.month = new Month(currentMonth.name, currentMonth.year, currentMonth.num);
     this.display();
   }
 
-  nextYear(){
-      const currentMonthNextYear = {
-        name: this.month.getMonthName(),
-        year: this.month.getYear() +1,
-        num: this.month.getMonth()
-      }
-      
-      this.month = new Month(currentMonthNextYear.name, currentMonthNextYear.year, currentMonthNextYear.num);
-      this.display();
-  }
-
-  prevYear(){
-      const currentMonthPrevYear = {
-        name: this.month.getMonthName(),
-        year: this.month.getYear() -1,
-        num: this.month.getMonth()
-      }
-      
-      this.month = new Month(currentMonthPrevYear.name, currentMonthPrevYear.year, currentMonthPrevYear.num);
+  changeYear(yearOffset){
+    const currentMonthNewYear = {
+      name: this.month.getMonthName(),
+      year: this.month.getYear() +yearOffset,
+      num: this.month.getMonth()
+    }
+    this.month = new Month(currentMonthNewYear.name, currentMonthNewYear.year, currentMonthNewYear.num);
     this.display();
-
   }
 
-  getCurrentMonth(month, prev=false){
-  
+
+
+  getOffsetMonth(month, prev=false){
+  console.log(month)
     // get month, yr from current instance of month
     const yr= this.month.getYear();
     let mt= this.month.getMonth()+1;
