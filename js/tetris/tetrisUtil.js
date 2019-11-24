@@ -3,7 +3,6 @@ import { Tetris } from './Tetris.js';
 
 export  function launchTetris(){
 
-  console.log("called correct")
   /*
     TODO - make sure only one tetris exists at a time. Maybe remove from DOM when it's closed. Also game doesn't end until current tile collides.
   */
@@ -19,6 +18,7 @@ export  function launchTetris(){
     img: `Joy.ico`,
     title: `Tetris`
   }
+
   const tetrisModal = new Modal(modalConfig);
   tetrisModal.showDirect('modal-menu-tetris');
 
@@ -32,6 +32,14 @@ export  function launchTetris(){
   tetris.addKeyboardListeners(tetris);
 
   //listen for tetris closing (game will stop when current shape collides)
-  document.querySelector('.close-btn-menu-tetris').addEventListener('tetrisClosed', (e) => tetris.setGameOver(true), false);
+  document.querySelector('.close-btn-menu-tetris').addEventListener('tetrisClosed', (e) => {
+
+    tetris.setGameOver(true)
+    tetris.endGame();
+    const currentTetris = document.querySelector('.modal-menu-tetris')
+    currentTetris.parentNode.removeChild(currentTetris);
+
+   
+  })
 
 }

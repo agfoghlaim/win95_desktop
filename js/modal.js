@@ -15,10 +15,11 @@ const  LASTDROPCOORDINATES = {
 */
 export class Modal{
     constructor(config){
-
+    
       this.parent = config.parent;
       this.parentContainer = document.querySelector(`.${config.relatedParent}`);
       this.container = document.querySelector(`.${this.parent}`);
+     
       this.related = config.related;
       this.content = config.content;
       this.title = config.title;
@@ -31,7 +32,7 @@ export class Modal{
   init(){
     this.addToDOM();
     this.addListenerToRelated();
-    this.addCloseListener();
+    this.addCloseListener(this.related);
   }
 
   getIconHtml(){
@@ -41,7 +42,7 @@ export class Modal{
     return '';
   }
 
-  static addListeners(){
+  static addDragListeners(){
     const container = document.querySelector('.modal-container');
     container.addEventListener('dragstart', e =>this.dragModal(e));
     container.addEventListener('dragend', e => this.dropModal(e)); 
@@ -75,12 +76,33 @@ export class Modal{
   }
 
   addListenerToRelated(){
-    
     this.parentContainer.addEventListener( 'click', (e) => this.show(e));
   }
 
   addCloseListener(){
-      this.container.addEventListener('click', (e)=>this.close(e))
+      const related = this.related;
+
+      // keep named non arrow function to easily remove eventListeners
+      this.container.addEventListener('click',  function handleClose(e){
+      
+        if(!e.target.classList.contains(`close-btn-${related}`))return;
+   
+        document.querySelector(`.modal-${related}`).classList.remove('show');
+        
+        /*
+        TODO - handling tetris like this isn't right, not scalable. Will deal with it when there's another program as well.
+        */
+
+        // stop tetris running in bg  
+        if(e.target.classList.contains('close-btn-menu-tetris')){
+          const closeTetris = new Event('tetrisClosed');
+          e.target.dispatchEvent(closeTetris);
+    
+          // & remove listener (because tetris modal removed from DOM when closed, see tetrisUtil.js)
+          this.removeEventListener('click', handleClose, false);
+        }
+
+      }, false);
   }
 
   show(e){
@@ -90,30 +112,15 @@ export class Modal{
 
     document.querySelector(`.modal-${this.related}`)
     .classList.add('show');
-    
   }
 
-  // TODO - check everything calling this, it should only be able to happen one at a time
   // show whatever modal corresponds to class passed
   showDirect(modalClass){
-  
-    if(modalClass){
+    const modal = document.querySelector(`.${modalClass}`);
+    if(modal){
       document.querySelector(`.${modalClass}`)
       .classList.add('show');
     }
-  }
-
-  close(e){
-    if(!e.target.classList.contains(`close-btn-${this.related}`)) return;
-
-    // if tetris modal is closing, dispatch event to stop it running in the background
-    if(e.target.classList.contains('close-btn-menu-tetris')){
-      const closeTetris = new Event('tetrisClosed');
-      e.target.dispatchEvent(closeTetris);
-    }
-
-    document.querySelector(`.modal-${this.related}`).classList.remove('show');
-
   }
 
   static dragModal(e){

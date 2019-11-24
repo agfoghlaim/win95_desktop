@@ -1,5 +1,16 @@
 import Shape from './Shape.js';
 
+/*
+
+= TODO =
+- tetris modal & close listener removed when it's closed but keyboard listeners aren't... 
+- shape offsets & colors should be through Shape class
+- bug where shapes 'get caught' at the edge of the board while rotating
+- some methods near bottom belong in tetrisUtil.js
+- @ least add pause, speed up after certain score, something in UI for 'game over',  difficulty (see commented checkForRow method below)
+
+*/
+
 
 // down = 40
 // right = 39
@@ -18,8 +29,6 @@ export class Tetris{
     this.playerScore = 0;
     this.shape = new Shape();
     this.currentShape = this.shape.randomShape();
-    //this.currentShape = Shape.random();
-
     this.currentShapeOffset = { x: 0 , y: 0 };
     this.dropCount= 0;
     this.interval = 1000;
@@ -34,7 +43,6 @@ export class Tetris{
  
   }
 
-  //static? wait and see
   static getHtml(){
     return `
     <div class="tetris">
@@ -50,7 +58,7 @@ export class Tetris{
   addKeyboardListeners(){
     
     const KEYCODES = [40, 39, 37, 38];
-    // Keyboard Controls
+  
     document.addEventListener('keydown',  e => {
   
       if(! KEYCODES.includes(e.keyCode)) return;
@@ -74,8 +82,14 @@ export class Tetris{
     })
   }
 
+  // see tetrisUtil.js
   setGameOver(bool){
     this.gameOver = bool;
+  }
+
+  // to end game, called when tetris modal is closed (see tetrisUtil.js)
+  endGame(){
+    this.currentShapeOffset.y = 18;
   }
 
   init(){
@@ -90,17 +104,11 @@ export class Tetris{
       this.currentShape.matrix.forEach((row, y) => {
         row.forEach((val, x) =>{
           if( val !== 0 ){
-            
-            if(!Shape.getShapes(val)){
-
-              // TODO - remove, was error here but think it got fixed inadvertently
-              console.log("in the event of not being able to read property fill of undefined", row, val)
-            }
             this.ctx.lineWidth = "0.05";
             this.ctx.strokeStyle = "#212121";
             this.ctx.strokeRect(x + this.currentShapeOffset.x, y+ this.currentShapeOffset.y, 1,1);
          
-             this.ctx.fillStyle = this.shapeColours[val];
+            this.ctx.fillStyle = this.shapeColours[val];
             this.ctx.fillRect(x + this.currentShapeOffset.x, y+ this.currentShapeOffset.y, 1, 1);
      
           }
@@ -127,8 +135,7 @@ export class Tetris{
     })
   }
 
-
-  // possibly some false positives but ok for now
+  // possibly some false positives?
   checkForRows(){
 
     const hasNoZeros = function(item){
@@ -184,21 +191,12 @@ export class Tetris{
     this.ctx.fillRect(0, 0, this.boardWidth, this.boardHeight);
   }
 
-  // checkGameOver(){ //touches the top?
-  //  if(this.boardMatrix[1][0] !== 0 || this.boardMatrix[1][1] !== 0 || this.boardMatrix[1][2] !== 0){
-  //    return true;
-  //  } 
-  //  return false;
- 
-  // }
   checkGameOver(){ //touches the top?
     console.log("checking over")
     if(this.boardMatrix[1][0] !== 0 || this.boardMatrix[1][1] !== 0 || this.boardMatrix[1][2] !== 0){
       this.gameOver = true;
     } 
-    //this.gameOver = false;  // don't need...
-  
-   }
+  }
 
   dropAtIntervals( t = 0 ) {
     let game;
@@ -212,21 +210,16 @@ export class Tetris{
      
       if(isCollission === true){
 
-        this.currentShapeOffset.y --;
-        this.addShapeToBoardMatrix();
-        this.checkForRows();
-
-        // check game over
-        // let over = this.checkGameOver();
-        // if(over) return;
         this.checkGameOver();
-        console.log("is game over??", this.gameOver)
+      
         if(this.gameOver){
-          console.log("game over")
           cancelAnimationFrame(game);
           return;
         }
 
+        this.currentShapeOffset.y --;
+        this.addShapeToBoardMatrix();
+        this.checkForRows();
         this.initNextShape();
       }
 
@@ -242,15 +235,11 @@ export class Tetris{
   }
 
   initNextShape(){
-
     this.currentShape =  this.shape.randomShape();
     this.currentShapeOffset = { x: 0 , y:0 };
     this.drawBoardMatrix();
     this.drawCurrentShape();
   }
-
-
-
 
   isCollission(){
     const m = this.currentShape.matrix;
@@ -324,8 +313,6 @@ export class Tetris{
     return t;
   }
 
-
-
   addShapeToBoardMatrix() {
     this.currentShape.matrix.forEach((row, y) => {
       row.forEach((val, x) =>{
@@ -333,7 +320,6 @@ export class Tetris{
           this.boardMatrix[y + this.currentShapeOffset.y][x+this.currentShapeOffset.x] = val;
         }
       })
-      
     });
   }
 
@@ -348,25 +334,6 @@ export class Tetris{
   getBoardMatrix() {
     return this.boardMatrix;
   }
-
-  // drawShape() {
-  //   console.log("called!")
-  //   this.currentShape.matrix.forEach((row, y) => {
-  //     row.forEach((val, x) =>{
-  //       if(val === 0 ){
-  //         this.ctx.strokeStyle = 'black';
-  //         this.ctx.lineWidth = 0.01;
-  //         this.ctx.fillStyle = this.shapeColours[val];
-  //        // this.ctx.fillStyle = 'red';
-  //         this.ctx.rect(x, y, 1, 1);
-  //         this.ctx.stroke();
-  //       }else if( val === 1 ){
-  //         this.ctx.fillRect(this.currentShapeOffset.x, this.currentShapeOffset.y, 1, 1);
-  //       }
-  //     })
-  //   })
-  // }
- 
 
   clearCanvas() {
     this.ctx.clearRect(0, 0, this.boardWidth, this.boardHeight);
