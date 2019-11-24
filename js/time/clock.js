@@ -57,6 +57,7 @@ export class Clock{
     setInterval(this.setTime, 1000);
   }
 
+  // TODO - set time in constructor, seperate digital version
   setTime(){
     const secondHand = document.querySelector('.hand-sec');
     const minuteHand = document.querySelector('.hand-min');
@@ -72,7 +73,7 @@ export class Clock{
     const minuteDegrees = (minute / 60) * 360;
     let hourDegrees = (hour / 12) * 360;
   
-    // move hour hand a bit every 15 mins
+    // move hour hand a bit every 15 mins - This isn't right FIX
     minute > 45 ? hourDegrees += 24 :
     minute > 30 ? hourDegrees += 18 : 
     minute > 15 ? hourDegrees += 12 : 
@@ -91,6 +92,8 @@ export class Clock{
   
   
   }
+
+ 
 }
 
 

@@ -208,6 +208,19 @@ p.menu-item-p:first-letter {
 	padding: 0.2rem;
 }
 
+.modal-info{
+	display:grid;
+	align-items: center;
+	align-content: center;
+	grid-auto-flow: column;
+	justify-content: start;
+	grid-gap:1rem;
+}
+
+.modal-title{
+	color: white;
+	display: inline;
+}
 button:active{
 	outline: none;
 }

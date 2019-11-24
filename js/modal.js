@@ -1,28 +1,33 @@
 const  LASTDROPCOORDINATES = {
-  clientX:0, clientY: 0
+  clientX: 0, clientY: 0
 }
-export  class Modal{
+export class Modal{
 
   // config = {
   //   parent, 
-  //   related, 
+  //   relatedParent, 
+  //   related,
   //   content, 
-  //   offset:[0,0]
+  //   offset:[0,0],
+  //   img,
+  //   title
   // }
 
   // parent = '.modal-container', where to put modal
   // relatedParent = '.file-container', add 'show' listener because innerHTML overwritten
   // related = click this to open modal
-  
-  constructor(parent, relatedParent, related, content, offset){
 
-    this.parent = parent;
-    this.parentContainer = document.querySelector(`.${relatedParent}`);
-    this.container = document.querySelector(`.${this.parent}`);
-    this.related = related;
-    this.content = content;
-    [this.top, this.left] = offset || [5, 5];
+    constructor(config){
 
+      this.parent = config.parent;
+      this.parentContainer = document.querySelector(`.${config.relatedParent}`);
+      this.container = document.querySelector(`.${this.parent}`);
+      this.related = config.related;
+      this.content = config.content;
+      this.title = config.title;
+      this.img = config.img || false;
+      this.iconHtml = this.getIconHtml();
+      [this.top, this.left] = config.offset || [5, 5];
     this.init();
   }
 
@@ -30,6 +35,13 @@ export  class Modal{
     this.addToDOM();
     this.addListenerToRelated();
     this.addCloseListener();
+  }
+
+  getIconHtml(){
+    if(this.img){
+      return  `<img class="modal-icon" src="../img/${this.img}"/>`
+    }
+    return '';
   }
 
   static addListeners(){
@@ -46,6 +58,10 @@ export  class Modal{
     <div draggable="true"  style="position:absolute;top:${this.top}rem; left:${this.left}rem; "class="modal modal-${this.related}">
   
       <div draggable="true"   class="bar" data-modalno=${this.related}>
+        <div class="modal-info">
+          ${this.iconHtml}
+          <div class="modal-title">${this.title}</div>
+        </div>
         <button class="close-btn close-btn-${this.related}">X</button>
       </div>
   
@@ -80,6 +96,7 @@ export  class Modal{
     
   }
 
+  // TODO - check everything calling this, it should only be able to happen one at a time
   // show whatever modal corresponds to class passed
   showDirect(modalClass){
   

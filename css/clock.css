@@ -74,7 +74,7 @@
   position:absolute;
   top:-1.533333rem;
   font-size:0.8rem;
-  z-index: 8888;
+  /* z-index: 8888; */
   left:-5px;
   height:2rem;
   padding:2px 5px;

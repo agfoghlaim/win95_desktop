@@ -54,10 +54,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   function launchTetris(){
+    /*
+      TODO - make sure only one tetris exists at a time. Maybe remove from DOM when it's closed. Also game doesn't end until current tile collides.
+    */
 
     // Tetris Modal
     const modalContent = Tetris.getHtml();
-    const tetrisModal = new Modal('modal-container', 'start-item', `menu-tetris`, `${modalContent}`);
+    const modalConfig = {
+      parent: 'modal-container', 
+      relatedParent: 'start-item', 
+      related: `menu-tetris`,
+      content: `${modalContent}`, 
+      offset:[5,10],
+      img: `Joy.ico`,
+      title: `Tetris`
+    }
+    const tetrisModal = new Modal(modalConfig);
+
+    // const tetrisModal = new Modal('modal-container', 'start-item', `menu-tetris`, `${modalContent}`);
     tetrisModal.showDirect('modal-menu-tetris');
 
     // Tetris Canvas
@@ -114,8 +128,17 @@ document.addEventListener('DOMContentLoaded', () => {
       if(!document.querySelector(`.modal-${icon.class}`)){
       
         const modalContent = desktopIcons[`${i}`].modalContent;
-
-        new Modal('modal-container', 'file-container', `${icon.class}`, `${modalContent}`);
+        const modalConfig = {
+          parent: 'modal-container', 
+          relatedParent: 'file-container', 
+          related: `${icon.class}`,
+          content: `${modalContent}`, 
+          offset:[5,10],
+          img: `documents.ico`,
+          title: `${icon.p}`
+        }
+        new Modal(modalConfig);
+        // new Modal('modal-container', 'file-container', `${icon.class}`, `${modalContent}`);
 
       }
     
@@ -147,16 +170,32 @@ document.addEventListener('DOMContentLoaded', () => {
   } 
 
   function tempTime(){
-
+ 
+     if(document.querySelector(`.modal-clock-p`)){
+      document.querySelector(`.modal-clock-p`).classList.add('show');
+      return;
+    }
+   
     const time = new TimeUI();
     const timeHTML = time.getHTML();
-    const timeModal = new Modal('modal-container', 'right-taskbar', `clock-p`, `${timeHTML}`);
+
+    const modalConfig = {
+      parent: 'modal-container', 
+      relatedParent: 'right-taskbar', 
+      related: `clock-p`,
+      content: `${timeHTML}`, 
+      offset:[5,10],
+      img: ``,
+      title: `Date/Time Properties`
+    }
+    const timeModal = new Modal(modalConfig);
+
+
     timeModal.showDirect('modal-clock-p');
     const clock = time.initClock();
     const month = time.initMonth();
-    time.addListeners();
+    time.addListeners(); 
 
-    
   }
 
 

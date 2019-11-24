@@ -1,4 +1,3 @@
-
 import { Month } from './calendar.js';
 import { Clock } from './clock.js';
 
@@ -131,7 +130,6 @@ export class TimeUI{
       blankHtml += `<li></li>`;
     }
 
-
     let html = `${blankHtml}`;
     for(let i = 1; i<=numDays;i++){
       html += `<li class="notBlank">${i}</li>`;
@@ -197,16 +195,16 @@ export class TimeUI{
 
   getCurrentMonth(month, prev=false){
   
-   // get month, yr from current instance of month
-     const yr= this.month.getYear();
+    // get month, yr from current instance of month
+    const yr= this.month.getYear();
     let mt= this.month.getMonth()+1;
     
     if(prev){
        mt = this.month.getMonth()-1;
-     }
+    }
 
-     const date = new Date(yr, mt);
-     return this.nameNumYear(date);
+    const date = new Date(yr, mt);
+    return this.nameNumYear(date);
     
    }
 }
