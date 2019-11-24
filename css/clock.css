@@ -188,7 +188,7 @@
   color: white !important;
 }
 
-.clock{
+.taskbar-clock{
   grid-area:clock;
   position: relative;
   max-height: 400px;

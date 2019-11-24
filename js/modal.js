@@ -1,22 +1,19 @@
 const  LASTDROPCOORDINATES = {
   clientX: 0, clientY: 0
 }
+
+/*
+  config = {
+    parent: ( String | Eg '.modal-container' | Where to put modal in DOM ),
+    relatedParent: (String | Eg '.file-container' | add 'show' listener because innerHTML overwritten), 
+    related: (String),
+    content: (String | html content), 
+    offset: (Array | Eg [5,5] | Inital modal position),
+    img: (String or bool | File name or false),
+    title: (String | For top bar)
+  }
+*/
 export class Modal{
-
-  // config = {
-  //   parent, 
-  //   relatedParent, 
-  //   related,
-  //   content, 
-  //   offset:[0,0],
-  //   img,
-  //   title
-  // }
-
-  // parent = '.modal-container', where to put modal
-  // relatedParent = '.file-container', add 'show' listener because innerHTML overwritten
-  // related = click this to open modal
-
     constructor(config){
 
       this.parent = config.parent;

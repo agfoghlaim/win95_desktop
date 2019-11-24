@@ -2,7 +2,7 @@ import { desktopIcons } from './content.js';
 import { Modal } from './modal.js';
 import { Tetris } from './tetris/tetris.js';
 import { TimeUI } from './time/timeUI.js';
-//import { Month } from './time/calendar.js';
+import { Clock } from './time/clock.js';
 import { DesktopIcon } from './desktopicon.js';
 
 
@@ -10,23 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   
   /*
-
-   Clock & Calendar should launch properly inside a modal
-   Change to something like classes = ClockCalendarUI, Clock, DigitalClock, Month/Year 
-
-   ...this is in progress, make sure no unnecesserary listners on modals if Modal.showDirect() used
-
+ make sure no unnecesserary listners on modals (Tetris!) if Modal.showDirect() used
   */
 
-  // TODO - should use same as clock.js clock
-  //setInterval(clock, 1000);
+  // Taskbar Clock
+  setInterval(showTaskbarClock, 1000);
 
   // init
   populateFileSpaces();
   populateFiles();
-
-    //temp - will launch in modal
-    //tempTime();
 
   // add empty spaces, populate files on resize
   window.addEventListener('resize', () => {
@@ -47,8 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Tetris in start menu
   document.querySelector('.menu-tetris').addEventListener('click', launchTetris);
 
-  // UNCOMMENT WHEN IT WORKS Launch Calendar-Clock 
-  document.querySelector('.right-taskbar').addEventListener('click', tempTime);
+  // Launch Calendar-Clock 
+  document.querySelector('.right-taskbar').addEventListener('click', handleDateTimeModal);
 
 });
 
@@ -163,13 +155,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function clock(){
-    let d = new Date() ;
-    d.setTime( d.getTime() - new Date().getTimezoneOffset()*60*1000 );
-    document.querySelector('.clock').textContent = d.toUTCString().substr(17,5)
+  function showTaskbarClock(){
+    const timeNow = Clock.getTimeNow();
+    const timeString = Clock.getDigitalTimeString(timeNow).withoutSeconds();
+    document.querySelector('.taskbar-clock').textContent = timeString;
   } 
 
-  function tempTime(){
+  function handleDateTimeModal(){
  
      if(document.querySelector(`.modal-clock-p`)){
       document.querySelector(`.modal-clock-p`).classList.add('show');

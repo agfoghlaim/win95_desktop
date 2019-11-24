@@ -2,6 +2,28 @@ export class Clock{
   constructor(){
     this.createClockFace();
     this.startClock();
+    this.now = undefined;
+    this.updateTimeNow();
+  }
+
+  // 
+  updateTimeNow(){
+    this.now = this.constructor.getTimeNow();
+  }
+
+  static getTimeNow(){
+    const now = new Date();
+    return {
+      second: +now.getSeconds(),
+      minute: +now.getMinutes(),
+      hour: +now.getHours()
+    }
+  }
+
+  updateClock(){
+   this.updateTimeNow();
+    this.setClockFace();
+    this.setDigitalClock()
   }
 
   // to TimeUI
@@ -53,47 +75,55 @@ export class Clock{
     });
   }
 
-  startClock(){
-    setInterval(this.setTime, 1000);
+  setDigitalClock(){
+    
+    const digitalTime = this.constructor.getDigitalTimeString(this.now).withSeconds();
+ 
+    document.querySelector('.digital-time').textContent = digitalTime;
   }
 
-  // TODO - set time in constructor, seperate digital version
-  setTime(){
+  startClock(){
+    setInterval(() => this.updateClock(), 1000);
+  }
+
+  setClockFace(){
     const secondHand = document.querySelector('.hand-sec');
     const minuteHand = document.querySelector('.hand-min');
     const hourHand = document.querySelector('.hand-hour');
-  
-    const now = new Date();
-  
-    const second = now.getSeconds();
-    const minute = now.getMinutes();
-    const hour = now.getHours();
    
-    const secondDegrees = (second / 60) * 360;
-    const minuteDegrees = (minute / 60) * 360;
-    let hourDegrees = (hour / 12) * 360;
-  
+    const secondDegrees = Math.round((this.now.second / 60) * 360);
+    const minuteDegrees = Math.round((this.now.minute / 60) * 360);
+    let hourDegrees = Math.round((this.now.hour / 12) * 360);
+   
     // move hour hand a bit every 15 mins - This isn't right FIX
-    minute > 45 ? hourDegrees += 24 :
-    minute > 30 ? hourDegrees += 18 : 
-    minute > 15 ? hourDegrees += 12 : 
-    minute < 15 ? hourDegrees += 6 : hourDegrees;
+    this.now.minute > 45 ? hourDegrees += 24 :
+    this.now.minute > 30 ? hourDegrees += 18 : 
+    this.now.minute > 15 ? hourDegrees += 12 : 
+    this.now.minute < 15 ? hourDegrees += 6 : hourDegrees;
    
     secondHand.style.transform = `rotate(${secondDegrees}deg)`;
     minuteHand.style.transform = `rotate(${minuteDegrees}deg)`;
     hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+    
+    this.constructor.getDigitalTimeString(this.now);
+  }
+
+  // static so it can be used for main taskbar clock without Clock instance
+  static getDigitalTimeString(now = this.now){
+    const hourStr = String(now.hour).padStart(2, '0');
+    const minuteStr = String(now.minute).padStart(2, '0');
   
-    const hourStr = String(hour).padStart(2, '0');
-    const minuteStr = String(minute).padStart(2, '0');
-    const secondStr = String(second).padStart(2, '0');
-  
-  //digital clock
-   document.querySelector('.digital-time').textContent = `${hourStr}:${minuteStr}:${secondStr}`;
-  
-  
+    return {
+      withSeconds: () => {
+        const secondStr = String(now.second).padStart(2, '0');
+        return `${hourStr}:${minuteStr}:${secondStr}`;
+      },
+      withoutSeconds: () =>  `${hourStr}:${minuteStr}`
+    }
   }
 
  
 }
+
 
 
