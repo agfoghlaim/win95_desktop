@@ -1,4 +1,4 @@
-export class Month{
+export class CalendarMonth{
 
   constructor(month, year, monthNum){
     this.monthNo = monthNum;//10=nov, 0=jan

@@ -1,8 +1,9 @@
-import { Month } from './calendar.js';
-import { Clock } from './clock.js';
+import { CalendarMonth } from './CalendarMonth.js';
+import { Clock } from './Clock.js';
 
 export class TimeUI{
   constructor(){
+
     // set when initMonth called (after html in DOM)
     this.month = undefined;  
     this.clock = undefined;
@@ -93,7 +94,7 @@ export class TimeUI{
   initMonth(){
     const date = new Date();
     const { name, num, year } = this.nameNumYear(date);
-    this.month = new Month( name, year, num );
+    this.month = new CalendarMonth( name, year, num );
     this.displayMonth();
   }
 
@@ -151,7 +152,7 @@ export class TimeUI{
   handleChangeMonth(prev = false){
     const currentMonth = this.getOffsetMonth(prev);
     
-    this.month = new Month(currentMonth.name, currentMonth.year, currentMonth.num);
+    this.month = new CalendarMonth(currentMonth.name, currentMonth.year, currentMonth.num);
     this.displayMonth();
   }
 
@@ -161,8 +162,8 @@ export class TimeUI{
       year: this.month.getYear() +yearOffset,
       num: this.month.getMonth()
     }
-    
-    this.month = new Month(currentMonthNewYear.name, currentMonthNewYear.year, currentMonthNewYear.num);
+
+    this.month = new CalendarMonth(currentMonthNewYear.name, currentMonthNewYear.year, currentMonthNewYear.num);
     this.displayMonth();
   }
 
