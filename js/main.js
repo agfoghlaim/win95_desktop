@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   populateFiles();
 
     //temp - will launch in modal
-    tempTime();
+    //tempTime();
 
   // add empty spaces, populate files on resize
   window.addEventListener('resize', () => {

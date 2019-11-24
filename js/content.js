@@ -8,7 +8,7 @@ export const desktopIcons = [
 
   },
   {
-    img: "file.png",
+    img: "Folder.ico",
     p:"New Folder",
     modalContent: "<p>hlkds</p><h1>jkj</h1>",
     dataModal: "modal-1",
@@ -24,7 +24,7 @@ export const desktopIcons = [
 
   },
   {
-    img: "file.png",
+    img: "Folder.ico",
     p:"Stuff",
     modalContent: "modal 3",
     dataModal: "modal-3",
@@ -32,8 +32,8 @@ export const desktopIcons = [
  
   },
   {
-    img: "file.png",
-    p:"Other Folder",
+    img: "Shortcut_on_blue.ico",
+    p:"Tetris",
     modalContent: "modal 4",
     dataModal: "modal-4",
     class: "file-4",
