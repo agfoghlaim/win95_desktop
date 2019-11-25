@@ -25,7 +25,8 @@ export class DesktopIcon{
   }
 
 
-  static addListners(){
+  static addDragListners(){
+  
     
     // NB .file-container is hardcoded
     const container = document.querySelector('.file-container');

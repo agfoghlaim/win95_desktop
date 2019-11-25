@@ -11,12 +11,14 @@ export function showTaskbarClock(){
 
 // DateTime Modal
 export function handleDateTimeModal(){
+
   // show if it already exists
   if(document.querySelector(`.modal-clock-p`)){
     document.querySelector(`.modal-clock-p`).classList.add('show');
+  
     return;
   }
-  
+
   // or create it
   const timeUI = new TimeUI();
   const timeHTML = timeUI.getHTML();
@@ -31,7 +33,6 @@ export function handleDateTimeModal(){
     title: `Date/Time Properties`
   }
   const timeModal = new Modal(modalConfig);
-
 
   timeModal.showDirect('modal-clock-p');
   timeUI.initClock();

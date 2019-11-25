@@ -55,32 +55,34 @@ export class Tetris{
     `;
   }
 
-  addKeyboardListeners(){
-    
-    const KEYCODES = [40, 39, 37, 38];
+  // TODO - delete, moved to tetrisUtil.js
+  // addKeyboardListeners(){
+
+  //   const KEYCODES = [40, 39, 37, 38];// no caps
   
-    document.addEventListener('keydown',  e => {
-  
-      if(! KEYCODES.includes(e.keyCode)) return;
+  //   document.addEventListener('keydown', e => {
+
+  //     if(! KEYCODES.includes(e.keyCode)) return;
       
-      if(e.keyCode === 40 ){ 
-        this.moveCurrentShape().down();
-      }
+  //     if(e.keyCode === 40 ){ 
+  //       this.moveCurrentShape().down();
+  //     }
   
-      if(e.keyCode === 39 ){ 
-        this.moveCurrentShape().right();
-      }
+  //     if(e.keyCode === 39 ){ 
+  //       this.moveCurrentShape().right();
+  //     }
   
-      if(e.keyCode === 37 ){ 
-        this.moveCurrentShape().left();
-      }
+  //     if(e.keyCode === 37 ){ 
+  //       this.moveCurrentShape().left();
+  //     }
   
-      if(e.keyCode === 38 ){ 
-        this.moveCurrentShape().up();
-      }
+  //     if(e.keyCode === 38 ){ 
+  //       console.log("up")
+  //       this.moveCurrentShape().up();
+  //     }
   
-    })
-  }
+  //   })
+  // }
 
   // see tetrisUtil.js
   setGameOver(bool){
@@ -192,7 +194,7 @@ export class Tetris{
   }
 
   checkGameOver(){ //touches the top?
-    console.log("checking over")
+  
     if(this.boardMatrix[1][0] !== 0 || this.boardMatrix[1][1] !== 0 || this.boardMatrix[1][2] !== 0){
       this.gameOver = true;
     } 

@@ -1,4 +1,5 @@
 import { Modal } from './Modal.js';
+
 import { DesktopIcon } from './desktopIcons/DesktopIcon.js';
 
 import { launchTetris } from './tetris/tetrisUtil.js';
@@ -25,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', toggleStartMenu);
 
   // Drag Files 
-  DesktopIcon.addListners();
+  DesktopIcon.addDragListners();
 
   // Drag Modals 
   Modal.addDragListeners();
@@ -37,8 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('.right-taskbar').addEventListener('click', handleDateTimeModal);
 
 });
-
-
 
 // Start Menu
 function toggleStartMenu(e){

@@ -32,7 +32,7 @@ export class Modal{
   init(){
     this.addToDOM();
     this.addListenerToRelated();
-    this.addCloseListener(this.related);
+    this.addCloseListener();
   }
 
   getIconHtml(){
@@ -88,19 +88,6 @@ export class Modal{
         if(!e.target.classList.contains(`close-btn-${related}`))return;
    
         document.querySelector(`.modal-${related}`).classList.remove('show');
-        
-        /*
-        TODO - handling tetris like this isn't right, not scalable. Will deal with it when there's another program as well.
-        */
-
-        // stop tetris running in bg  
-        if(e.target.classList.contains('close-btn-menu-tetris')){
-          const closeTetris = new Event('tetrisClosed');
-          e.target.dispatchEvent(closeTetris);
-    
-          // & remove listener (because tetris modal removed from DOM when closed, see tetrisUtil.js)
-          this.removeEventListener('click', handleClose, false);
-        }
 
       }, false);
   }
@@ -150,5 +137,36 @@ export class Modal{
     LASTDROPCOORDINATES.clientX = e.clientX;
     LASTDROPCOORDINATES.clientY = e.clientY;
   }
+
+}
+
+// remove from DOM when closed
+export class Program extends Modal{
+  constructor(config){
+    super(config);
+  }
+
+    addCloseListener(){
+      const related = this.related;
+
+      // keep named non arrow function to easily remove eventListeners
+      this.container.addEventListener('click',  function handleClose(e){
+      
+        if(!e.target.classList.contains(`close-btn-${related}`))return;
+  
+        document.querySelector(`.modal-${related}`).classList.remove('show');
+        
+        // stop tetris running in bg  
+        if(e.target.classList.contains('close-btn-menu-tetris')){
+          const closeTetris = new Event('tetrisClosed');
+          e.target.dispatchEvent(closeTetris);
+    
+          // & remove listener (because tetris modal removed from DOM when closed, see tetrisUtil.js)
+          this.removeEventListener('click', handleClose, false);
+        }
+
+      }, false);
+  }
+
 
 }

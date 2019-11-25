@@ -1,3 +1,13 @@
+export const programs = [
+  {
+    img: "Joy.jco",
+    p: 'Tetris',
+    modalContent: '',
+    launchFromDataAttribute: 'data-menu-tetris',
+    dataModal: 'tetris',
+    class: 'tetris'
+  }
+]
 export const desktopIcons = [
   {
     img: "wordpad.ico",
