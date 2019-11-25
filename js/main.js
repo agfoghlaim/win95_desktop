@@ -1,9 +1,7 @@
-import { Modal } from './Modal.js';
-
+import { Windo } from './windos/Windo.js';
 import { DesktopIcon } from './desktopIcons/DesktopIcon.js';
-
-import { launchTetris } from './tetris/tetrisUtil.js';
-import { handleDateTimeModal, showTaskbarClock } from './time/timeUtil.js';
+import { launchTetris } from './programs/tetris/tetrisUtil.js';
+import { launchDateTime, showTaskbarClock } from './programs/dateTime/dateTimeUtil.js';
 import { populateFiles,  populateFileSpaces} from './desktopIcons/desktopIconUtil.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -29,13 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
   DesktopIcon.addDragListners();
 
   // Drag Modals 
-  Modal.addDragListeners();
+  Windo.addDragListeners();
 
   // Launch Tetris 
   document.querySelector('.menu-tetris').addEventListener('click', launchTetris);
 
   // Launch Calendar-Clock 
-  document.querySelector('.right-taskbar').addEventListener('click', handleDateTimeModal);
+  document.querySelector('.right-taskbar').addEventListener('click', launchDateTime);
 
 });
 

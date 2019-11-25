@@ -19,9 +19,9 @@ import Shape from './Shape.js';
 
 export class Tetris{
 
-  constructor(ctx) {
+  constructor() {
    
-    this.ctx = ctx;
+    this.ctx = undefined;
     this.boardHeight = 18;
     this.boardWidth = 10;
     this.realBoardMatrix = this.getInitBoardMatrix();
@@ -39,8 +39,19 @@ export class Tetris{
     // will never be black
     this.shapeColours = ['black', '#F205CB','#0CB1F2','#5DD904','#F29F05','#F20505','#CD04D9','#ffffff'];
 
-    this.init();
+    
  
+  }
+
+  // this is messy, a consequence of trying to streamline how 'programs' are 'launched'
+  initCtx(){
+    const canvas = document.getElementById('tetris');
+    const ctx = canvas.getContext('2d');
+    ctx.scale(40, 40);
+    this.ctx = ctx;
+
+    this.init();
+    
   }
 
   static getHtml(){

@@ -1,12 +1,18 @@
 export class Clock{
   constructor(){
     this.createClockFace();
-    this.startClock();
+    this.startClock = setInterval(() => this.updateClock(), 1000);
     this.now = undefined;
+    
     this.updateTimeNow();
   }
 
-  // 
+
+  stopClock(){
+ 
+    clearInterval(this.startClock);
+  }
+
   updateTimeNow(){
     this.now = this.constructor.getTimeNow();
   }
@@ -21,7 +27,7 @@ export class Clock{
   }
 
   updateClock(){
-   this.updateTimeNow();
+    this.updateTimeNow();
     this.setClockFace();
     this.setDigitalClock()
   }
@@ -82,10 +88,7 @@ export class Clock{
     document.querySelector('.digital-time').textContent = digitalTime;
   }
 
-  startClock(){
-    setInterval(() => this.updateClock(), 1000);
-  }
-
+ 
   setClockFace(){
     const secondHand = document.querySelector('.hand-sec');
     const minuteHand = document.querySelector('.hand-min');

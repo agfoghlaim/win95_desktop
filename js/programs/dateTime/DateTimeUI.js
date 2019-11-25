@@ -1,7 +1,7 @@
 import { CalendarMonth } from './CalendarMonth.js';
 import { Clock } from './Clock.js';
 
-export class TimeUI{
+export class DateTimeUI{
   constructor(){
 
     // set when initMonth called (after html in DOM)
@@ -9,7 +9,7 @@ export class TimeUI{
     this.clock = undefined;
   }
 
-  getHTML(){
+  static getHtml(){
     return `
     <div class="insideDiv">
       
@@ -100,6 +100,7 @@ export class TimeUI{
 
   initClock(){
     this.clock = new Clock();
+    return this.clock;
   }
 
   // TODO rename, this is displaying calendar stuff specifically

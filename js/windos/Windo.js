@@ -13,7 +13,7 @@ const  LASTDROPCOORDINATES = {
     title: (String | For top bar)
   }
 */
-export class Modal{
+export class Windo{
     constructor(config){
     
       this.parent = config.parent;
@@ -71,6 +71,7 @@ export class Modal{
   }
 
   addToDOM(){
+   
     const html = this.getHTML();
     this.container.innerHTML += html;
   }
@@ -140,33 +141,6 @@ export class Modal{
 
 }
 
-// remove from DOM when closed
-export class Program extends Modal{
-  constructor(config){
-    super(config);
-  }
-
-    addCloseListener(){
-      const related = this.related;
-
-      // keep named non arrow function to easily remove eventListeners
-      this.container.addEventListener('click',  function handleClose(e){
-      
-        if(!e.target.classList.contains(`close-btn-${related}`))return;
-  
-        document.querySelector(`.modal-${related}`).classList.remove('show');
-        
-        // stop tetris running in bg  
-        if(e.target.classList.contains('close-btn-menu-tetris')){
-          const closeTetris = new Event('tetrisClosed');
-          e.target.dispatchEvent(closeTetris);
-    
-          // & remove listener (because tetris modal removed from DOM when closed, see tetrisUtil.js)
-          this.removeEventListener('click', handleClose, false);
-        }
-
-      }, false);
-  }
 
 
-}
+
