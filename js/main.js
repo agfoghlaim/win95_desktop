@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('.menu-tetris').addEventListener('click', launchTetris);
 
   // Launch Calendar-Clock 
+  // NB temp set to launchDateTimeModal2
   document.querySelector('.right-taskbar').addEventListener('click', launchDateTime);
 
 });
