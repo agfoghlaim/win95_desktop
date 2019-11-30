@@ -4,12 +4,12 @@ import { Clock } from './Clock.js';
 export class DateTimeUI{
   constructor(){
 
-    // set when initMonth called (after html in DOM)
+    // Set when initMonth called (after html in DOM)
     this.month = undefined;  
     this.clock = undefined;
   }
 
-  static getHtml(){
+  getHtml(){
     return `
     <div class="insideDiv">
       
@@ -91,6 +91,7 @@ export class DateTimeUI{
           </div>`;
   }
 
+  // See content.js
   initMonth(){
     const date = new Date();
     const { name, num, year } = this.nameNumYear(date);
@@ -98,9 +99,23 @@ export class DateTimeUI{
     this.displayMonth();
   }
 
+  // See content.js
   initClock(){
     this.clock = new Clock();
     return this.clock;
+  }
+
+  // See content.js
+  addListeners(){
+    const nextBtn = document.querySelector('.next');
+    const prevBtn = document.querySelector('.prev');
+    const nextYearBtn = document.querySelector('.nextYear');
+    const prevYearBtn = document.querySelector('.prevYear');
+
+    nextBtn.addEventListener('click', () => this.handleChangeMonth());
+    prevBtn.addEventListener('click', () => this.handleChangeMonth(true));
+    nextYearBtn.addEventListener('click', () => this.handleChangeYear(1));
+    prevYearBtn.addEventListener('click', () => this.handleChangeYear(-1));
   }
 
   // TODO rename, this is displaying calendar stuff specifically
@@ -138,18 +153,8 @@ export class DateTimeUI{
     }
   }
 
-  addListeners(){
-    const nextBtn = document.querySelector('.next');
-    const prevBtn = document.querySelector('.prev');
-    const nextYearBtn = document.querySelector('.nextYear');
-    const prevYearBtn = document.querySelector('.prevYear');
-
-    nextBtn.addEventListener('click', () => this.handleChangeMonth());
-    prevBtn.addEventListener('click', () => this.handleChangeMonth(true));
-    nextYearBtn.addEventListener('click', () => this.handleChangeYear(1));
-    prevYearBtn.addEventListener('click', () => this.handleChangeYear(-1));
-  }
-
+  
+  // Event Handler | this.addListeners
   handleChangeMonth(prev = false){
     const currentMonth = this.getOffsetMonth(prev);
     

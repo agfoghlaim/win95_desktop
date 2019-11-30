@@ -1,41 +1,20 @@
-import { Tetris } from './Tetris.js';
-import { createProgramModalAndShow } from '../programUtil.js';
+// Tetris onProgramOpen calls | param = current instance of Tetris | content.js
+export function addKeyboardListeners(instance){
 
-
-
-export  function launchTetris(){
-
-  const tetris = new Tetris();
-  
-  const onProgramOpen = () => {
-    tetris.initCtx();
-    addKeyboardListeners(tetris);
-  }
-  
-  const onProgramClose = () => {
-    tetris.setGameOver(true);
-    tetris.endGame();
-  }
-
-  createProgramModalAndShow(Tetris, tetris, 'tetris',  onProgramOpen, onProgramClose);
-
-}
-
-function addKeyboardListeners(instance){
-
-  // when programClosed event happens, this will be set to false. KeyboardEvents removed when program closes - but not until after the next key press!. 
+  // when programClosed event happens, tetrisIsOpen will be set to false. 
   let tetrisIsOpen = true;
   const keycodes = [40, 39, 37, 38];
   
   document.addEventListener('keydown', function what(e){
     
-    // remove keydown listener if tetris closed
+    // Remove keydown listener if tetris closed
     if(!tetrisIsOpen){
       this.removeEventListener('keydown', what);
     }
     if(! keycodes.includes(e.keyCode)) return;
     
     if(e.keyCode === 40 ){ 
+      console.log("down")
       instance.moveCurrentShape().down();
     }
 
@@ -53,18 +32,24 @@ function addKeyboardListeners(instance){
 
   });
 
-  /* 
-  Program class modal-close event dispatches 'programClosed' event
-  Listen for it here, remove 'keydown' listeners from document when tetris is not open. Also remove 'programClosed' listener.
-  */
-  document.querySelector('.close-btn-menu-tetris').addEventListener('programClosed', function listen(e){
+  // Listen for 'tetrisClosed' | remove keyboard listeners (and self)
+  document.querySelector('.program-windo-container').addEventListener('tetrisClosed', function listen(e){
     
-    if(!e.detail === `menu-tetris`) return;
-
     tetrisIsOpen = false;
-    this.removeEventListener('programClosed', listen);
+    document.querySelector('.program-windo-container')
+    .removeEventListener('tetrisClosed', listen);
   })
 }
+
+// Called - when tetris closes | content.js 
+export function dispatchClosedEvent(){
+
+  const tetrisClosed = new Event('tetrisClosed');
+
+  document.querySelector('.program-windo-container').dispatchEvent(tetrisClosed);
+
+}
+
 
 
 

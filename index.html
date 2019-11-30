@@ -12,6 +12,9 @@
     <div class="page-wrap">
 
       <div class="modal-container"></div>
+      <div class="program-windo-container"></div>
+      <div class="special-tetris-container-to-getaround-bug-i-cannot-fix"></div>
+      <!-- <div class="program-windo-container-2"></div> -->
       <div class="file-container"></div>
     
       <div class="taskbar-container">
@@ -19,8 +22,69 @@
         <div class="left-taskbar">
 
         <button class="start-btn">Start</button>
+        <ul class="start-menu start-menu-1" data-menu-level="1">
+            <li class="start-item with-subitem programs-item">
+              <img src="img/programs.ico" alt="">
+              <p class="menu-item-p">Programs 
+              </p>
+              <span class="arrow">▶</span>
+              <ul class="start-menu start-menu-2" data-menu-level="2">
+                  <li class="start-item with-subitem">
+                    <img src="img/programs.ico" alt="">
+                    <p class="menu-item-p">Accessories</p>
+                    <span class="arrow">▶</span>
+                    
+                    <ul class="start-menu start-menu-3" data-menu-level="3">
+                      <li class="start-item games-item with-subitem">
+                        <img src="img/programs.ico" alt="">
+                        <p class="menu-item-p">Games
+                        </p>
+                        <span class="arrow">▶</span>
 
-          <ul class="start-menu start-menu-1">
+                        <!-- <ul class="start-menu start-menu-4"> -->
+                          <!-- <li class="start-item menu-tetris">
+                            <img src="img/Joy.ico" alt="">
+                            <p class="menu-item-p ">Tetris</p>
+                        <span class="arrow"></span>
+                          </li> -->
+                        <!-- </ul> -->
+                      </li>
+                      <li class="start-item">
+                          <img src="img/programs.ico" alt="">
+                        <p class="menu-item-p">Multimedia</p>
+                        <span class="arrow">▶</span>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="start-item">
+                    <img src="img/programs.ico" alt="">
+                    <p class="menu-item-p">Startup</p>
+                    <span class="arrow">▶</span>
+                  </li>
+                  <li class="start-item">
+                    <img src="img/help.ico" alt="">
+                    <p class="menu-item-p">MS-DOS Prompt</p>
+                  </li>
+              </ul>
+            </li>
+            <li class="start-item with-subitem documents-item">
+              <img src="img/programs.ico" alt="">
+              <p class="menu-item-p">Documents</p>
+              <span class="arrow">▶</span>
+              <!-- inject here -->
+            </li>
+            <li class="start-item menu-tetris">
+                <img src="img/Joy.ico" alt="">
+                <p class="menu-item-p ">Tetris</p>
+            <span class="arrow"></span>
+              </li>
+              <li class="start-item launch-program" data-launch-windo="windo-tetris" data-launch="Tetris">
+                  <img src="img/Joy.ico" alt="">
+                  <p class="" >Pretend Tetris</p>
+              <span class="arrow"></span>
+                </li>
+          </ul>
+          <!-- <ul class="start-menu start-menu-1">
             <li class="start-item with-subitem">
               <img src="img/programs.ico" alt="">
               <p class="menu-item-p">Programs 
@@ -81,7 +145,7 @@
               <p class="menu-item-p">Help</p>
           
             </li>
-          </ul>
+          </ul> -->
 
         </div>
 
@@ -92,9 +156,12 @@
           </div>
         </div>
 
-        <div class="right-taskbar">
-          <p class="clock-p"><span class="taskbar-clock"></span></p>
+        <div class="right-taskbar launch-program" data-launch-windo="windo-datetimeui" data-launch="DateTimeUI">
+          <p class="clock-p taskbar-clock"></p>
         </div>
+
+
+
 
       </div>
 
@@ -104,3 +171,9 @@
   </body>
 </html>
 
+
+
+
+
+
+                

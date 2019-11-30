@@ -7,23 +7,12 @@ export class Clock{
     this.updateTimeNow();
   }
 
-
   stopClock(){
- 
     clearInterval(this.startClock);
   }
 
   updateTimeNow(){
     this.now = this.constructor.getTimeNow();
-  }
-
-  static getTimeNow(){
-    const now = new Date();
-    return {
-      second: +now.getSeconds(),
-      minute: +now.getMinutes(),
-      hour: +now.getHours()
-    }
   }
 
   updateClock(){
@@ -32,7 +21,7 @@ export class Clock{
     this.setDigitalClock()
   }
 
-  // to TimeUI
+  // To TimeUI | TODO needs some attention
   createClockFace(){
 
     let oneMinute = `<div class="oneMin"></div>`;
@@ -86,8 +75,8 @@ export class Clock{
     const digitalTime = this.constructor.getDigitalTimeString(this.now).withSeconds();
  
     document.querySelector('.digital-time').textContent = digitalTime;
-  }
 
+  }
  
   setClockFace(){
     const secondHand = document.querySelector('.hand-sec');
@@ -98,7 +87,7 @@ export class Clock{
     const minuteDegrees = Math.round((this.now.minute / 60) * 360);
     let hourDegrees = Math.round((this.now.hour / 12) * 360);
    
-    // move hour hand a bit every 15 mins - This isn't right FIX
+    // Move hour hand a bit every 15 mins | This isn't right FIX
     this.now.minute > 45 ? hourDegrees += 24 :
     this.now.minute > 30 ? hourDegrees += 18 : 
     this.now.minute > 15 ? hourDegrees += 12 : 
@@ -111,7 +100,17 @@ export class Clock{
     this.constructor.getDigitalTimeString(this.now);
   }
 
-  // static so it can be used for main taskbar clock without Clock instance
+  // see dateTimeUtil.js
+  static getTimeNow(){
+    const now = new Date();
+    return {
+      second: +now.getSeconds(),
+      minute: +now.getMinutes(),
+      hour: +now.getHours()
+    }
+  }
+
+  // For main Task Bar clock | dateTimeUtil.js
   static getDigitalTimeString(now = this.now){
     const hourStr = String(now.hour).padStart(2, '0');
     const minuteStr = String(now.minute).padStart(2, '0');
@@ -125,7 +124,6 @@ export class Clock{
     }
   }
 
- 
 }
 
 

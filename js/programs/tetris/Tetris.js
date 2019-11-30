@@ -3,19 +3,11 @@ import Shape from './Shape.js';
 /*
 
 = TODO =
-- tetris modal & close listener removed when it's closed but keyboard listeners aren't... 
 - shape offsets & colors should be through Shape class
 - bug where shapes 'get caught' at the edge of the board while rotating
-- some methods near bottom belong in tetrisUtil.js
 - @ least add pause, speed up after certain score, something in UI for 'game over',  difficulty (see commented checkForRow method below)
 
 */
-
-
-// down = 40
-// right = 39
-// left = 37
-// up = 38
 
 export class Tetris{
 
@@ -38,23 +30,25 @@ export class Tetris{
 
     // will never be black
     this.shapeColours = ['black', '#F205CB','#0CB1F2','#5DD904','#F29F05','#F20505','#CD04D9','#ffffff'];
-
-    
- 
   }
 
-  // this is messy, a consequence of trying to streamline how 'programs' are 'launched'
+  /*
+  initCtx() can't be called until Tetris is in the DOM. See programUtil.js launchProgram()
+  */
+ 
+  // Called - Tetris onProgramOpen | content.js
   initCtx(){
     const canvas = document.getElementById('tetris');
     const ctx = canvas.getContext('2d');
+
     ctx.scale(40, 40);
     this.ctx = ctx;
 
-    this.init();
-    
+    this.init(); 
   }
 
-  static getHtml(){
+  // Called launchProgram | programUtil.js
+  getHtml(){
     return `
     <div class="tetris">
       <canvas id="tetris" width="400" height="720" style="border:2px solid pink"></canvas>
@@ -66,41 +60,12 @@ export class Tetris{
     `;
   }
 
-  // TODO - delete, moved to tetrisUtil.js
-  // addKeyboardListeners(){
-
-  //   const KEYCODES = [40, 39, 37, 38];// no caps
-  
-  //   document.addEventListener('keydown', e => {
-
-  //     if(! KEYCODES.includes(e.keyCode)) return;
-      
-  //     if(e.keyCode === 40 ){ 
-  //       this.moveCurrentShape().down();
-  //     }
-  
-  //     if(e.keyCode === 39 ){ 
-  //       this.moveCurrentShape().right();
-  //     }
-  
-  //     if(e.keyCode === 37 ){ 
-  //       this.moveCurrentShape().left();
-  //     }
-  
-  //     if(e.keyCode === 38 ){ 
-  //       console.log("up")
-  //       this.moveCurrentShape().up();
-  //     }
-  
-  //   })
-  // }
-
-  // see tetrisUtil.js
+  // Called onProgramClose() | content.js
   setGameOver(bool){
     this.gameOver = bool;
   }
 
-  // to end game, called when tetris modal is closed (see tetrisUtil.js)
+  // Called onProgramClose() | content.js
   endGame(){
     this.currentShapeOffset.y = 18;
   }
@@ -115,7 +80,7 @@ export class Tetris{
   drawCurrentShape() {
    
       this.currentShape.matrix.forEach((row, y) => {
-        row.forEach((val, x) =>{
+        row.forEach((val, x) => {
           if( val !== 0 ){
             this.ctx.lineWidth = "0.05";
             this.ctx.strokeStyle = "#212121";
@@ -148,7 +113,7 @@ export class Tetris{
     })
   }
 
-  // possibly some false positives?
+  // For all collisions...
   checkForRows(){
 
     const hasNoZeros = function(item){
@@ -204,8 +169,8 @@ export class Tetris{
     this.ctx.fillRect(0, 0, this.boardWidth, this.boardHeight);
   }
 
-  checkGameOver(){ //touches the top?
-  
+  // Check if shape touches the top
+  checkGameOver(){ 
     if(this.boardMatrix[1][0] !== 0 || this.boardMatrix[1][1] !== 0 || this.boardMatrix[1][2] !== 0){
       this.gameOver = true;
     } 
@@ -235,7 +200,6 @@ export class Tetris{
         this.checkForRows();
         this.initNextShape();
       }
-
       this.dropCount = 0;
     }
     this.lastTime = t;
@@ -253,7 +217,7 @@ export class Tetris{
     this.drawBoardMatrix();
     this.drawCurrentShape();
   }
-
+  
   isCollission(){
     const m = this.currentShape.matrix;
     const o = this.currentShapeOffset;

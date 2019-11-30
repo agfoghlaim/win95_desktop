@@ -1,62 +1,59 @@
-import { Windo } from './Windo.js';
-export class ProgramWindo extends Windo{
+const  LASTDROPCOORDINATES = {
+  clientX: 0, clientY: 0
+}
+
+
+/*
+
+- ProgramWindos are to wrap around 'Program' content. 
+- They are removed from DOM when not showing
+
+TODO - merge with Windo. Current ProgramWindo2 functionality will be to 'close' a 'program'. Windo functionality is to 'minimise'. These should be all one and available to DesktopIcons and Programs
+*/
+
+export class ProgramWindo {
   
-  constructor(config, program, onOpen, onClose){
- 
-    super(config);
+  constructor(config, innerHtml){
 
-    this.onClose = onClose;
-    this.program = program;
-    onOpen();
-    this.listenForClose();
-  }
-
- 
-  addCloseListener(){
-
-    // to keep access
-    const related = this.related;
-
-    // keep named non arrow function to easily remove eventListeners
-    this.container.addEventListener('click',  function handleClose(e){
-    
-      if(!e.target.classList.contains(`close-btn-${related}`)) return;
-      
-      // hide first 
-      document.querySelector(`.modal-${related}`).classList.remove('show');
-      
-      // Dispatch 'programClosed' event
-      const closeProgram = new CustomEvent('programClosed', {detail:`${related}`});
-      e.target.dispatchEvent(closeProgram);
-  
-      // remove listener (Programs removed from DOM when closed)
-      this.removeEventListener('click', handleClose, false);
-      
-    }, false);
+  this.innerHtml = innerHtml;
+  this.windoParent = config.windoParent;
+  this.windoClassName = config.windoClassName;
+  this.classNameToOpen = config.classNameToOpen;
+  this.content = config.content;
+  this.offset = config.offset;
+  this.img = config.img;
+  this.title = config.title;
 
   }
 
-  // Listen for 'programClosed' event
-  listenForClose(){
-
-    document.querySelector(`.close-btn-${this.related}`).addEventListener('programClosed', e => {
+  getHtml(){
+    return `
+    <div draggable="true"  style="position:absolute; top:5rem; left:20rem; "class="modal show  ${this.windoClassName} modal-${this.windoClassName} ">
   
-      if(!e.detail === this.related) return;
+      <div draggable="true" class="bar" data-modalno="${this.windoClassName}">
+        <div class="modal-info">
+         
+          <div class="modal-title">${this.windoClassName}</div>
+        </div>
+        <button data-windo-contents="${this.windoClassName}" data-program-title="${this.title}" class=" close-btn close-program-windo-btn close-btn-${this.windoClassName}">X</button>
+      </div>
   
-      // handle anything specific to this program?
-      this.onClose(this.program);
- 
-      
-      this.removeProgWindoFromDOM();
-    
-    })
+      <div class="modal-main">
+      <div>${this.innerHtml}</div>
+      </div>
+  
+    </div>`;
   }
-  
-  // TODO move this
-  removeProgWindoFromDOM(){
+
+  addToDOM(html){
+    const windoParent = document.querySelector(`.${this.windoParent}`);
+    windoParent.innerHTML += html;
+    windoParent.prepend(`${html}`);
+  }
+ 
+  removeFromDOM(selector){
     const currentprogram = document.querySelector(`.modal-${this.related}`);
     currentprogram.parentNode.removeChild(currentprogram); 
   }
-   
 
 }

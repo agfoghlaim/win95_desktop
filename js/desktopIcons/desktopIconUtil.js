@@ -1,67 +1,75 @@
 import { Windo } from '../windos/Windo.js';
-import { desktopIcons } from '../content.js';
+import { myDocuments } from '../content.js';
 import { DesktopIcon } from './DesktopIcon.js';
 
-// add file spaces based on current window width, height
-export function populateFileSpaces(){
+export function initDesktopIcons(){
+  populateFileSpaces();
+  populateFiles();
 
-  const filesContainer = document.querySelector('.file-container');
-  const noFileSpaces = getNumFileSpaces();
-  filesContainer.innerHTML = ``;
+  // add file spaces based on current window width, height
+  function populateFileSpaces(){
 
-  for(let i = 0; i < noFileSpaces; i++){
-    filesContainer.innerHTML += `<div class="space space-${i} emptySpace"></div>`;
-  }
+    const filesContainer = document.querySelector('.file-container');
+    const noFileSpaces = getNumFileSpaces();
+    filesContainer.innerHTML = ``;
 
-  // helper
-  function getNumFileSpaces(){
-    // TODO check for tiny screens - not enough space for all files case
-    const minWidth = 150;
-    const minHeight = 200;
-    const numSpaces = (window.innerWidth / minWidth) * (window.innerHeight / minHeight);
-    return Math.round(numSpaces);
-  }
-  
-}
+    for(let i = 0; i < noFileSpaces; i++){
+      filesContainer.innerHTML += `<div class="space space-${i} emptySpace"></div>`;
+    }
 
-// Desktop Icons
-export function populateFiles (){
-
-  desktopIcons.forEach( (icon, i) => {
-
-    let dtIcon = new DesktopIcon(icon.class, icon.dataModal, icon.img, icon.p, i);
-    
-    addIconToDOM(i, dtIcon);
-
-    // add modal if it doesn't exist
-    if(!document.querySelector(`.modal-${icon.class}`)){
-      addIconModalToDOM(i, icon );
+    // helper | populateFileSpaces 
+    function getNumFileSpaces(){
+      // TODO check for tiny screens - not enough space for all files case
+      const minWidth = 150;
+      const minHeight = 200;
+      const numSpaces = (window.innerWidth / minWidth) * (window.innerHeight / minHeight);
+      return Math.round(numSpaces);
     }
     
-  });
-
-  // helper
-  function addIconToDOM(i, dtIcon){
-    const spaces = document.querySelectorAll('.space');
-    spaces[i].classList.replace("emptySpace", "filledSpace");
-    spaces[i].innerHTML = dtIcon.getHtml(i);
   }
 
-  // helper
-  function addIconModalToDOM(i, icon){
-    const windoContent = desktopIcons[i].windoContent;
-    const windoConfig = {
-      parent: 'modal-container', 
-      relatedParent: 'file-container', 
-      related: `${icon.class}`,
-      content: `${windoContent}`, 
-      offset:[5,10],
-      img: `documents.ico`,
-      title: `${icon.p}`
+  // Desktop Icons
+  function populateFiles (){
+
+    myDocuments.forEach( (icon, i) => {
+
+      const dtIcon = new DesktopIcon(icon.docClass, icon.docWindoClass, icon.img, icon.title, i);
+      
+      addIconToDOM(i, dtIcon);
+
+ 
+      // add modal if it doesn't exist
+      if(!document.querySelector(`.modal-${icon.docClass}`)){
+        addIconModalToDOM(i, icon );
+      }
+      
+    });
+
+    // helper | populateFiles
+    function addIconToDOM(i, dtIcon){
+      const spaces = document.querySelectorAll('.space');
+      spaces[i].classList.replace("emptySpace", "filledSpace");
+      spaces[i].innerHTML = dtIcon.getHtml(i);
     }
-    new Windo(windoConfig);
+
+    //TODO These should correspond to content.js
+    // helper | populateFiles
+    function addIconModalToDOM(i, icon){
+      //const windoContent = myDocuments[i].windoContent;
+      const windoConfig = {
+        parent: `${icon.windoParent}`, 
+        relatedParent: `${icon.docParent}`, 
+        related: `${icon.docClass}`,
+        content: `${icon.content}`, 
+        offset:[5,10],
+        img: `documents.ico`,
+        title: `${icon.title}`
+      }
+      new Windo(windoConfig);
+    }
   }
 }
+
 
 
 

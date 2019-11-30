@@ -113,7 +113,8 @@ start-menu
 
 .start-menu-2{
 	position:fixed;
-	bottom:20vh;
+	bottom:15vh;
+	/* bottom:20vh; */
 	left:13.3rem;
 }
 
@@ -179,7 +180,7 @@ p.menu-item-p:first-letter {
 
 .modal{
 	border: 3px solid var(--gray);
-	width: 50vw;
+	max-width:90vw;
 	display:none;
 	box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.5);
 }
@@ -191,7 +192,8 @@ p.menu-item-p:first-letter {
 
 /* width exception for clock-calendar */
 .modal-clock-p{
-	min-width:80vw;
+	max-width:50vw;
+
 }
 
 .modal-main{

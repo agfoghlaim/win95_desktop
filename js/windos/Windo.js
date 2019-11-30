@@ -6,7 +6,7 @@ const  LASTDROPCOORDINATES = {
   config = {
     parent: ( String | Eg '.modal-container' | Where to put modal in DOM ),
     relatedParent: (String | Eg '.file-container' | add 'show' listener because innerHTML overwritten), 
-    related: (String),
+    related: (String),// related file
     content: (String | html content), 
     offset: (Array | Eg [5,5] | Inital modal position),
     img: (String or bool | File name or false),
@@ -19,7 +19,7 @@ export class Windo{
       this.parent = config.parent;
       this.parentContainer = document.querySelector(`.${config.relatedParent}`);
       this.container = document.querySelector(`.${this.parent}`);
-     
+    
       this.related = config.related;
       this.content = config.content;
       this.title = config.title;
@@ -32,7 +32,7 @@ export class Windo{
   init(){
     this.addToDOM();
     this.addListenerToRelated();
-    this.addCloseListener();
+    this.addListenerToItemInStartMenu();
   }
 
   getIconHtml(){
@@ -42,25 +42,16 @@ export class Windo{
     return '';
   }
 
-  static addDragListeners(){
-    const container = document.querySelector('.modal-container');
-    container.addEventListener('dragstart', e =>this.dragModal(e));
-    container.addEventListener('dragend', e => this.dropModal(e)); 
-
-    /* problem with Firefox, can't get mouse positions from dragend event, see here https://bugzilla.mozilla.org/show_bug.cgi?id=505521 */
-    document.addEventListener('drop', e =>this.saveMouseCoordinatesAfterEveryDrop(e));
-  }
-
   getHTML(){
     return `
     <div draggable="true"  style="position:absolute;top:${this.top}rem; left:${this.left}rem; "class="modal modal-${this.related}">
   
-      <div draggable="true"   class="bar" data-modalno=${this.related}>
+      <div draggable="true" class="bar" data-modalno="${this.related}">
         <div class="modal-info">
           ${this.iconHtml}
           <div class="modal-title">${this.title}</div>
         </div>
-        <button class="close-btn close-btn-${this.related}">X</button>
+        <button data-windo-contents="${this.related}" class="close-btn close-btn-${this.related}">X</button>
       </div>
   
       <div class="modal-main">
@@ -71,39 +62,79 @@ export class Windo{
   }
 
   addToDOM(){
-   
     const html = this.getHTML();
     this.container.innerHTML += html;
   }
 
+  /*
+    TODO - addListenerToRelated() should NOT have to happen on window resize, there could be tonnes of listeners on the '.modal-container' when there only needs to be ~one.
+  */ 
   addListenerToRelated(){
-    this.parentContainer.addEventListener( 'click', (e) => this.show(e));
+    this.parentContainer.addEventListener( 'click', e => this.show(e));
   }
 
-  addCloseListener(){
-      const related = this.related;
+  // TODO - check this
+  addListenerToItemInStartMenu(){
+    const startLink = document.querySelector(`.start-${this.related}`);
 
-      // keep named non arrow function to easily remove eventListeners
-      this.container.addEventListener('click',  function handleClose(e){
-      
-        if(!e.target.classList.contains(`close-btn-${related}`))return;
-   
-        document.querySelector(`.modal-${related}`).classList.remove('show');
+    if(!startLink) return;
 
-      }, false);
+    startLink.addEventListener( 'click', e => this.show(e));
+  }
+
+  // addCloseListener(){
+  
+  //     const related = this.related;
+
+  //     // Hide Windo if 'X' clicked
+  //     this.container.addEventListener('click',  function handleClose(e){
+
+  //       if(!e.target.classList.contains(`close-btn-${related}`))return;
+  
+  //       document.querySelector(`.modal-${related}`).classList.remove('show');
+
+  //     }, false);
+  // }
+
+  
+  static addCloseListeners2(){
+    const container = document.querySelector('.modal-container');
+
+    container.addEventListener('click', e =>this.handleClose2(e));
+  }
+
+  static handleClose2(e){
+   // console.log(e.target)
+
+    if(!e.target.classList.contains(`close-btn`))return;
+  
+    e.target.parentElement.parentElement.classList.remove('show');
+
+  }
+
+  static addDragListeners(){
+    const container = document.querySelector('.modal-container');
+    document.addEventListener('dragstart', e =>this.dragModal(e));
+    document.addEventListener('dragend', e => this.dropModal(e)); 
+
+    /* problem with Firefox, can't get mouse positions from dragend event, see here https://bugzilla.mozilla.org/show_bug.cgi?id=505521 */
+    document.addEventListener('drop', e =>this.saveMouseCoordinatesAfterEveryDrop(e));
   }
 
   show(e){
+   
     // data-modal-class should be the class of the modal to show
     // ie. <button data-modal-class="whatever">  shows <modal modalno="whatever">
-    if(e.target.dataset.modalClass !== `${this.related}`) return;
-
+   
+    if(e.target.dataset.modalClass !== `${this.related}`
+    && e.target.parentElement.dataset.modalClass !== `${this.related}`) return;
+    
     document.querySelector(`.modal-${this.related}`)
     .classList.add('show');
   }
 
   // show whatever modal corresponds to class passed
-  showDirect(modalClass){
+  static showDirect(modalClass){
     const modal = document.querySelector(`.${modalClass}`);
     if(modal){
       document.querySelector(`.${modalClass}`)
@@ -112,6 +143,7 @@ export class Windo{
   }
 
   static dragModal(e){
+   
     if(!e.target.classList.contains('bar')) return;
 
     e.dataTransfer.setData('text/plain', null);
@@ -126,6 +158,7 @@ export class Windo{
     if(!e.target.classList.contains('bar')) return;
   
     const modalNo = e.target.dataset.modalno;
+    // console.log(modalNo, `.modal-${modalNo}`)
     const modal = document.querySelector(`.modal-${modalNo}`);
   
     // e.clientX, e.clientY not available in Firefox - use LASTDROPCOORDINATES 
