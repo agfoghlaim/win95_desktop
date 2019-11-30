@@ -2,6 +2,7 @@ const  LASTDROPCOORDINATES = {
   clientX: 0, clientY: 0
 }
 
+
 /*
   config = {
     parent: ( String | Eg '.modal-container' | Where to put modal in DOM ),
@@ -143,7 +144,8 @@ export class Windo{
   }
 
   static dragModal(e){
-   
+    
+    if(e.target.nodeType !== 1) return;
     if(!e.target.classList.contains('bar')) return;
 
     e.dataTransfer.setData('text/plain', null);
@@ -154,7 +156,7 @@ export class Windo{
 
   static dropModal(e){
     e.preventDefault();
-   
+    if(e.target.nodeType !== 1) return;
     if(!e.target.classList.contains('bar')) return;
   
     const modalNo = e.target.dataset.modalno;

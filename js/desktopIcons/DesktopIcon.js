@@ -1,6 +1,11 @@
+/*
+
+Drag/drop stuff is very messy. TODO Will tidy (and read all the e.dataTransfer stuff) when I'm sure the bugginess is all fixed.
+
+*/
 const FILEDRAG = {
   html: '',
-  inProgress:true,
+  inProgress:false,
   droppedSafe:false
 };
 
@@ -16,9 +21,9 @@ export class DesktopIcon{
 
   getHtml(i){
     return `
-    <div draggable="true" class="file ${this.iconClass}" data-modal="${this.dataModal}" data-modalno=${i}>
+    <div  class="file ${this.iconClass}" data-modal="${this.dataModal}" data-modalno=${i}>
 
-      <img data-modal-class=${this.iconClass} src="img/${this.img}" alt="">
+      <img draggable="true" class="desktop-icon-img" data-modal-class=${this.iconClass} src="img/${this.img}" alt="">
       <p class="item-p" id="${this.iconClass}">${this.p}</p>
 
     </div>`;
@@ -54,12 +59,19 @@ export class DesktopIcon{
 
   // Drag Drop Files
   static startFileDrag(e){
+
+    // // TIL Node.ELEMENT_NODE = 1, Node.TEXT_NODE	3
+    if(e.target.nodeType !== 1) return;
+    if(!e.target.classList.contains('desktop-icon-img')) return;
+
     this.showDropTargetOutline();
-  
+
     FILEDRAG.html = '';
     FILEDRAG.inProgress=true;
-    if(e.target.matches('img')){
-      FILEDRAG.droppedSafe = false;
+    FILEDRAG.droppedSafe = false;
+    
+    let targetParent = e.target.parentElement.parentElement;
+    if(targetParent.classList.contains('space')){
       FILEDRAG.html = e.target.parentElement.parentElement.innerHTML;
     }
   }
@@ -67,14 +79,19 @@ export class DesktopIcon{
   static endFileDrag(e){
     e.preventDefault();
 
-    if(FILEDRAG.droppedSafe === true){
-     
-      e.target.parentElement.parentElement.classList.replace("filledSpace", "emptySpace");
-      FILEDRAG.inProgress=false;
-      e.target.parentElement.parentElement.innerHTML = '';	
-    }
-
+    if(FILEDRAG.droppedSafe !== true) return;
+  
+  
+    let targetParent = e.target.parentElement.parentElement;
+    if(!targetParent.classList.contains('space')) return;
+    e.target.parentElement.parentElement.classList.replace("filledSpace", "emptySpace");
+    e.target.parentElement.parentElement.innerHTML = '';
+ 
     this.hideDropTargetOutline();
+
+    FILEDRAG.html = '';
+    FILEDRAG.droppedSafe = false;
+    FILEDRAG.inProgress=false;
   }
 
   static dragOver(e){
@@ -82,17 +99,14 @@ export class DesktopIcon{
   }
 
   static dropFile(e){
-    
-    if(!FILEDRAG.inProgress){
-      return;
-    }
 
-    if(e.target.classList.contains('emptySpace') && FILEDRAG.html !== ''){
-      e.target.innerHTML = FILEDRAG.html;
-      e.target.classList.replace("emptySpace", "filledSpace");
-      FILEDRAG.droppedSafe = true;
-    }
-    e.preventDefault();
+    if(!FILEDRAG.inProgress) return;
+    if(! e.target.classList.contains('emptySpace') ) return;
+    if( FILEDRAG.html === '') return;
+  
+    e.target.innerHTML = FILEDRAG.html;
+    e.target.classList.replace("emptySpace", "filledSpace");
+    FILEDRAG.droppedSafe = true;
   }
 
 

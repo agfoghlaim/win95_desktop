@@ -1,6 +1,6 @@
 import { addKeyboardListeners, dispatchClosedEvent } from './programs/tetris/tetrisUtil.js';
 
-// TODO - not a great name
+
 export const programConfigs = {
 
     // Assign instance to tetrisInstance when passed as onProgramOpen param. Can then use it when the onProgramClose runs. 
