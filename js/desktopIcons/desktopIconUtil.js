@@ -33,14 +33,13 @@ export function initDesktopIcons(){
 
     myDocuments.forEach( (icon, i) => {
 
-      const dtIcon = new DesktopIcon(icon.docClass, icon.docWindoClass, icon.img, icon.title, i);
+      const dtIcon = new DesktopIcon(icon.classNameToOpen, icon.windoClassName, icon.img, icon.title, i);
       
       addIconToDOM(i, dtIcon);
 
- 
       // add modal if it doesn't exist
       if(!document.querySelector(`.modal-${icon.docClass}`)){
-        addIconModalToDOM(i, icon );
+        addIconModalToDOM(i, icon);
       }
       
     });
@@ -52,20 +51,9 @@ export function initDesktopIcons(){
       spaces[i].innerHTML = dtIcon.getHtml(i);
     }
 
-    //TODO These should correspond to content.js
     // helper | populateFiles
     function addIconModalToDOM(i, icon){
-      //const windoContent = myDocuments[i].windoContent;
-      const windoConfig = {
-        parent: `${icon.windoParent}`, 
-        relatedParent: `${icon.docParent}`, 
-        related: `${icon.docClass}`,
-        content: `${icon.content}`, 
-        offset:[5,10],
-        img: `documents.ico`,
-        title: `${icon.title}`
-      }
-      new Windo(windoConfig);
+      new Windo(icon);
     }
   }
 }

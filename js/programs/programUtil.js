@@ -1,4 +1,5 @@
 import { ProgramWindo } from '../windos/ProgramWindo.js';
+import { Windo } from '../windos/Windo.js';
 import { programConfigs } from '../content.js';
 import { Tetris } from './tetris/Tetris.js';
 import { DateTimeUI } from './dateTime/DateTimeUI.js';
@@ -24,7 +25,11 @@ export function launchProgram (e){
   // Get corresponding Windo name | Return if Windo exists (proram already launced)
   const correspondingWindoName = e.target.dataset.launchWindo || e.target.parentElement.dataset.launchWindo;
 
-  if( document.querySelector(`.${correspondingWindoName}`) ) return;
+  // If Program in DOM, show | !And return! 
+  if( document.querySelector(`.${correspondingWindoName}`) ){
+    ProgramWindo.showDirect(correspondingWindoName);
+    return;
+  }
  
   // Launch Program
   launch(programToLaunch);
@@ -43,8 +48,11 @@ export function launchProgram (e){
     // Program Config | content.js
     const { params, onProgramOpen }  = programConfigs[`${programName}`];
     
+    // Set program config content to html
+    params.content = html;
+
     // Wrap in Windo HTML
-    const windo = new ProgramWindo( params, html );
+    const windo = new ProgramWindo( params );
     const programWindoHtml = windo.getHtml();
     
     // Add to DOM

@@ -15,6 +15,7 @@
 	--gray: #d4d0c7;
 	--white: #fffeee;
 	--blue: #020180;
+	--black: #060606;
 }
 
 html {
@@ -178,9 +179,12 @@ p.menu-item-p:first-letter {
 	/* color: var(--black); */
 }
 
-.modal{
+.windo{
 	border: 3px solid var(--gray);
 	max-width:90vw;
+	min-width: 30rem;
+	min-height: 15rem;
+
 	display:none;
 	box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.5);
 }
@@ -196,21 +200,20 @@ p.menu-item-p:first-letter {
 
 }
 
-.modal-main{
+.windo-main{
 	background:var(--white); 
+	min-height: 12rem;
 }
 
 .bar{
 	background: var(--blue);
 	height: 3rem;
-	/* position: relative; */
 	display: grid;
 	align-items: center;
-	/* justify-content: end; */
 	padding: 0.2rem;
 }
 
-.modal-info{
+.windo-info{
 	display:grid;
 	align-items: center;
 	align-content: center;
@@ -219,11 +222,12 @@ p.menu-item-p:first-letter {
 	grid-gap:1rem;
 }
 
-.modal-title{
+.windo-title{
 	color: white;
 	display: inline;
 }
-button:active{
+
+button:active, button:focus{
 	outline: none;
 }
 
@@ -231,19 +235,39 @@ button:active{
 	display:grid;
 }
 
-.close-btn{
+.close-btn, .mini-btn, .maxi-btn{
 	border-radius: 0px;
 	position: absolute;
-	right: 5px;
-	top: 5px;
 	background: var(--gray);
 	height: 2rem;
 	width: 2rem;
-	padding-left: 2.1px;
+	padding:0;
 	font-weight: bold;
 	line-height: 1rem;
 	justify-items: center;
 }
+
+.close-btn{
+	right: 0.4rem;
+	top: 0.4rem;
+}
+
+.mini-btn{
+	right: 5.2rem;
+	top: 0.4rem;
+}
+.maxi-btn{
+	right: 2.8rem;
+	top: 0.4rem;
+}
+
+.maxi-square{
+	width: 1.2rem;
+  height: 1.2rem;
+	border: 0.15rem solid var(--black);
+	margin: 0.2rem;
+}
+
 
 
 /*	

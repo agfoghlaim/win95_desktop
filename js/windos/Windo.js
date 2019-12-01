@@ -2,38 +2,30 @@ const  LASTDROPCOORDINATES = {
   clientX: 0, clientY: 0
 }
 
-
-/*
-  config = {
-    parent: ( String | Eg '.modal-container' | Where to put modal in DOM ),
-    relatedParent: (String | Eg '.file-container' | add 'show' listener because innerHTML overwritten), 
-    related: (String),// related file
-    content: (String | html content), 
-    offset: (Array | Eg [5,5] | Inital modal position),
-    img: (String or bool | File name or false),
-    title: (String | For top bar)
-  }
-*/
 export class Windo{
     constructor(config){
-    
-      this.parent = config.parent;
-      this.parentContainer = document.querySelector(`.${config.relatedParent}`);
-      this.container = document.querySelector(`.${this.parent}`);
-    
-      this.related = config.related;
-      this.content = config.content;
-      this.title = config.title;
-      this.img = config.img || false;
-      this.iconHtml = this.getIconHtml();
-      [this.top, this.left] = config.offset || [5, 5];
+   // console.log(config)
+   
+      this.windoParent = config.windoParent; // yes
+      this.classNameToOpen = config.classNameToOpen; //yes
+      this.content = config.content; //yes
+      this.title = config.title; //yes
+      this.img = config.img || false; //yes
+      [this.top, this.left] = config.offset || [5, 5]; //yes
+      this.windoClassName = config.windoClassName; //yes
+
+      this.iconHtml = this.getIconHtml(); // can be
+      //this.parentContainer = document.querySelector(`.${config.docParent}`); //no
+     
     this.init();
   }
 
+
   init(){
     this.addToDOM();
-    this.addListenerToRelated();
-    this.addListenerToItemInStartMenu();
+    this.addOpenDocumentListeners();
+    
+    
   }
 
   getIconHtml(){
@@ -45,71 +37,66 @@ export class Windo{
 
   getHTML(){
     return `
-    <div draggable="true"  style="position:absolute;top:${this.top}rem; left:${this.left}rem; "class="modal modal-${this.related}">
+    <div draggable="true"  style="position:absolute;top:${this.top}rem; left:${this.left}rem; "class="windo modal-${this.classNameToOpen}">
   
-      <div draggable="true" class="bar" data-modalno="${this.related}">
-        <div class="modal-info">
+      <div draggable="true" class="bar" data-modalno="${this.classNameToOpen}">
+        <div class="windo-info">
           ${this.iconHtml}
-          <div class="modal-title">${this.title}</div>
+          <div class="windo-title">${this.title}</div>
         </div>
-        <button data-windo-contents="${this.related}" class="close-btn close-btn-${this.related}">X</button>
+        <button data-windo-contents="${this.classNameToOpen}" class="mini-btn mini-btn-${this.classNameToOpen}">-</button>
+
+        <button data-windo-contents="${this.classNameToOpen}" class="maxi-btn maxi-btn-${this.classNameToOpen}">
+          <div class="maxi-square"></div>
+        </button>
+
+        <button data-windo-contents="${this.classNameToOpen}" class="close-btn close-btn-${this.classNameToOpen}">X</button>
+        
       </div>
   
-      <div class="modal-main">
+      <div class="windo-main">
       <div>${this.content}</div>
       </div>
   
     </div>`;
   }
 
-  addToDOM(){
-    const html = this.getHTML();
-    this.container.innerHTML += html;
+  addToDOM(html = this.getHTML() ){
+ 
+    const windoParent = document.querySelector(`.${this.windoParent}`);
+  
+    windoParent.innerHTML += html;
+
+    this.addMinimiseListeners();
+    
   }
 
-  /*
-    TODO - addListenerToRelated() should NOT have to happen on window resize, there could be tonnes of listeners on the '.modal-container' when there only needs to be ~one.
-  */ 
-  addListenerToRelated(){
-    this.parentContainer.addEventListener( 'click', e => this.show(e));
+  // Listen to all start-{classname}, works for desktop icons and start menu
+  // will be Program maximise
+  addOpenDocumentListeners(){
+    const startLinks = document.querySelectorAll(`.start-${this.classNameToOpen}`);
+
+    if(!startLinks) return;
+
+    startLinks.forEach(link => link.addEventListener( 'click', e => this.show(e)))
+  }
+  
+  // Listen to .mini-btn | see this.addToDOM
+  addMinimiseListeners(){
+
+    const miniBtns = document.querySelectorAll(`.mini-btn`)
+
+    miniBtns.forEach( miniBtn => miniBtn.addEventListener('click', e => this.handleMinimise(e) ));
+    
   }
 
-  // TODO - check this
-  addListenerToItemInStartMenu(){
-    const startLink = document.querySelector(`.start-${this.related}`);
-
-    if(!startLink) return;
-
-    startLink.addEventListener( 'click', e => this.show(e));
-  }
-
-  // addCloseListener(){
+  handleMinimise(e){
   
-  //     const related = this.related;
+  if(!e.target.classList.contains(`mini-btn`)) return;
 
-  //     // Hide Windo if 'X' clicked
-  //     this.container.addEventListener('click',  function handleClose(e){
+  document.querySelector(`.modal-${e.target.dataset.windoContents}`)
 
-  //       if(!e.target.classList.contains(`close-btn-${related}`))return;
-  
-  //       document.querySelector(`.modal-${related}`).classList.remove('show');
-
-  //     }, false);
-  // }
-
-  
-  static addCloseListeners2(){
-    const container = document.querySelector('.modal-container');
-
-    container.addEventListener('click', e =>this.handleClose2(e));
-  }
-
-  static handleClose2(e){
-   // console.log(e.target)
-
-    if(!e.target.classList.contains(`close-btn`))return;
-  
-    e.target.parentElement.parentElement.classList.remove('show');
+  .classList.remove('show');
 
   }
 
@@ -126,11 +113,11 @@ export class Windo{
    
     // data-modal-class should be the class of the modal to show
     // ie. <button data-modal-class="whatever">  shows <modal modalno="whatever">
-   
-    if(e.target.dataset.modalClass !== `${this.related}`
-    && e.target.parentElement.dataset.modalClass !== `${this.related}`) return;
+ 
+    if(e.target.dataset.modalClass !== `${this.classNameToOpen}`
+    && e.target.parentElement.dataset.modalClass !== `${this.classNameToOpen}`) return;
     
-    document.querySelector(`.modal-${this.related}`)
+    document.querySelector(`.modal-${this.classNameToOpen}`)
     .classList.add('show');
   }
 

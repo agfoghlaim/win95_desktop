@@ -21,7 +21,7 @@ export class DesktopIcon{
 
   getHtml(i){
     return `
-    <div  class="file ${this.iconClass}" data-modal="${this.dataModal}" data-modalno=${i}>
+    <div class="file start-${this.iconClass}" data-modal="${this.dataModal}" data-modalno=${i}>
 
       <img draggable="true" class="desktop-icon-img" data-modal-class=${this.iconClass} src="img/${this.img}" alt="">
       <p class="item-p" id="${this.iconClass}">${this.p}</p>

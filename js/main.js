@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
   Windo.addDragListeners();
 
   // Listeners | ?TEMP? | HIDE Windo 
-  Windo.addCloseListeners2();
-
+ // Windo.addCloseListeners();
+  //addMinimiseListeners();
 
   // Launch program in ProgramWindo | programUtil.js
   document.querySelectorAll('.launch-program').forEach(el => el.addEventListener('click', launchProgram));

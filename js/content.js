@@ -72,33 +72,33 @@ export const myDocuments = [
     docId: '0',
     docParent: 'file-container',
     windoParent: 'modal-container',//will be windo-container
-    docClass: 'file-0', // will be dynamic from docId
-    docWindoClass: 'modal-0',
-    title: 'New Folder',
+    windoClassName: 'modal-0',
+    classNameToOpen: 'file-0', // will be dynamic from docId
     content: 'Document Zero Content',
-    img: 'Folder.ico'
-
+    offset:[6,11],
+    img: 'Folder.ico',
+    title: 'New Folder',
   },
   {
     docId: '1',
     docParent: 'file-container',
     windoParent: 'modal-container',//will be windo-container
-    docClass: 'file-1', // will be dynamic from docId
-    docWindoClass: 'modal-1',
-    title: 'Untitled Document',
+    windoClassName: 'modal-1',
+    classNameToOpen: 'file-1', // will be dynamic from docId
     content: 'Untitled Document Content',
-    img: 'text_file.ico'
-
+    offset:[5,10],
+    img: 'text_file.ico',
+    title: 'Untitled Document',
   },
   {
     docId: '2',
     docParent: 'file-container',
     windoParent: 'modal-container',//will be windo-container
-    docClass: 'file-2', // will be dynamic from docId
-    docWindoClass: 'modal-2',
-    title: 'what.doc',
+    windoClassName: 'modal-2',
+    classNameToOpen: 'file-2', // will be dynamic from docId
     content: 'Document One Content',
-    img: 'wordpad.ico'
-
+    offset:[4,12],
+    title: 'what.doc',
+    img: 'wordpad.ico',
   }
 ];
