@@ -6,6 +6,11 @@ export function initDesktopIcons(){
   populateFileSpaces();
   populateFiles();
 
+  // Listener to launch Exlporer Windo | happens on init and resize
+  document.querySelectorAll('.launchExplorer').forEach(el => el.addEventListener('click', launchExplorer));
+
+ 
+
   // add file spaces based on current window width, height
   function populateFileSpaces(){
 
@@ -38,9 +43,11 @@ export function initDesktopIcons(){
       addIconToDOM(i, dtIcon);
 
       // add modal if it doesn't exist
-      if(!document.querySelector(`.modal-${icon.docClass}`)){
-        addIconModalToDOM(i, icon);
-      }
+      // if(!document.querySelector(`.modal-${icon.docClass}`)){
+      //   addIconModalToDOM(i, icon);
+      // }
+      
+      
       
     });
 
@@ -58,6 +65,40 @@ export function initDesktopIcons(){
   }
 }
 
+// Event Handler | click '.desktop-icon-img' | main.js
+function launchExplorer(e){
+
+  if(!e.target.classList.contains('launchExplorer') && !e.target.parentElement.classList.contains('launchExplorer')) return;
+  const classNameToOpen = e.target.dataset.modalClass || e.target.parentElement.dataset.modalClass;
+
+  // Check if already exists
+  if( document.querySelector(`.modal-${classNameToOpen}`) ){
+    console.log("should show")
+    Windo.showDirect(`modal-${classNameToOpen}`)
+    return;
+  }
+  const relevantDocConfig = myDocuments.filter( doc => doc.classNameToOpen === classNameToOpen);
+
+  if(relevantDocConfig.length !== 1) return;
+
+ new Windo( relevantDocConfig[0] );
+
+  // Listener to REMOVE Windo (Explorer) 
+  addListenForCloseWindo();
+
+}
+
+function addListenForCloseWindo(){
+  document.querySelectorAll('.close-btn-explorer').forEach(el => el.addEventListener('click', closeExplorerWindo ));
+}
+
+function closeExplorerWindo(e){
+  const windowToClose = e.target.dataset.windoContents;
+
+  // Remove from DOM | (kill Windo)
+  const windoToRemove = document.querySelector(`.modal-${windowToClose}`);
+  windoToRemove.parentNode.removeChild(windoToRemove); 
+}
 
 
 

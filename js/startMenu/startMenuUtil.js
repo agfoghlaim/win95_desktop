@@ -7,7 +7,7 @@ I'm leaving it for now cause have a feeling things will have to change as more p
 import { StartItem } from "./StartItem.js";
 import { myDocuments, programConfigs as programs } from '../content.js';
 
-// TODO this function isn't very efficient
+// TODO - this function isn't very efficient
 // Event Handler | main.js
 export function toggleStartMenu(e){
 
@@ -40,7 +40,7 @@ function addDocumentsBlock( ){
   
   myDocuments.forEach( doc => {
 
-    let classes = `class = "start-item start-${doc.classNameToOpen}"`;
+    let classes = `class = "start-item launchExplorer start-${doc.classNameToOpen}"`;
 
     let dataAttributes = `data-modal-class="${doc.classNameToOpen}"`;
 

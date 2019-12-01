@@ -40,31 +40,31 @@ export const programConfigs = {
 
       dateTimeUIInstance: undefined,
       
-      DateTimeUI:{
-          
-        onProgramOpen: (dateTimeUI) => {
-          programConfigs.dateTimeUIInstance = dateTimeUI,
-          dateTimeUI.initClock();
-          dateTimeUI.initMonth();
-          dateTimeUI.addListeners();
-        },
+    DateTimeUI:{
         
-        onProgramClose: () => {
-          programConfigs.dateTimeUIInstance.clock.stopClock();
-        },
-        startMenuParentClass: false,
+      onProgramOpen: (dateTimeUI) => {
+        programConfigs.dateTimeUIInstance = dateTimeUI,
+        dateTimeUI.initClock();
+        dateTimeUI.initMonth();
+        dateTimeUI.addListeners();
+      },
+      
+      onProgramClose: () => {
+        programConfigs.dateTimeUIInstance.clock.stopClock();
+      },
+      startMenuParentClass: false,
 
-        params: {
-          windoParent: 'program-windo-container',
-          windoClassName: 'windo-datetimeui', 
-          classNameToOpen: 'launch-datetimeui',
-          content: '', 
-          offset:[6,11],
-          img: 'Joy.ico',
-          title: 'DateTimeUI'
-        }
-          
+      params: {
+        windoParent: 'program-windo-container',
+        windoClassName: 'windo-datetimeui', 
+        classNameToOpen: 'launch-datetimeui',
+        content: '', 
+        offset:[6,11],
+        img: 'Joy.ico',
+        title: 'DateTimeUI'
       }
+        
+    }
 }
 
 export const myDocuments = [

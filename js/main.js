@@ -32,15 +32,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // Listeners | Drag Windos | Drag ProgramWindos
   Windo.addDragListeners();
 
-  // Listeners | ?TEMP? | HIDE Windo 
- // Windo.addCloseListeners();
-  //addMinimiseListeners();
+
+  // 'Launch' document modal
+  // document.querySelectorAll('.launchExplorer').forEach(el => el.addEventListener('click', launchExplorer));
 
   // Launch program in ProgramWindo | programUtil.js
   document.querySelectorAll('.launch-program').forEach(el => el.addEventListener('click', launchProgram));
 
   // REMOVE ProgramWindo | programUtil.js
   document.querySelector('.program-windo-container').addEventListener('click', closeProgramWindo );
+
+
 
   // TEMP? - If tetris is open before clock, the tetris canvas is lost. 
   document.querySelector('.special-tetris-container-to-getaround-bug-i-cannot-fix').addEventListener('click', closeProgramWindo );

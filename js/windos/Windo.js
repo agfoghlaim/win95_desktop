@@ -4,7 +4,7 @@ const  LASTDROPCOORDINATES = {
 
 export class Windo{
     constructor(config){
-   // console.log(config)
+  
    
       this.windoParent = config.windoParent; // yes
       this.classNameToOpen = config.classNameToOpen; //yes
@@ -23,9 +23,7 @@ export class Windo{
 
   init(){
     this.addToDOM();
-    this.addOpenDocumentListeners();
-    
-    
+   //this.addOpenDocumentListeners();
   }
 
   getIconHtml(){
@@ -37,7 +35,7 @@ export class Windo{
 
   getHTML(){
     return `
-    <div draggable="true"  style="position:absolute;top:${this.top}rem; left:${this.left}rem; "class="windo modal-${this.classNameToOpen}">
+    <div draggable="true"  style="position:absolute;top:${this.top}rem; left:${this.left}rem; "class="windo show modal-${this.classNameToOpen}">
   
       <div draggable="true" class="bar" data-modalno="${this.classNameToOpen}">
         <div class="windo-info">
@@ -50,7 +48,7 @@ export class Windo{
           <div class="maxi-square"></div>
         </button>
 
-        <button data-windo-contents="${this.classNameToOpen}" class="close-btn close-btn-${this.classNameToOpen}">X</button>
+        <button data-windo-contents="${this.classNameToOpen}" class="close-btn-explorer close-btn-explorer-${this.classNameToOpen}">X</button>
         
       </div>
   
@@ -73,15 +71,17 @@ export class Windo{
 
   // Listen to all start-{classname}, works for desktop icons and start menu
   // will be Program maximise
-  addOpenDocumentListeners(){
-    const startLinks = document.querySelectorAll(`.start-${this.classNameToOpen}`);
+  // moved to desktopIconUtil.js
+  // addOpenDocumentListeners(){
+  //   const startLinks = document.querySelectorAll(`.start-${this.classNameToOpen}`);
 
-    if(!startLinks) return;
+  //   if(!startLinks) return;
 
-    startLinks.forEach(link => link.addEventListener( 'click', e => this.show(e)))
-  }
+  //   startLinks.forEach(link => link.addEventListener( 'click', e => this.show(e)))
+  // }
   
   // Listen to .mini-btn | see this.addToDOM
+  
   addMinimiseListeners(){
 
     const miniBtns = document.querySelectorAll(`.mini-btn`)

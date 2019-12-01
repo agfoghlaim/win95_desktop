@@ -235,7 +235,7 @@ button:active, button:focus{
 	display:grid;
 }
 
-.close-btn, .mini-btn, .maxi-btn{
+.close-btn, .mini-btn, .maxi-btn, .close-btn-explorer{
 	border-radius: 0px;
 	position: absolute;
 	background: var(--gray);
@@ -247,7 +247,7 @@ button:active, button:focus{
 	justify-items: center;
 }
 
-.close-btn{
+.close-btn, .close-btn-explorer{
 	right: 0.4rem;
 	top: 0.4rem;
 }
