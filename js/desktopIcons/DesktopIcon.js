@@ -11,29 +11,29 @@ const FILEDRAG = {
 
 export class DesktopIcon{
 
-  constructor(iconClass, dataModal, img, p, iconNo){
-    this.iconClass = iconClass;
-    this.dataModal = dataModal;
-    this.img = img;
-    this.p = p;
+  constructor( icon ){
+
+    this.classNameToOpen = icon.classNameToOpen;
+    this.windoClassName = icon.windoClassName;
+    this.docParent = icon.docParent;
+    this.img = icon.img;
+    this.title = icon.title;
+    this.p = icon.content;
 
   }
 
   getHtml(i){
     return `
-    <div class="file start-${this.iconClass}" data-modal="${this.dataModal}" data-modalno=${i}>
+    <div class="file start-${this.classNameToOpen}" data-modal="${this.windoClassName}" data-modalno=${i}>
 
-      <img draggable="true" class="desktop-icon-img launchExplorer" data-modal-class=${this.iconClass} src="img/${this.img}" alt="">
-      <p class="item-p" id="${this.iconClass}">${this.p}</p>
+      <img draggable="true" class="desktop-icon-img launchExplorer" data-modal-class=${this.classNameToOpen} src="img/${this.img}" alt="">
+      <p class="item-p" id="${this.classNameToOpen}">${this.title}</p>
 
     </div>`;
   }
 
-
+  // main.js
   static addDragListners(){
-  
-    
-    // NB .file-container is hardcoded
     const container = document.querySelector('.file-container');
     container.addEventListener('dragstart', e =>this.startFileDrag(e));
     container.addEventListener('dragend', e => this.endFileDrag(e)); 
@@ -75,6 +75,7 @@ export class DesktopIcon{
       FILEDRAG.html = e.target.parentElement.parentElement.innerHTML;
     }
   }
+
 
   static endFileDrag(e){
     e.preventDefault();

@@ -3,13 +3,12 @@ import { myDocuments } from '../content.js';
 import { DesktopIcon } from './DesktopIcon.js';
 
 export function initDesktopIcons(){
+
   populateFileSpaces();
-  populateFiles();
+  populateDesktopIcons();
 
-  // Listener to launch Exlporer Windo | happens on init and resize
-  document.querySelectorAll('.launchExplorer').forEach(el => el.addEventListener('click', launchExplorer));
-
- 
+  // Listener to launch Exlporer Windo | happens on init, resize & dragend
+  addLaunchExplorerListener();
 
   // add file spaces based on current window width, height
   function populateFileSpaces(){
@@ -34,21 +33,11 @@ export function initDesktopIcons(){
   }
 
   // Desktop Icons
-  function populateFiles (){
+  function populateDesktopIcons (){
 
     myDocuments.forEach( (icon, i) => {
-
-      const dtIcon = new DesktopIcon(icon.classNameToOpen, icon.windoClassName, icon.img, icon.title, i);
-      
+      const dtIcon = new DesktopIcon( icon );
       addIconToDOM(i, dtIcon);
-
-      // add modal if it doesn't exist
-      // if(!document.querySelector(`.modal-${icon.docClass}`)){
-      //   addIconModalToDOM(i, icon);
-      // }
-      
-      
-      
     });
 
     // helper | populateFiles
@@ -57,41 +46,46 @@ export function initDesktopIcons(){
       spaces[i].classList.replace("emptySpace", "filledSpace");
       spaces[i].innerHTML = dtIcon.getHtml(i);
     }
-
-    // helper | populateFiles
-    function addIconModalToDOM(i, icon){
-      new Windo(icon);
-    }
   }
+
+
+}
+
+// Called above in init | also in main.js after 'dragend' events
+export function addLaunchExplorerListener(){
+  document.querySelectorAll('.launchExplorer').forEach(el => el.addEventListener('click', launchExplorer));
 }
 
 // Event Handler | click '.desktop-icon-img' | main.js
 function launchExplorer(e){
-
+console.log("launch called")
   if(!e.target.classList.contains('launchExplorer') && !e.target.parentElement.classList.contains('launchExplorer')) return;
+
   const classNameToOpen = e.target.dataset.modalClass || e.target.parentElement.dataset.modalClass;
 
-  // Check if already exists
+  // Show if already exists | and return
   if( document.querySelector(`.modal-${classNameToOpen}`) ){
-    console.log("should show")
     Windo.showDirect(`modal-${classNameToOpen}`)
     return;
   }
+  
   const relevantDocConfig = myDocuments.filter( doc => doc.classNameToOpen === classNameToOpen);
 
   if(relevantDocConfig.length !== 1) return;
 
- new Windo( relevantDocConfig[0] );
+  new Windo( relevantDocConfig[0] );
 
-  // Listener to REMOVE Windo (Explorer) 
+  // Add Listener to REMOVE Windo (Explorer) 
   addListenForCloseWindo();
 
 }
 
+// Helper 
 function addListenForCloseWindo(){
   document.querySelectorAll('.close-btn-explorer').forEach(el => el.addEventListener('click', closeExplorerWindo ));
 }
 
+// Handler
 function closeExplorerWindo(e){
   const windowToClose = e.target.dataset.windoContents;
 

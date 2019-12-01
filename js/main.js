@@ -4,7 +4,7 @@ import { DesktopIcon } from './desktopIcons/DesktopIcon.js';
 import { toggleStartMenu } from './startMenu/startMenuUtil.js';
 import { launchProgram, closeProgramWindo } from './programs/programUtil.js';
 import { showTaskbarClock } from './programs/dateTime/dateTimeUtil.js';
-import { initDesktopIcons } from './desktopIcons/desktopIconUtil.js';
+import { initDesktopIcons, addLaunchExplorerListener } from './desktopIcons/desktopIconUtil.js';
 import { initStartMenu } from './startMenu/startMenuUtil.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,10 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // init |  Desktop Icons & spaces
   initDesktopIcons();
-
   
   // Listener | Desktop Icons & spaces (re-populate on resize)
   window.addEventListener('resize', () => initDesktopIcons());
+
+  window.addEventListener('dragend', () => addLaunchExplorerListener());
 
   // Listener | Toggle Start Menu | ( the rest is CSS )
   document.addEventListener('click', toggleStartMenu);
