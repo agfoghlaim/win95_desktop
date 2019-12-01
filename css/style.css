@@ -47,25 +47,58 @@ body{
 	grid-area:files;
 	padding:1rem;
 	display: grid;
-	height:90vh;
+	height:95vh;
 	grid-template-columns: repeat( auto-fit, minmax(150px, 1fr) );;
 }
 
 .taskbar-container{
 	grid-area: taskbar;
 	display:grid;
-	height:10vh;
+	height:5vh;
 	width:100vw;
 	background:var(--gray);
-	grid-template-columns: 12rem 1fr 150px;
-	padding: 1rem;
+	grid-template-columns: 8rem 1fr 8rem;
+	/* padding: 1rem; */
 }
+
+.left-taskbar, .right-taskbar{
+	display: grid;
+	justify-content: center;
+}
+
+
+p.clock-p{
+	width: 7rem;
+	text-align: right;
+	margin: 0;
+	font-weight: 400;
+	border: 1px inset
+	white;
+	padding: 0 0.5rem;
+}
+
+
 
 .mid-taskbar{
 	display: grid;
-	grid-gap:3rem;
+	/* grid-gap:3rem; */
   grid-auto-flow: column;
-  justify-content: start;
+	justify-content: start;
+
+}
+
+.explorer-btn{
+	font-size:0.7rem;
+	border-radius: 0px;
+	background: url(../img/Folder.ico);
+  background-size: auto auto;
+	background-position: left;
+	background-repeat: no-repeat;
+	height: 3rem;
+	min-width: 8rem;
+	text-align: right;
+	font-weight: bold;
+	font-size:0.8rem;
 }
 
 
@@ -84,7 +117,7 @@ start-menu
   background-size: auto auto;
 	background-position: left;
 	background-repeat: no-repeat;
-	width: 6rem;
+	width: 7rem;
   height: 3rem;
 	text-align: right;
 	font-weight: bold;
@@ -109,26 +142,26 @@ start-menu
 
 .start-menu-1{
 	position: fixed;
-	bottom:10vh;
+	bottom:4vh;
 }
 
 .start-menu-2{
 	position:fixed;
-	bottom:15vh;
+	bottom:10vh;
 	/* bottom:20vh; */
-	left:13.3rem;
+	left:12.25rem;
 }
 
 .start-menu-3{
 	position:fixed;
-	bottom:30vh;
-	left:25.8rem;
+	bottom:26vh;
+	left:24.5rem;
 }
 
 .start-menu-4{
 	position:fixed;
-	bottom:35vh;
-	left:38rem;
+	bottom:31vh;
+	left:36.5rem;
 }
 
 .start-menu.show{
@@ -270,29 +303,7 @@ button:active, button:focus{
 
 
 
-/*	
 
-taskbar
-
-*/
-p.clock-p{
-	text-align: right;
-	margin: 0;
-	font-weight: 400;
-	border: 1px inset
-	white;
-	padding: 0 0.5rem;
-}
-
-.explorer-btn{
-	background-image: url(../img/file.png);
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: cover;
-	width: 40px;
-	height: 40px;
-	display: block;
-}
 	
 .outline{
 	border: 0.5px dashed rgba(255,255,255,0.2);

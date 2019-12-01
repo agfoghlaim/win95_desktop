@@ -1,5 +1,4 @@
 import { ProgramWindo } from '../windos/ProgramWindo.js';
-import { Windo } from '../windos/Windo.js';
 import { programConfigs } from '../content.js';
 import { Tetris } from './tetris/Tetris.js';
 import { DateTimeUI } from './dateTime/DateTimeUI.js';
@@ -62,6 +61,7 @@ export function launchProgram (e){
     onProgramOpen(thisProgram);
   
   }
+  
 }
 
 
@@ -85,6 +85,23 @@ export function closeProgramWindo(e){
   // Remove from DOM | (kill Windo)
   const windoToRemove = document.querySelector(`.${classNameOfWindoToClose}`);
   windoToRemove.parentNode.removeChild(windoToRemove); 
+
+  // Dispatch 'programClosed' event | main.js listening |  will remove taskbar item
+  dispatchProgramClosedEvent( classNameOfWindoToClose );
+
+}
+
+function dispatchProgramClosedEvent(classNameOfWindoToClose){
+
+  const programClosed = new CustomEvent('programClosed', {detail:classNameOfWindoToClose});
+
+  document.querySelector('.mid-taskbar').dispatchEvent(programClosed);
+
+}
+
+export function addLaunchProgramListener(){
+
+  document.querySelectorAll('.launch-program').forEach(el => el.addEventListener('click', launchProgram));
 
 }
 

@@ -2,6 +2,20 @@ import { Windo } from '../windos/Windo.js';
 import { myDocuments } from '../content.js';
 import { DesktopIcon } from './DesktopIcon.js';
 
+
+/*
+TODO
+There is a bug where clicking on taskbar items doesn't 'maximise':
+- add document taskbar(s) first, add program taskbar => document won't maximise
+- add program taskbar(s) first, add document taskbar =+ program won't maximise
+
+Think it's a problem below in help().alreadyExists()
+
+Ultimately it's probably because of the mess that is data-attributes/classes in html/content.js
+
+TODO NB - simplify classes/dataAttr
+
+*/
 export function initDesktopIcons(){
 
   help().createFileSpacesAndAddToDOM();
@@ -14,7 +28,9 @@ export function initDesktopIcons(){
 
 // Called above in init | also in main.js after 'dragend' events
 export function addLaunchExplorerListener(){
+
   document.querySelectorAll('.launchExplorer').forEach(el => el.addEventListener('click', launchExplorer));
+
 }
 
 // Event Handler | click '.desktop-icon-img' | main.js
@@ -44,8 +60,16 @@ function closeExplorerWindo(e){
   // Remove from DOM | (kill Windo)
   const windoToRemove = document.querySelector(`.modal-${windowToClose}`);
   windoToRemove.parentNode.removeChild(windoToRemove); 
-}
 
+   // Dispatch 'exploredClosed' | main.js listening | will remove taskbar item
+   dispatchExplorerClosedEvent( windowToClose );
+}
+  
+function dispatchExplorerClosedEvent(windowToClose){
+
+  const explorerClosed = new CustomEvent('explorerClosed', {detail:windowToClose});
+  document.querySelector('.mid-taskbar').dispatchEvent(explorerClosed);
+}
 
 function help(){
   return{
@@ -63,10 +87,10 @@ function help(){
     alreadyExists: function(classNameToOpen){
       if( document.querySelector(`.modal-${classNameToOpen}`) ){
         Windo.showDirect(`modal-${classNameToOpen}`)
-        console.log("true")
+  
         return true;
       }else{
-        console.log("false")
+   
         return false;
       }
     },

@@ -1,9 +1,11 @@
+
+
 import { Windo } from './Windo.js'
 
 /*
 
 - ProgramWindos are to wrap around 'Program' content. 
-- getHtml() really should e the same as parent Windo version but the differences are so tedious I'm leaving it for now.
+- getHtml() really should be the same as parent Windo version but the differences are so tedious I'm leaving it for now.
 
 - = ABOUT EMPTY INIT FUNCTION =
 - Windo.addToDOM() for ProgramWindos is called in programUtil.js

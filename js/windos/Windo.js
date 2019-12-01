@@ -1,3 +1,5 @@
+import { handleInitTask } from '../tasks/taskUtil.js';
+
 const  LASTDROPCOORDINATES = {
   clientX: 0, clientY: 0
 }
@@ -5,7 +7,9 @@ const  LASTDROPCOORDINATES = {
 export class Windo{
 
   constructor(config){
-  
+    // Temp, pass easily to new task
+    this.config = config;
+
     this.windoParent = config.windoParent; 
     this.classNameToOpen = config.classNameToOpen; 
     this.content = config.content; 
@@ -65,22 +69,28 @@ export class Windo{
     
   }
   
+  // called above in addToDom()
   addMinimiseListeners(){
 
     const miniBtns = document.querySelectorAll(`.mini-btn`)
 
     miniBtns.forEach( miniBtn => miniBtn.addEventListener('click', e => this.handleMinimise(e) ));
+
     
   }
 
   handleMinimise(e){
   
-  if(!e.target.classList.contains(`mini-btn`)) return;
+    if(!e.target.classList.contains(`mini-btn`)) return;
 
-  document.querySelector(`.modal-${e.target.dataset.windoContents}`)
+    document.querySelector(`.modal-${e.target.dataset.windoContents}`)
 
-  .classList.remove('show');
+    .classList.remove('show');
 
+    // Create taskItem if it doesn't exist
+    if( !document.querySelector(`.task-item-${e.target.dataset.windoContents}`) && !document.querySelector(`[data-task-for-class=${e.target.dataset.windoContents}]`)){
+      handleInitTask(e.target.dataset.windoContents);
+    }
   }
 
   show(e){
