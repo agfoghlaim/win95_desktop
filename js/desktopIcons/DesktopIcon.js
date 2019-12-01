@@ -22,7 +22,9 @@ export class DesktopIcon{
 
   }
 
+  // See addIconToDOM() | desktopIconUtil.js
   getHtml(i){
+
     return `
     <div class="file start-${this.classNameToOpen}" data-modal="${this.windoClassName}" data-modalno=${i}>
 
@@ -75,7 +77,6 @@ export class DesktopIcon{
       FILEDRAG.html = e.target.parentElement.parentElement.innerHTML;
     }
   }
-
 
   static endFileDrag(e){
     e.preventDefault();

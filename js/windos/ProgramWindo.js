@@ -7,7 +7,6 @@ import { Windo } from './Windo.js'
 
 - = ABOUT EMPTY INIT FUNCTION =
 - Windo.addToDOM() for ProgramWindos is called in programUtil.js
-- Windo.addOpenDocumentListeners() is for documents in the start menu so doesn't apply to WindoProgram
 
 */
 

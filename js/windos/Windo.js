@@ -3,23 +3,21 @@ const  LASTDROPCOORDINATES = {
 }
 
 export class Windo{
-    constructor(config){
-  
-   
-      this.windoParent = config.windoParent; // yes
-      this.classNameToOpen = config.classNameToOpen; //yes
-      this.content = config.content; //yes
-      this.title = config.title; //yes
-      this.img = config.img || false; //yes
-      [this.top, this.left] = config.offset || [5, 5]; //yes
-      this.windoClassName = config.windoClassName; //yes
 
-      this.iconHtml = this.getIconHtml(); // can be
-      //this.parentContainer = document.querySelector(`.${config.docParent}`); //no
-     
+  constructor(config){
+  
+    this.windoParent = config.windoParent; 
+    this.classNameToOpen = config.classNameToOpen; 
+    this.content = config.content; 
+    this.title = config.title; 
+    this.img = config.img || false; 
+    [this.top, this.left] = config.offset || [5, 5];
+    this.windoClassName = config.windoClassName; 
+
+    this.iconHtml = this.getIconHtml(); 
+
     this.init();
   }
-
 
   init(){
     this.addToDOM();
@@ -27,9 +25,7 @@ export class Windo{
   }
 
   getIconHtml(){
-    if(this.img){
-      return  `<img class="modal-icon" src="../img/${this.img}"/>`
-    }
+    if(this.img) return  `<img class="modal-icon" src="../img/${this.img}"/>`;
     return '';
   }
 
@@ -68,19 +64,6 @@ export class Windo{
     this.addMinimiseListeners();
     
   }
-
-  // Listen to all start-{classname}, works for desktop icons and start menu
-  // will be Program maximise
-  // moved to desktopIconUtil.js
-  // addOpenDocumentListeners(){
-  //   const startLinks = document.querySelectorAll(`.start-${this.classNameToOpen}`);
-
-  //   if(!startLinks) return;
-
-  //   startLinks.forEach(link => link.addEventListener( 'click', e => this.show(e)))
-  // }
-  
-  // Listen to .mini-btn | see this.addToDOM
   
   addMinimiseListeners(){
 
@@ -100,15 +83,6 @@ export class Windo{
 
   }
 
-  static addDragListeners(){
-    const container = document.querySelector('.modal-container');
-    document.addEventListener('dragstart', e =>this.dragModal(e));
-    document.addEventListener('dragend', e => this.dropModal(e)); 
-
-    /* problem with Firefox, can't get mouse positions from dragend event, see here https://bugzilla.mozilla.org/show_bug.cgi?id=505521 */
-    document.addEventListener('drop', e =>this.saveMouseCoordinatesAfterEveryDrop(e));
-  }
-
   show(e){
    
     // data-modal-class should be the class of the modal to show
@@ -119,6 +93,15 @@ export class Windo{
     
     document.querySelector(`.modal-${this.classNameToOpen}`)
     .classList.add('show');
+  }
+
+  static addDragListeners(){
+    //const container = document.querySelector('.modal-container');
+    document.addEventListener('dragstart', e =>this.dragModal(e));
+    document.addEventListener('dragend', e => this.dropModal(e)); 
+
+    /* problem with Firefox, can't get mouse positions from dragend event, see here https://bugzilla.mozilla.org/show_bug.cgi?id=505521 */
+    document.addEventListener('drop', e =>this.saveMouseCoordinatesAfterEveryDrop(e));
   }
 
   // show whatever modal corresponds to class passed

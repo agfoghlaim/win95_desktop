@@ -4,50 +4,11 @@ import { DesktopIcon } from './DesktopIcon.js';
 
 export function initDesktopIcons(){
 
-  populateFileSpaces();
-  populateDesktopIcons();
+  help().createFileSpacesAndAddToDOM();
+  help().createDesktopIconsAndAddToDOM();
 
-  // Listener to launch Exlporer Windo | happens on init, resize & dragend
+  // Listener to launch Explorer Windo | happens on init, resize & dragend
   addLaunchExplorerListener();
-
-  // add file spaces based on current window width, height
-  function populateFileSpaces(){
-
-    const filesContainer = document.querySelector('.file-container');
-    const noFileSpaces = getNumFileSpaces();
-    filesContainer.innerHTML = ``;
-
-    for(let i = 0; i < noFileSpaces; i++){
-      filesContainer.innerHTML += `<div class="space space-${i} emptySpace"></div>`;
-    }
-
-    // helper | populateFileSpaces 
-    function getNumFileSpaces(){
-      // TODO check for tiny screens - not enough space for all files case
-      const minWidth = 150;
-      const minHeight = 200;
-      const numSpaces = (window.innerWidth / minWidth) * (window.innerHeight / minHeight);
-      return Math.round(numSpaces);
-    }
-    
-  }
-
-  // Desktop Icons
-  function populateDesktopIcons (){
-
-    myDocuments.forEach( (icon, i) => {
-      const dtIcon = new DesktopIcon( icon );
-      addIconToDOM(i, dtIcon);
-    });
-
-    // helper | populateFiles
-    function addIconToDOM(i, dtIcon){
-      const spaces = document.querySelectorAll('.space');
-      spaces[i].classList.replace("emptySpace", "filledSpace");
-      spaces[i].innerHTML = dtIcon.getHtml(i);
-    }
-  }
-
 
 }
 
@@ -58,40 +19,97 @@ export function addLaunchExplorerListener(){
 
 // Event Handler | click '.desktop-icon-img' | main.js
 function launchExplorer(e){
-console.log("launch called")
-  if(!e.target.classList.contains('launchExplorer') && !e.target.parentElement.classList.contains('launchExplorer')) return;
 
-  const classNameToOpen = e.target.dataset.modalClass || e.target.parentElement.dataset.modalClass;
+  if( help().shouldReturn(e) ) return;
 
-  // Show if already exists | and return
-  if( document.querySelector(`.modal-${classNameToOpen}`) ){
-    Windo.showDirect(`modal-${classNameToOpen}`)
-    return;
-  }
+  const classNameToOpen = help().classNameToOpen(e);
+
+  if ( help().alreadyExists( classNameToOpen ) ) return;
   
-  const relevantDocConfig = myDocuments.filter( doc => doc.classNameToOpen === classNameToOpen);
+  const relevantDocConfig = help().getDocConfig( classNameToOpen );
 
   if(relevantDocConfig.length !== 1) return;
 
   new Windo( relevantDocConfig[0] );
 
   // Add Listener to REMOVE Windo (Explorer) 
-  addListenForCloseWindo();
+  help().addListenForCloseWindo();
 
 }
 
-// Helper 
-function addListenForCloseWindo(){
-  document.querySelectorAll('.close-btn-explorer').forEach(el => el.addEventListener('click', closeExplorerWindo ));
-}
-
-// Handler
+// Event Handler | click '.close-btn-explorer' | help() 
 function closeExplorerWindo(e){
   const windowToClose = e.target.dataset.windoContents;
 
   // Remove from DOM | (kill Windo)
   const windoToRemove = document.querySelector(`.modal-${windowToClose}`);
   windoToRemove.parentNode.removeChild(windoToRemove); 
+}
+
+
+function help(){
+  return{
+    shouldReturn: function(e){
+      if(!e.target.classList.contains('launchExplorer') && !e.target.parentElement.classList.contains('launchExplorer')){
+        return true;
+      }else{
+        return false;
+      }
+      
+    },
+    classNameToOpen: function(e){
+      return e.target.dataset.modalClass || e.target.parentElement.dataset.modalClass;
+    },
+    alreadyExists: function(classNameToOpen){
+      if( document.querySelector(`.modal-${classNameToOpen}`) ){
+        Windo.showDirect(`modal-${classNameToOpen}`)
+        console.log("true")
+        return true;
+      }else{
+        console.log("false")
+        return false;
+      }
+    },
+    getDocConfig: function(classNameToOpen){
+      return myDocuments.filter( doc => doc.classNameToOpen === classNameToOpen);
+    },
+    getNumFileSpaces: function(){
+      // TODO check for tiny screens - not enough space for all files case
+      const minWidth = 150;
+      const minHeight = 200;
+      const numSpaces = (window.innerWidth / minWidth) * (window.innerHeight / minHeight);
+      return Math.round(numSpaces);
+    },
+    addSpacesToDOM: function(filesContainer, noFileSpaces){
+      filesContainer.innerHTML = ``;
+
+      for(let i = 0; i < noFileSpaces; i++){
+        filesContainer.innerHTML += `<div class="space space-${i} emptySpace"></div>`;
+      }
+    },
+    addIconToDOM: function(i, dtIcon){
+      const spaces = document.querySelectorAll('.space');
+      spaces[i].classList.replace("emptySpace", "filledSpace");
+      spaces[i].innerHTML = dtIcon.getHtml(i);
+    },
+    createDesktopIconsAndAddToDOM: function(){
+      myDocuments.forEach( (icon, i) => {
+        const dtIcon = new DesktopIcon( icon );
+        this.addIconToDOM(i, dtIcon);
+      })
+    },
+    createFileSpacesAndAddToDOM: function(){
+
+      const filesContainer = document.querySelector('.file-container');
+      const noFileSpaces = help().getNumFileSpaces();
+  
+      this.addSpacesToDOM(filesContainer, noFileSpaces);
+      
+    },
+    addListenForCloseWindo: function(){
+      document.querySelectorAll('.close-btn-explorer').forEach(el => el.addEventListener('click', closeExplorerWindo ));
+    }
+  }
 }
 
 
