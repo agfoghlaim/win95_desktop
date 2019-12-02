@@ -51,7 +51,7 @@ function closeExplorerWindo(e){
   const windowToClose = e.target.dataset.windoContents;
 
   // Remove from DOM | (kill Windo)
-  const windoToRemove = document.querySelector(`.modal-${windowToClose}`);
+  const windoToRemove = document.querySelector(`.windo-${windowToClose}`);
   windoToRemove.parentNode.removeChild(windoToRemove); 
 
    // Dispatch 'exploredClosed' | main.js listening | will remove taskbar item
@@ -75,15 +75,14 @@ function help(){
       
     },
     classNameToOpen: function(e){
-      return e.target.dataset.modalClass || e.target.parentElement.dataset.modalClass;
+    
+      return e.target.dataset.className || e.target.parentElement.dataset.className;
     },
     alreadyExists: function(classNameToOpen){
-      if( document.querySelector(`.modal-${classNameToOpen}`) ){
-        Windo.showDirect(`modal-${classNameToOpen}`)
-  
+      if( document.querySelector(`.windo-${classNameToOpen}`) ){
+        Windo.showDirect(`windo-${classNameToOpen}`)
         return true;
       }else{
-   
         return false;
       }
     },
@@ -116,8 +115,8 @@ function help(){
       })
     },
     createFileSpacesAndAddToDOM: function(){
-
-      const filesContainer = document.querySelector('.file-container');
+      
+      const filesContainer = document.querySelector('.desktop-container');
       const noFileSpaces = help().getNumFileSpaces();
   
       this.addSpacesToDOM(filesContainer, noFileSpaces);

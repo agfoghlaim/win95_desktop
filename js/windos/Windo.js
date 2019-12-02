@@ -35,9 +35,9 @@ export class Windo{
 
   getHTML(){
     return `
-    <div draggable="true"  style="position:absolute;top:${this.top}rem; left:${this.left}rem; "class="windo show modal-${this.classNameToOpen}">
+    <div draggable="true" style="position:absolute;top:${this.top}rem; left:${this.left}rem; "class="windo show windo-${this.classNameToOpen} ${this.windoClassName}">
   
-      <div draggable="true" class="bar" data-modalno="${this.classNameToOpen}">
+      <div draggable="true" class="bar" data-corresponding-classname="${this.classNameToOpen}">
         <div class="windo-info">
           ${this.iconHtml}
           <div class="windo-title">${this.title}</div>
@@ -83,7 +83,7 @@ export class Windo{
   
     if(!e.target.classList.contains(`mini-btn`)) return;
 
-    document.querySelector(`.modal-${e.target.dataset.windoContents}`)
+    document.querySelector(`.windo-${e.target.dataset.windoContents}`)
 
     .classList.remove('show');
 
@@ -101,17 +101,27 @@ export class Windo{
     if(e.target.dataset.modalClass !== `${this.classNameToOpen}`
     && e.target.parentElement.dataset.modalClass !== `${this.classNameToOpen}`) return;
     
-    document.querySelector(`.modal-${this.classNameToOpen}`)
+    document.querySelector(`.windo-${this.classNameToOpen}`)
     .classList.add('show');
   }
 
+  // TODO - tidy up
   static addDragListeners(){
-    //const container = document.querySelector('.modal-container');
-    document.addEventListener('dragstart', e =>this.dragModal(e));
-    document.addEventListener('dragend', e => this.dropModal(e)); 
+    const documentWindoContainer = document.querySelector('.document-windo-container');
+    const programWindoContainer = document.querySelector('.program-windo-container');
+    const tetrisWindoContainer = document.querySelector('.special-tetris-container-to-getaround-bug-i-cannot-fix');
+
+    documentWindoContainer.addEventListener('dragstart', e =>this.dragModal(e));
+    documentWindoContainer.addEventListener('dragend', e => this.dropModal(e)); 
+
+    programWindoContainer.addEventListener('dragstart', e =>this.dragModal(e));
+    programWindoContainer.addEventListener('dragend', e => this.dropModal(e)); 
+
+    tetrisWindoContainer.addEventListener('dragstart', e =>this.dragModal(e));
+    tetrisWindoContainer.addEventListener('dragend', e => this.dropModal(e)); 
 
     /* problem with Firefox, can't get mouse positions from dragend event, see here https://bugzilla.mozilla.org/show_bug.cgi?id=505521 */
-    document.addEventListener('drop', e =>this.saveMouseCoordinatesAfterEveryDrop(e));
+    window.addEventListener('drop', e =>this.saveMouseCoordinatesAfterEveryDrop(e));
   }
 
   // show whatever modal corresponds to class passed
@@ -136,13 +146,14 @@ export class Windo{
 
   static dropModal(e){
     e.preventDefault();
+    
     if(e.target.nodeType !== 1) return;
     if(!e.target.classList.contains('bar')) return;
   
-    const modalNo = e.target.dataset.modalno;
+    const modalNo = e.target.dataset.correspondingClassname;
     // console.log(modalNo, `.modal-${modalNo}`)
-    const modal = document.querySelector(`.modal-${modalNo}`);
-  
+    const modal = document.querySelector(`.windo-${modalNo}`);
+   
     // e.clientX, e.clientY not available in Firefox - use LASTDROPCOORDINATES 
     modal.style.top = `${LASTDROPCOORDINATES.clientY}px`;
     modal.style.left = `${LASTDROPCOORDINATES.clientX}px`;
@@ -150,6 +161,7 @@ export class Windo{
 
   static saveMouseCoordinatesAfterEveryDrop(e){
     e.preventDefault();
+
     LASTDROPCOORDINATES.clientX = e.clientX;
     LASTDROPCOORDINATES.clientY = e.clientY;
   }

@@ -70,10 +70,9 @@ export const programConfigs = {
 export const myDocuments = [
   {
     docId: '0',
-    docParent: 'file-container',
-    windoParent: 'modal-container',//will be windo-container
-    windoClassName: 'modal-0',
-    classNameToOpen: 'file-0', // will be dynamic from docId
+    windoParent: 'document-windo-container',
+    windoClassName: 'windo-0',
+    classNameToOpen: 'document-0', 
     content: 'Document Zero Content',
     offset:[6,11],
     img: 'Folder.ico',
@@ -81,10 +80,9 @@ export const myDocuments = [
   },
   {
     docId: '1',
-    docParent: 'file-container',
-    windoParent: 'modal-container',//will be windo-container
-    windoClassName: 'modal-1',
-    classNameToOpen: 'file-1', // will be dynamic from docId
+    windoParent: 'document-windo-container',
+    windoClassName: 'windo-1', // was modal-1
+    classNameToOpen: 'document-1', // was file-1
     content: 'Untitled Document Content',
     offset:[5,10],
     img: 'text_file.ico',
@@ -92,10 +90,9 @@ export const myDocuments = [
   },
   {
     docId: '2',
-    docParent: 'file-container',
-    windoParent: 'modal-container',//will be windo-container
-    windoClassName: 'modal-2',
-    classNameToOpen: 'file-2', // will be dynamic from docId
+    windoParent: 'document-windo-container',
+    windoClassName: 'windo-2',
+    classNameToOpen: 'document-2', 
     content: 'Document One Content',
     offset:[4,12],
     title: 'what.doc',

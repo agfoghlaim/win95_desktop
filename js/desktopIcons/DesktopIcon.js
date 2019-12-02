@@ -15,7 +15,6 @@ export class DesktopIcon{
 
     this.classNameToOpen = icon.classNameToOpen;
     this.windoClassName = icon.windoClassName;
-    this.docParent = icon.docParent;
     this.img = icon.img;
     this.title = icon.title;
     this.p = icon.content;
@@ -26,17 +25,19 @@ export class DesktopIcon{
   getHtml(i){
 
     return `
-    <div class="file start-${this.classNameToOpen}" data-modal="${this.windoClassName}" data-modalno=${i}>
+    <div class="desktopIcon">
 
-      <img draggable="true" class="desktop-icon-img launchExplorer" data-modal-class=${this.classNameToOpen} src="img/${this.img}" alt="">
+      <img draggable="true" class="desktop-icon-img launchExplorer" data-class-name="${this.classNameToOpen}" data-corresponding-windo="${this.windoClassName}" src="img/${this.img}" alt="">
+
       <p class="item-p" id="${this.classNameToOpen}">${this.title}</p>
 
     </div>`;
   }
 
-  // main.js
+  // main.js 
   static addDragListners(){
-    const container = document.querySelector('.file-container');
+    // TODO - see hardcoded
+    const container = document.querySelector('.desktop-container');
     container.addEventListener('dragstart', e =>this.startFileDrag(e));
     container.addEventListener('dragend', e => this.endFileDrag(e)); 
     container.addEventListener('dragover', e => this.dragOver(e)); 
@@ -80,7 +81,6 @@ export class DesktopIcon{
 
   static endFileDrag(e){
     e.preventDefault();
-
     if(FILEDRAG.droppedSafe !== true) return;
   
   

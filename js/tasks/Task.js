@@ -33,12 +33,12 @@ export default class Task{
   getHtml(){
     if(this.config.docId){
       return `
-      <div class="task-item task-item-${this.config.classNameToOpen} "   data-modal-class="${this.config.classNameToOpen}" data-task-for-class="${this.config.classNameToOpen}" data-modal="${this.config.windoClassName}">
+      <div class="task-item task-item-${this.config.classNameToOpen}" data-class-name="${this.config.classNameToOpen}" data-task-for-class="${this.config.classNameToOpen}" data-corresponding-windo="${this.config.windoClassName}">
       <button class="explorer-btn launchExplorer">${this.config.title}</button>
   </div>`;
     }else{
       return `
-      <div class="task-item task-item-${this.config.classNameToOpen}"   data-modal-class="${this.config.classNameToOpen}" data-task-for-class="${this.config.windoClassName}" data-modal="${this.config.windoClassName}">
+      <div class="task-item task-item-${this.config.classNameToOpen}"   data-class-name="${this.config.classNameToOpen}" data-task-for-class="${this.config.windoClassName}" data-modal="${this.config.windoClassName}">
       <button class="launch-program explorer-btn" data-launch-windo="${this.config.windoClassName}" data-launch="${this.config.title}">${this.config.title}</button>
   </div>`;
     }

@@ -6,6 +6,7 @@ export function handleInitTask(clue){
   // =file-1 | classNameToOpen
   // =windo-datetimeui | windoClassName
   const config = getConfig(clue);
+
   new Task(config);
 }
 
@@ -23,7 +24,7 @@ export function removeTaskItemOnClose(e){
 // Get the right config (by brute force) and return it. 
 function getConfig(clue){
 
-  if(clue.substring(0,4)=== 'file'){
+  if(clue.substring(0,8)=== 'document'){
     return myDocuments.filter( doc => doc.classNameToOpen === clue)[0];
   }else{
     let array = [];

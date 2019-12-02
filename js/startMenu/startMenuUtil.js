@@ -42,7 +42,7 @@ function addDocumentsBlock( ){
 
     let classes = `class = "start-item launchExplorer start-${doc.classNameToOpen}"`;
 
-    let dataAttributes = `data-modal-class="${doc.classNameToOpen}"`;
+    let dataAttributes = `data-class-name="${doc.classNameToOpen}" data-corresponding-windo="${doc.windoClassName}"`;
 
     let startItem = new StartItem(classes, dataAttributes, doc.img, doc.title, false);
 

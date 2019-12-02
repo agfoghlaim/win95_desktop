@@ -41,7 +41,7 @@ body{
 	grid-template-areas: "files" "taskbar";
 }
 
-.file-container{
+.desktop-container{
 	background: var(--green);
 	grid-gap:1rem;
 	grid-area:files;
@@ -195,8 +195,8 @@ span.arrow{
 	line-height: 2rem;
 }
 
-.file img{
-	width: 60px;
+.desktopIcon img{
+	width: 4rem;
 }
 
 .item-p{
