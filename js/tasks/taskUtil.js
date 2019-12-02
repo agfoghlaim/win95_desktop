@@ -12,7 +12,6 @@ export function handleInitTask(clue){
 // programUtil.js dispatchs 'programClosed' event | main.js calls removeTaskItemOnClose()
 // desktopIconUtil.js dispatchs 'explorerClosed' event | main.js calls removeTaskItemOnClose()
 export function removeTaskItemOnClose(e){
-
   const toRemove = document.querySelector(`[data-task-for-class=${e.detail}]`);
   if(!toRemove) return;
   toRemove.parentElement.removeChild(toRemove);
