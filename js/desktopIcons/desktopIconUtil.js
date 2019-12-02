@@ -4,14 +4,7 @@ import { DesktopIcon } from './DesktopIcon.js';
 
 
 /*
-TODO
-There is a bug where clicking on taskbar items doesn't 'maximise':
-- add document taskbar(s) first, add program taskbar => document won't maximise
-- add program taskbar(s) first, add document taskbar =+ program won't maximise
 
-Think it's a problem below in help().alreadyExists()
-
-Ultimately it's probably because of the mess that is data-attributes/classes in html/content.js
 
 TODO NB - simplify classes/dataAttr
 
