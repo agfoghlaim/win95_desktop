@@ -15,7 +15,7 @@
 	--gray: #d4d0c7;
 	--white: #fffeee;
 	--blue: #020180;
-	--black: #060606;
+	--black: #212121;
 }
 
 html {
@@ -58,7 +58,7 @@ body{
 	width:100vw;
 	background:var(--gray);
 	grid-template-columns: 8rem 1fr 8rem;
-	/* padding: 1rem; */
+	align-items: center;
 }
 
 .left-taskbar, .right-taskbar{
@@ -68,20 +68,22 @@ body{
 
 
 p.clock-p{
-	width: 7rem;
+	width: 8rem;
+	height: 4rem;
 	text-align: right;
 	margin: 0;
 	font-weight: 400;
 	border: 1px inset
 	white;
 	padding: 0 0.5rem;
+	display: grid;
+	align-items: center;
 }
 
 
 
 .mid-taskbar{
 	display: grid;
-	/* grid-gap:3rem; */
   grid-auto-flow: column;
 	justify-content: start;
 
@@ -90,15 +92,29 @@ p.clock-p{
 .explorer-btn{
 	font-size:0.7rem;
 	border-radius: 0px;
-	background: url(../img/Folder.ico);
-  background-size: auto auto;
-	background-position: left;
-	background-repeat: no-repeat;
 	height: 3rem;
-	min-width: 8rem;
+	min-width: 9rem;
 	text-align: right;
 	font-weight: bold;
 	font-size:0.8rem;
+	border-left: 0.15rem solid white;
+  border-top: 0.15rem solid white;
+  border-bottom: 0.15rem solid var(--black);
+	border-right: 0.15rem solid var(--black);
+	box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.5);
+	/* use flex - grid now working on Chrome for this btn */
+	display: flex;
+  align-items: center;
+	align-content: center;
+	justify-content: space-between;
+}
+
+.task-btn-icon{
+	max-width: 2rem;
+ /* display: inline;
+ margin: 0;
+ padding: 0; */
+
 }
 
 
@@ -121,7 +137,12 @@ start-menu
   height: 3rem;
 	text-align: right;
 	font-weight: bold;
-	font-size:0.8rem;
+	font-size:1rem;
+	border-left: 0.15rem solid white;
+  border-top: 0.15rem solid white;
+  border-bottom: 0.15rem solid var(--black);
+	border-right: 0.15rem solid var(--black);
+	box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.5);
 }
 
 .start-menu{
@@ -223,13 +244,14 @@ p.menu-item-p:first-letter {
 }
 
 /* width exception for tetris (canvas width:400px) */
-.modal-menu-tetris{
-	min-width:410px;
+.windo-tetris{
+	width: 90vw;
 }
 
 /* width exception for clock-calendar */
 .modal-clock-p{
 	max-width:50vw;
+	
 
 }
 
@@ -262,6 +284,8 @@ p.menu-item-p:first-letter {
 
 button:active, button:focus{
 	outline: none;
+	box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.1);
+
 }
 
 .show{

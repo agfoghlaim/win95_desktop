@@ -34,7 +34,11 @@ export default class Task{
     if(this.config.docId){
       return `
       <div class="task-item task-item-${this.config.classNameToOpen}" data-class-name="${this.config.classNameToOpen}" data-task-for-class="${this.config.classNameToOpen}" data-corresponding-windo="${this.config.windoClassName}">
-      <button class="explorer-btn launchExplorer">${this.config.title}</button>
+      <button class="explorer-btn launchExplorer" data-class-name="${this.config.classNameToOpen}" >
+      <img class="task-btn-icon" src="img/${this.config.img}">
+      <span class="task-btn-text">${this.config.title}</span>
+      
+      </button>
   </div>`;
     }else{
       return `

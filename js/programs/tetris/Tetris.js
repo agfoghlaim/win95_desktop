@@ -51,11 +51,31 @@ export class Tetris{
   getHtml(){
     return `
     <div class="tetris">
-      <canvas id="tetris" width="400" height="720" style="border:2px solid pink"></canvas>
-
-      <div class="score">
-        <p id="score">0</p>
+      <div class="tetris-left">
+        <div class="score-box">
+          <div class="tetris-game-info">
+            <div class="tetris-score">
+              <h2>Score:</h2>
+              <p id="score">0</p>
+            </div>
+            <div class="tetris-level">
+              <h2>Level:</h2>
+              <p id="level">1</p>
+            </div>
+            <div class="tetris-lines">
+              <h2>Lines:</h2>
+              <p id="lines">0</p>
+            </div>
+          </div>
+          <div class="tetris-shape-preview"></div>
+        </div>
       </div>
+      <div class="tetris-canvas-wrap">
+        <canvas id="tetris" width="400" height="720"></canvas>
+      </div>
+      <div class="tetris-right"></div>
+
+    
     </div>
     `;
   }
