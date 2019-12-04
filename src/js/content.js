@@ -1,5 +1,8 @@
 import { addKeyboardListeners, dispatchClosedEvent } from './programs/tetris/tetrisUtil.js';
-
+import wordpad from '../img/wordpad.ico';
+import textFile from '../img/text_file.ico';
+import folder from '../img/Folder.ico';
+import joystick from '../img/Joy.ico';
 
 export const programConfigs = {
 
@@ -32,7 +35,7 @@ export const programConfigs = {
         classNameToOpen: 'launch-tetris',
         content: '', 
         offset:[5,10],
-        img: 'Joy.ico',
+        img: joystick,
         title: 'Tetris'
       }
         
@@ -102,7 +105,7 @@ export const myDocuments = [
     classNameToOpen: 'document-0', 
     content: 'Document Zero Content',
     offset:[6,11],
-    img: 'Folder.ico',
+    img: folder,
     title: 'New Folder',
   },
   {
@@ -112,7 +115,8 @@ export const myDocuments = [
     classNameToOpen: 'document-1', // was file-1
     content: 'Untitled Document Content',
     offset:[5,10],
-    img: 'text_file.ico',
+    // img: 'text_file.ico',
+    img: textFile,
     title: 'Untitled Document',
   },
   {
@@ -123,6 +127,6 @@ export const myDocuments = [
     content: 'Document One Content',
     offset:[4,12],
     title: 'what.doc',
-    img: 'wordpad.ico',
+    img: wordpad,
   }
 ];

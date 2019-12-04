@@ -26,8 +26,8 @@ export class DesktopIcon{
 
     return `
     <div class="desktopIcon">
-
-      <img draggable="true" class="desktop-icon-img launchExplorer" data-class-name="${this.classNameToOpen}" data-corresponding-windo="${this.windoClassName}" src="img/${this.img}" alt="">
+    
+      <img draggable="true" class="desktop-icon-img launchExplorer" data-class-name="${this.classNameToOpen}" data-corresponding-windo="${this.windoClassName}" src="${this.img}" alt="">
 
       <p class="item-p" id="${this.classNameToOpen}">${this.title}</p>
 
