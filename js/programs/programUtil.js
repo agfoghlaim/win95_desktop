@@ -2,9 +2,10 @@ import { ProgramWindo } from '../windos/ProgramWindo.js';
 import { programConfigs } from '../content.js';
 import { Tetris } from './tetris/Tetris.js';
 import { DateTimeUI } from './dateTime/DateTimeUI.js';
+import { Calculator } from './calculator/Calculator.js';
 
 // Dynamic classes
-const classes = { Tetris, DateTimeUI };
+const classes = { Tetris, DateTimeUI, Calculator };
 
 function dynamicClass (name) {
 

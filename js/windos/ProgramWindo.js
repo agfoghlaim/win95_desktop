@@ -28,7 +28,7 @@ export class ProgramWindo extends Windo{
       <div draggable="true" class="bar" data-corresponding-classname="${this.windoClassName}">
         <div class="windo-info">
          
-          <div class="windo-title">${this.windoClassName}</div>
+          <div class="windo-title">${this.title}</div>
         </div>
 
         <button data-windo-contents="${this.windoClassName}" class="mini-btn mini-btn-${this.classNameToOpen}">-</button>

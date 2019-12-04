@@ -38,7 +38,7 @@ export const programConfigs = {
         
     },
 
-      dateTimeUIInstance: undefined,
+    dateTimeUIInstance: undefined,
       
     DateTimeUI:{
         
@@ -64,6 +64,33 @@ export const programConfigs = {
         title: 'DateTimeUI'
       }
         
+    },
+
+    calculatorInstance: undefined,
+
+    Calculator:{
+      onProgramOpen: (calculator) => {
+        //programConfigs.calculatorInstance = calculator
+        calculator.initCalc(calculator);
+
+      },
+      
+      onProgramClose: () => {
+       
+      },
+
+      startMenuParentClass: false, 
+
+      params: {
+        windoParent: 'program-windo-container',
+        windoClassName: 'windo-calculator', 
+        classNameToOpen: 'launch-calculator',
+        content: '', 
+        offset:[6,11],
+        img: 'calculator.ico',
+        title: 'Calculator'
+      }
+
     }
 }
 
