@@ -1,5 +1,8 @@
 import { CalendarMonth } from './CalendarMonth.js';
 import { Clock } from './Clock.js';
+import minuteHand from '../../../img/minutehand.png';
+import hourHand from '../../../img/hourhand.png';
+import secondHand from '../../../img/secondhand.png';
 
 export class DateTimeUI{
   constructor(){
@@ -58,15 +61,15 @@ export class DateTimeUI{
               <div class="insideRidge insideRidgeClock">
                 <div class="clockface">
                   <div class="hand hand-sec">
-                      <img src="img/secondhand.png" alt="">
+                      <img src=${secondHand} alt="">
                   </div>
                   
                   <div class="hand hand-min">
-                    <img src="img/minutehand.png" alt="">
+                    <img src=${minuteHand} alt="">
                   </div>
     
                   <div class="hand hand-hour">
-                    <img src="img/hourhand.png" alt="">
+                    <img src=${hourHand} alt="">
                   </div>
                   <div class="hand hand-sec"></div>
                   

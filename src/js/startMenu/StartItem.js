@@ -19,7 +19,7 @@ export class StartItem{
  
       return `<li  ${this.classes} ${this.dataAttributes} >
 
-      <img src="img/${this.img}" alt="">
+      <img src="${this.img}" alt="">
 
       <p class="menu-item-p">${this.text}</p>
 

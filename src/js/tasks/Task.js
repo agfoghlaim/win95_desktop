@@ -35,7 +35,7 @@ export default class Task{
       return `
       <div class="task-item task-item-${this.config.classNameToOpen}" data-class-name="${this.config.classNameToOpen}" data-task-for-class="${this.config.classNameToOpen}" data-corresponding-windo="${this.config.windoClassName}">
       <button class="explorer-btn launchExplorer" data-class-name="${this.config.classNameToOpen}" >
-      <img class="task-btn-icon" src="img/${this.config.img}">
+      <img class="task-btn-icon" src="${this.config.img}">
       <span class="task-btn-text">${this.config.title}</span>
       
       </button>

@@ -29,7 +29,7 @@ export class Windo{
   }
 
   getIconHtml(){
-    if(this.img) return  `<img class="modal-icon" src="../img/${this.img}"/>`;
+    if(this.img) return  `<img class="modal-icon" src="${this.img}"/>`;
     return '';
   }
 
