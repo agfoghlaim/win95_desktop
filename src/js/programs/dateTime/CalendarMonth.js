@@ -42,8 +42,6 @@ export class CalendarMonth{
       case 6: return 5;
     }
   }
-
-
 }
 
 

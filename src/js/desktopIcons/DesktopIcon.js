@@ -1,8 +1,3 @@
-/*
-
-Drag/drop stuff is very messy. TODO Will tidy (and read all the e.dataTransfer stuff) when I'm sure the bugginess is all fixed.
-
-*/
 const FILEDRAG = {
   html: '',
   inProgress:false,
@@ -63,7 +58,6 @@ export class DesktopIcon{
   // Drag Drop Files
   static startFileDrag(e){
 
-    // // TIL Node.ELEMENT_NODE = 1, Node.TEXT_NODE	3
     if(e.target.nodeType !== 1) return;
     if(!e.target.classList.contains('desktop-icon-img')) return;
 
@@ -83,9 +77,10 @@ export class DesktopIcon{
     e.preventDefault();
     if(FILEDRAG.droppedSafe !== true) return;
   
-  
     let targetParent = e.target.parentElement.parentElement;
+
     if(!targetParent.classList.contains('space')) return;
+
     e.target.parentElement.parentElement.classList.replace("filledSpace", "emptySpace");
     e.target.parentElement.parentElement.innerHTML = '';
  
@@ -110,7 +105,5 @@ export class DesktopIcon{
     e.target.classList.replace("emptySpace", "filledSpace");
     FILEDRAG.droppedSafe = true;
   }
-
-
 }
 

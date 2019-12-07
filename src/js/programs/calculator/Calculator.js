@@ -15,7 +15,6 @@ export class Calculator{
       {name: '', fn:''} 
 
       // "=" should have same classes as this.functions, hardcoded in CalcUI.showWin95Functions()
-      // {name: 'equals', fn:'='} 
     ]
 
     this.numbers = [
@@ -30,15 +29,10 @@ export class Calculator{
 
     this.lastin = {isFn:false, char:''};
 
-    // CalcUI.showFunctions(this.functions);
-    // CalcUI.showWin95Functions(this.win95Functions);
-    // CalcUI.showNumbers(this.numbers);
-    // CalcUI.showCancelButtons();
-    // CalcUI.addListener(this);
   }
 
+  // Runs after add to DOM | see content.js
   initCalc(){
-    
     CalcUI.showFunctions(this.functions);
     CalcUI.showWin95Functions(this.win95Functions);
     CalcUI.showNumbers(this.numbers);
@@ -435,6 +429,5 @@ export class CalcUI{
     });
     
   }
-//ui
 
-}//end CalcUI
+}

@@ -111,13 +111,12 @@ export const myDocuments = [
   {
     docId: '1',
     windoParent: 'document-windo-container',
-    windoClassName: 'windo-1', // was modal-1
-    classNameToOpen: 'document-1', // was file-1
-    content: 'Untitled Document Content',
+    windoClassName: 'windo-1', 
+    classNameToOpen: 'document-1',
+    content: '<h1>Marie</h1>',
     offset:[5,10],
-    // img: 'text_file.ico',
     img: textFile,
-    title: 'Untitled Document',
+    title: 'about.txt',
   },
   {
     docId: '2',
@@ -126,7 +125,7 @@ export const myDocuments = [
     classNameToOpen: 'document-2', 
     content: 'Document One Content',
     offset:[4,12],
-    title: 'what.doc',
+    title: 'dmoz.html',
     img: wordpad,
   }
 ];

@@ -3,12 +3,6 @@ import { myDocuments } from '../content.js';
 import { DesktopIcon } from './DesktopIcon.js';
 
 
-/*
-
-
-TODO NB - simplify classes/dataAttr
-
-*/
 export function initDesktopIcons(){
 
   help().createFileSpacesAndAddToDOM();
@@ -72,10 +66,8 @@ function help(){
       }else{
         return false;
       }
-      
     },
     classNameToOpen: function(e){
-    
       return e.target.dataset.className || e.target.parentElement.dataset.className;
     },
     alreadyExists: function(classNameToOpen){

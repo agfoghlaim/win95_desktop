@@ -16,82 +16,81 @@ export class DateTimeUI{
     return `
     <div class="insideDiv">
       
-            <div class="calendar">
-      
-              <div class="insideRidge insideRidgeCalendar">
-      
-                <div class="monthYearDiv" >      
-                  
-                  <div class="monthYearInput monthInput">
-                    <div class="monthname"></div>
-                    <div class="upDownArrowsDiv">
-                        <button class="next"></button>
-                        <button class="prev"></button>
-                    </div>
-                  </div>
-                  
-                  <div class="monthYearInput yearInput">
-                    <div class="year"></div>
-                    <div class="upDownArrowsDiv">
-                        <button class="nextYear"></button>
-                        <button class="prevYear"></button>
-                    </div>
-                  </div> 
+      <div class="calendar">
 
-                </div>
-      
-                <div class="calendar-window">   
-                  <ul class="weekdays">
-                    <li>Mo</li>
-                    <li>Tu</li>
-                    <li>We</li>
-                    <li>Th</li>
-                    <li>Fr</li>
-                    <li>Sa</li>
-                    <li>Su</li>
-                  </ul>
-                
-                  <ul class="days"></ul>
-                </div><!-- end cal window -->
-              </div><!-- end cal window -->
-             
+        <div class="insideRidge insideRidgeCalendar">
+
+          <div class="monthYearDiv" >      
+            
+            <div class="monthYearInput monthInput">
+              <div class="monthname"></div>
+              <div class="upDownArrowsDiv">
+                  <button class="next"></button>
+                  <button class="prev"></button>
+              </div>
+            </div>
+            
+            <div class="monthYearInput yearInput">
+              <div class="year"></div>
+              <div class="upDownArrowsDiv">
+                  <button class="nextYear"></button>
+                  <button class="prevYear"></button>
+              </div>
             </div> 
-      
-            <div class="clock">
-              <div class="insideRidge insideRidgeClock">
-                <div class="clockface">
-                  <div class="hand hand-sec">
-                      <img src=${secondHand} alt="">
-                  </div>
-                  
-                  <div class="hand hand-min">
-                    <img src=${minuteHand} alt="">
-                  </div>
-    
-                  <div class="hand hand-hour">
-                    <img src=${hourHand} alt="">
-                  </div>
-                  <div class="hand hand-sec"></div>
-                  
-                </div>
+
+          </div>
+
+          <div class="calendar-window">   
+            <ul class="weekdays">
+              <li>Mo</li>
+              <li>Tu</li>
+              <li>We</li>
+              <li>Th</li>
+              <li>Fr</li>
+              <li>Sa</li>
+              <li>Su</li>
+            </ul>
           
-                <div class="digitalclock">
-                   
-                        <div class="digital-time">1 o clock</div>
-                        <div class="upDownArrowsDiv">
-                            <button class="next"></button>
-                            <button class="prev"></button>
-                        </div>
-                      
-                </div>
-              </div> 
+            <ul class="days"></ul>
+          </div><!-- end cal window -->
+        </div><!-- end cal window -->
+        
+      </div> 
+
+      <div class="clock">
+        <div class="insideRidge insideRidgeClock">
+          <div class="clockface">
+            <div class="hand hand-sec">
+                <img src=${secondHand} alt="">
             </div>
-      
-            <div class="timezone">
-              <p class="timezoneText">Current time Zone: Irish Time</p>
+            
+            <div class="hand hand-min">
+              <img src=${minuteHand} alt="">
             </div>
+
+            <div class="hand hand-hour">
+              <img src=${hourHand} alt="">
+            </div>
+            <div class="hand hand-sec"></div>
+            
+          </div>
+    
+          <div class="digitalclock">
+              
+            <div class="digital-time">1 o clock</div>
+            <div class="upDownArrowsDiv">
+                <button class="next"></button>
+                <button class="prev"></button>
+            </div> 
+          </div>
+        </div> 
+      </div>
+
+      <div class="timezone">
+        <p class="timezoneText">Current time Zone: Irish Time</p>
+      </div>
       
-          </div>`;
+    </div>`;
   }
 
   // See content.js

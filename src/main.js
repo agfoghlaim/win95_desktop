@@ -2,11 +2,12 @@ import { Windo } from './js/windos/Windo.js';
 import { DesktopIcon } from './js/desktopIcons/DesktopIcon.js';
 
 import { toggleStartMenu } from './js/startMenu/startMenuUtil.js';
-import { launchProgram, closeProgramWindo, addLaunchProgramListener } from './js/programs/programUtil.js';
+import { closeProgramWindo, addLaunchProgramListener } from './js/programs/programUtil.js';
 import { showTaskbarClock } from './js/programs/dateTime/dateTimeUtil.js';
 import { initDesktopIcons, addLaunchExplorerListener } from './js/desktopIcons/desktopIconUtil.js';
 import { initStartMenu } from './js/startMenu/startMenuUtil.js';
 import { removeTaskItemOnClose } from './js/tasks/taskUtil.js';
+
 import './css/px_sans_nouveaux.woff';
 import './css/style.css';
 import './css/clock.css';
