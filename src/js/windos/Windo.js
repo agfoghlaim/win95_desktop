@@ -6,10 +6,10 @@ const  LASTDROPCOORDINATES = {
 
 export class Windo{
 
-  constructor(config){
+  constructor(config, showXMinMaxBtns = true){
     // Temp, pass easily to new task
     this.config = config;
-
+    this.showXMinMaxBtns = showXMinMaxBtns;
     this.windoParent = config.windoParent; 
     this.classNameToOpen = config.classNameToOpen; 
     this.content = config.content; 
@@ -20,7 +20,10 @@ export class Windo{
 
     this.iconHtml = this.getIconHtml(); 
 
+    this.xMinMaxBtnsHtml = this.xMinMaxBtns();
+
     this.init();
+    console.log(this.show)
   }
 
   init(){
@@ -33,22 +36,33 @@ export class Windo{
     return '';
   }
 
+  xMinMaxBtns(){
+    if(this.showXMinMaxBtns){
+      return `
+      <button data-windo-contents="${this.classNameToOpen}" class="mini-btn mini-btn-${this.classNameToOpen}">-</button>
+
+      <button data-windo-contents="${this.classNameToOpen}" class="maxi-btn maxi-btn-${this.classNameToOpen}">
+        <div class="maxi-square"></div>
+      </button>
+
+      <button data-windo-contents="${this.classNameToOpen}" class="close-btn-explorer close-btn-explorer-${this.classNameToOpen}">X</button>
+      `
+    }else{
+      return '';
+    }
+  }
   getHTML(){
     return `
-    <div draggable="true" style="position:absolute;top:${this.top}rem; left:${this.left}rem; "class="windo show windo-${this.classNameToOpen} ${this.windoClassName}">
+    <div draggable="false" style="position:absolute;top:${this.top}rem; left:${this.left}rem; "class="windo show windo-${this.classNameToOpen} ${this.windoClassName}">
   
       <div draggable="true" class="bar" data-corresponding-classname="${this.classNameToOpen}">
         <div class="windo-info">
           ${this.iconHtml}
           <div class="windo-title">${this.title}</div>
         </div>
-        <button data-windo-contents="${this.classNameToOpen}" class="mini-btn mini-btn-${this.classNameToOpen}">-</button>
 
-        <button data-windo-contents="${this.classNameToOpen}" class="maxi-btn maxi-btn-${this.classNameToOpen}">
-          <div class="maxi-square"></div>
-        </button>
-
-        <button data-windo-contents="${this.classNameToOpen}" class="close-btn-explorer close-btn-explorer-${this.classNameToOpen}">X</button>
+        ${this.xMinMaxBtnsHtml}
+     
         
       </div>
   
@@ -131,6 +145,14 @@ export class Windo{
       document.querySelector(`.${modalClass}`)
       .classList.add('show');
     }
+  }
+
+  // adding this for save etc dialogs
+  static closeDirect(selector){
+    console.log( "close ", selector)
+    // Remove from DOM | (kill Windo)
+  const windoToRemove = document.querySelector(`.${selector}`);
+  windoToRemove.parentNode.removeChild(windoToRemove); 
   }
 
   static dragModal(e){

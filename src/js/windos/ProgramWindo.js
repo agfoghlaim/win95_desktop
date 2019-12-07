@@ -23,7 +23,7 @@ export class ProgramWindo extends Windo{
 
   getHtml(){
     return `
-    <div draggable="true"  style="position:absolute; top:${this.top}rem; left:${this.left}rem; "class="windo show  ${this.windoClassName} windo-${this.windoClassName} ">
+    <div draggable="false"  style="position:absolute; top:${this.top}rem; left:${this.left}rem; "class="windo show  ${this.windoClassName} windo-${this.windoClassName} ">
   
       <div draggable="true" class="bar" data-corresponding-classname="${this.windoClassName}">
         <div class="windo-info">

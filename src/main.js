@@ -13,6 +13,7 @@ import './css/style.css';
 import './css/clock.css';
 import  './css/calculator.css';
 import './css/tetris.css';
+import './css/wordpad.css';
 
 
 

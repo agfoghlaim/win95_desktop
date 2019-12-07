@@ -11,7 +11,8 @@
 	max-height: 100vh;
 	overflow: hidden;
 	--green: #007c7f;
-	--gray: #d4d0c7;
+	/* --gray: #d4d0c7; */
+	--gray: silver;
 	--white: #fffeee;
 	--blue: #020180;
 	--black: #212121;
@@ -20,18 +21,38 @@
 html {
 	box-sizing: border-box;
   font-size: 14px;
-  height:100vh;
+	height:100vh;
+	font-family: 'px_sans_nouveauxregular', sans-serif;
 }
 
 body{
 	margin:0;
+	
 }
 
 *,
 *:before,
 *:after {
 	box-sizing: inherit;
-	font-family: 'px_sans_nouveauxregular', sans-serif;
+	/* font-family: 'px_sans_nouveauxregular', sans-serif; */
+	
+}
+
+.btn{
+	background: silver;
+	border: none;
+	outline: none;
+	color: var(--black);
+	font-weight: bolder;
+	font-size: 0.8rem;
+	box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.8);
+	position: relative;
+	width:6rem;
+	font-family: inherit;
+}
+
+.btn:active, .btn:focus{
+	box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.1);
 }
 
 .button-95{
@@ -174,6 +195,7 @@ start-menu
   border-bottom: 0.15rem solid var(--black);
 	border-right: 0.15rem solid var(--black);
 	box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.5);
+	font-family: inherit;
 }
 
 .start-menu{
@@ -299,7 +321,7 @@ p.menu-item-p:first-letter {
 }
 
 .windo{
-	border: 3px solid var(--gray);
+	border: 0.2rem solid var(--gray);
 	max-width:90vw;
 	min-width: 30rem;
 	min-height: 15rem;
@@ -318,7 +340,7 @@ p.menu-item-p:first-letter {
 }
 
 .windo-main{
-	background:var(--white); 
+	background:var(--gray); 
 	min-height: 12rem;
 }
 

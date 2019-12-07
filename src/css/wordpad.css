@@ -1,0 +1,264 @@
+:root{
+  box-sizing: border-box;
+}
+
+body, *{
+  box-sizing: border-box;
+}
+
+.wordpad-wrap{
+  border:2px solid silver;
+  background: silver;
+}
+
+.wordpad-topsection{
+  border-bottom: 0.2rem groove white;
+  padding-bottom: 0.85rem;
+  margin-bottom: 1.7rem;
+}
+
+span.wordpad-menu{
+  margin-right: 0.85rem;
+  display: inline-block;
+  font-size: 0.85rem;
+  line-height: 0.85rem;
+}
+
+.wordpad-buttons button{
+  width:2rem;
+  height:2rem;
+}
+
+.wordpad-newFile{
+  /* background:url(img/blank_file.ico); */
+  background:url(../img/blank_file.ico);
+ 
+}
+
+.wordpad-printFile{
+  /* background:url(img/print.ico); */
+  background:url(../img/print.ico);
+}
+
+.wordpad-openFile{
+  /* background:url(img/open.ico); */
+  background:url(../img/open.ico);
+}
+
+.wordpad-saveFile{
+  /* background:url(img/floppy.svg); */
+  background:url(../img/floppy.svg);
+}
+
+.wordpad-btn{
+  background-size: 1.5rem;
+  background-repeat: no-repeat;
+  background-position:center;
+}
+
+.cmd-bold{
+  /* background-image:url(img/bold.svg); */
+  background-image:url(../img/bold.svg);
+}
+
+.cmd-underline{
+  /* background-image:url(img/underline.svg); */
+  background-image:url(../img/underline.svg);
+}
+
+.cmd-italic{
+  /* background-image:url(img/italic.svg); */
+  background-image:url(../img/italic.svg);
+}
+
+.cmd-justifyRight{
+  background-image:url(../img/right.svg);
+  background-size:1rem;
+}
+
+.cmd-justifyLeft{
+  background-image:url(../img/left.svg);
+  background-size:1rem;
+}
+
+.cmd-justifyCenter{
+  background-image:url(../img/center.svg);
+  /* background-size:1rem; */
+}
+
+.cmd-decorate{
+  background-size: 1.3rem;
+  background-repeat: no-repeat;
+  background-position:center;
+}
+.cmd-align{
+  background-size: 1rem;
+  background-repeat: no-repeat;
+  background-position:center;
+}
+
+.wordpad-bottomsection{
+  display:grid;
+  grid-auto-flow: column;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-gap:1rem;
+}
+
+.wordpad-fontfamily-select{
+  width:100%;
+  height:1.5rem;
+}
+
+.wordpad-fontsize-select, .wordpad-fontfamily-select{
+  height:1.5rem;
+  width:100%;
+  font-size: 0.7rem;
+  border-bottom: 0.1rem inset white;
+  border-right: 0.1rem inset white;
+  border-top: 0.1rem inset rgba(0,0,0,0.9);
+  border-left: 0.1rem inset rgba(0,0,0,0.9);
+}
+
+.wordpad-fontfamily{
+  position: relative;
+  display: grid;
+}
+
+.wordpad-fontfamily:after, .wordpad-fontsize:after{
+  content:'▼';
+  position: absolute;
+  width:1.3rem;
+  height:1.3rem;
+  background:silver;
+  border-left: 0.1rem solid white;
+  border-top: 0.1rem solid white;
+  border-bottom: 0.1rem solid rgba(0,0,0,0.9);
+  border-right: 0.1rem solid rgba(0,0,0,0.9);
+  top:0.1rem;
+  right:0.1rem;
+  display:grid;
+  font-size:0.8rem;
+  align-content: center;
+  justify-content: center;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.wordpad-textalign, .wordpad-textdecoration{
+  grid-auto-flow: column;
+  display: grid;
+  height: 2rem;
+  width:2rem;
+}
+
+.cmd-btn{
+  font-family: serif;
+  font-weight: 900;
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  width:1.5rem;
+  height:1.5rem;
+  border-left: 0.1rem solid white;
+  border-top: 0.1rem solid white;
+  border-bottom: 0.1rem solid rgba(0,0,0,0.5);
+  border-right: 0.1rem solid rgba(0,0,0,0.5);
+  box-shadow: 0.1px 0.1px 2px 0.1px rgba(0,0,0,0.5);
+  padding: 0.1rem;
+}
+
+.cmd-btn:active{
+  border:none
+}
+
+.cmd-btn img{
+  width: 1.1rem;
+  height: 1.1rem;
+} 
+
+.cmd-underline{
+  text-decoration: underline;
+}
+
+.cmd-italic{
+  font-style:italic;
+}
+
+.wordpad-textBox{
+ height:30vh;
+ background:white;
+ outline: none;
+ overflow-wrap: break-word;
+ overflow: scroll;
+ width: 60vw;
+ padding: 1rem;
+}
+.wordpad-fontsize{
+  position: relative;
+  display: grid;
+}
+
+.wordpad-save-wrap, .wordpad-open-wrap{
+  min-height: 12rem;
+  display:grid;
+  background:silver;
+  padding:1rem;
+  grid-gap: 2rem;
+}
+
+.dialog-file-window{
+  min-height: 9rem;
+  background: white;
+  display: grid;
+  border: 0.2rem inset;
+  overflow: scroll;
+  grid-template-columns: repeat(4, 1fr);
+  max-height: 30rem;
+}
+
+.saveForm, .wordpad-dialog-explorer-wrap{
+  display: grid;
+  align-items: center;
+  grid-auto-flow: column;
+}
+
+.saveForm input{
+  border:0.2rem inset;
+}
+
+.underline-first::first-letter{
+  text-decoration: underline;
+}
+
+.cancel-save-btn{
+  display: grid;
+  justify-self: end;
+}
+
+.dialog-explorer-input{
+  border:0.2rem inset;
+  background-image: url(../img/open.ico),linear-gradient(white,white);
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: 2rem;
+  padding-left:3rem;
+ 
+}
+
+.wordpad-feedback{
+  height:1rem;
+  font-size:0.8rem;
+  padding-left:1rem;
+
+}
+
+@media print {
+  .wordpad-textBox {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+  }
+}
+

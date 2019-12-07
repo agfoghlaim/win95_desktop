@@ -1,11 +1,12 @@
-import { ProgramWindo } from '../windos/ProgramWindo.js';
-import { programConfigs } from '../content.js';
-import { Tetris } from './tetris/Tetris.js';
-import { DateTimeUI } from './dateTime/DateTimeUI.js';
-import { Calculator } from './calculator/Calculator.js';
+import { ProgramWindo } from '../windos/ProgramWindo';
+import { programConfigs } from '../content';
+import { Tetris } from './tetris/Tetris';
+import { DateTimeUI } from './dateTime/DateTimeUI';
+import { Calculator } from './calculator/Calculator';
+import { Wordpad } from './wordpad/Wordpad';
 
 // Dynamic classes
-const classes = { Tetris, DateTimeUI, Calculator };
+const classes = { Tetris, DateTimeUI, Calculator, Wordpad };
 
 function dynamicClass (name) {
 

@@ -74,7 +74,7 @@ export const programConfigs = {
     Calculator:{
       onProgramOpen: (calculator) => {
         //programConfigs.calculatorInstance = calculator
-        calculator.initCalc(calculator);
+        calculator.initCalc();
 
       },
       
@@ -92,6 +92,32 @@ export const programConfigs = {
         offset:[6,11],
         img: 'calculator.ico',
         title: 'Calculator'
+      }
+
+    },
+    wordpadInstance: undefined,
+
+    Wordpad:{
+      onProgramOpen: (wordpad) => {
+        
+        wordpad.init();
+
+      },
+      
+      onProgramClose: () => {
+       
+      },
+
+      startMenuParentClass: false, 
+
+      params: {
+        windoParent: 'program-windo-container',
+        windoClassName: 'windo-wordpad', 
+        classNameToOpen: 'launch-wordpad',
+        content: '', 
+        offset:[6,11],
+        img: 'wordpad.ico',
+        title: 'Wordpad'
       }
 
     }
