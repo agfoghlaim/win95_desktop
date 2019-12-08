@@ -43,7 +43,8 @@ export class ProgramWindo extends Windo{
       <div class="windo-main">
       <div>${this.content}</div>
       </div>
-  
+      
+      <div class="resize-handle"></div>
     </div>`;
   }
 

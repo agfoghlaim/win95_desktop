@@ -170,7 +170,7 @@ export class Wordpad{
     
     // Images and File names | for file window
     let html = '';
-    files.forEach(file => html += `<div data-name="${file.name}">
+    files.forEach(file => html += `<div class="wordpad-open-file-wrap" data-name="${file.name}">
     <img class="wordpad-open-file" data-name="${file.name}" src=${wordpadImg} />
     <p class="wordpad-open-file" data-name="${file.name}" >${file.name}</p></div>`)
 

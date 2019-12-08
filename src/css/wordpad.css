@@ -198,6 +198,18 @@ span.wordpad-menu{
   display: grid;
 }
 
+.wordpad-open-file-wrap{
+  display: grid;
+  justify-content: center;
+}
+
+img.wordpad-open-file{
+  min-width: 4rem;
+}
+
+p.wordpad-open-file{
+  font-size:0.7rem;
+}
 .wordpad-save-wrap, .wordpad-open-wrap{
   min-height: 12rem;
   display:grid;
@@ -207,26 +219,39 @@ span.wordpad-menu{
 }
 
 .dialog-file-window{
-  min-height: 9rem;
-  background: white;
-  display: grid;
-  border: 0.2rem inset;
-  overflow: scroll;
-  grid-template-columns: repeat(4, 1fr);
-  max-height: 30rem;
+      min-height: 9rem;
+    background: white;
+    display: grid;
+    border: 0.2rem inset;
+    overflow: scroll;
+    grid-template-columns: repeat(4, 1fr);
+    max-height: 23rem;
+    grid-gap: 2rem;
+    padding: 3rem;
+    grid-gap: 3rem;
 }
 
-.saveForm, .wordpad-dialog-explorer-wrap{
+.wordpad-dialog-explorer-wrap{
   display: grid;
   align-items: center;
   grid-auto-flow: column;
 }
 
-.saveForm input{
-  border:0.2rem inset;
+#saveForm{
+  display: grid;
+    grid-template-columns: 1fr 2fr 6rem;
+    grid-gap: 1rem;
 }
 
-.underline-first::first-letter{
+#saveForm #fileName{
+  border:0.2rem inset;
+  outline: none;
+}
+
+.underline-first{
+  display: inline-block;
+}
+.underline-first:first-letter{
   text-decoration: underline;
 }
 
