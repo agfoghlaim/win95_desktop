@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // REMOVE ProgramWindo | programUtil.js
   document.querySelector('.program-windo-container').addEventListener('click', closeProgramWindo );
 
-  // TEMP? - If tetris is open before clock, the tetris canvas is lost. 
+  // If tetris is open before clock, the tetris canvas is lost. 
   document.querySelector('.special-tetris-container-to-getaround-bug-i-cannot-fix').addEventListener('click', closeProgramWindo );
 
 
@@ -87,6 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
   .addEventListener('explorerClosed', (e) => { removeTaskItemOnClose(e) });
 
   // ( 'Launch' Explorer Windo is called in desktopIconUtil.js )
+
+  // Listen for theOnlyFolderOpened
+  document.addEventListener('theOnlyFolderOpened', (e) => { addLaunchProgramListener(e) })
 
 });
 

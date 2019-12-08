@@ -8,7 +8,7 @@ import { programConfigs } from '../../content';
 export class Wordpad{
 
   constructor(){
-    this.state = {isEditingFile: false, fileName: ''};
+    this.state = {isEditingFile: false, fileName: '', fileContent: ''};
     
     this.cmdsTextDecoration = [
       {name: 'bold', icon:'../img/bold.svg'}, 
@@ -41,7 +41,19 @@ export class Wordpad{
 
   }
 
-  init(){
+  init(file){
+    console.log("got file ", file);
+    if(file){
+      this.state.fileName = file.name || '';
+      this.state.fileContent = file.content || '';
+      this.state.isEditingFile = true;
+    }
+   
+    console.log(this.state)
+
+    // state = editing false
+    // state = file name
+    // content = state.content
     WordpadUI.initDecorationCmds(this.cmdsTextDecoration);
     WordpadUI.initAlignCmds(this.cmdsTextAlign);
     WordpadUI.initCmdsTypeface(this.cmdsTypeface);
@@ -54,7 +66,8 @@ export class Wordpad{
     WordpadUI.addPrintSaveOpenNewListeners(this);
   }
 
-  getHtml(){
+  getHtml(content){
+    
     return `
     <div class="wordpad-wrap">
     <div class="wordpad-openDialog"></div>
@@ -92,7 +105,7 @@ export class Wordpad{
     </div>
 
     <div class="wordpad-textBox" contenteditable="true">
-        Marie
+       ${content || ''} 
     </div>
 
     <div class="wordpad-feedback"></div>
@@ -187,7 +200,7 @@ export class Wordpad{
     // Open-Dialog | Cancel Btn
     document.querySelector('.cancel-open-btn').addEventListener('click',()=> Windo.closeDirect('windo-document-openDialog'))
 
-    // Open-Dialog | Open Btn
+    // Open-Dialog | Open file
     document.querySelectorAll(`.wordpad-open-file`).forEach(file => file.addEventListener('click', e => this.openTargetFile(e) ));
     
   }
@@ -221,8 +234,8 @@ export class Wordpad{
 
 } // end Wordpad
 
-
-class WordpadUI{
+// Need WordpadUI.dialogFileWindoContent() in content.js
+export class WordpadUI{
   
   static initCmdsTypeface(cmdsTypeface){
     const selectInput = document.querySelector('.wordpad-fontfamily-select');
@@ -234,6 +247,17 @@ class WordpadUI{
       selectInput.innerHTML += opt;
 
     })
+  }
+  // For Desktop Icon the_only_folder  | content.js
+  static getDialogFileWindoContent(){
+    let files = JSON.parse(localStorage.getItem('files')) || [];
+    //return WordpadUI.dialogFileWindoContent( myFiles );
+    let html = '';
+    files.forEach(file => html += `<div class="wordpad-open-file-wrap" data-name="${file.name}">
+    <img class="wordpad-open-file launch-program" data-launch-windo="windo-wordpad" data-launch="Wordpad" data-name="${file.name}" src=${wordpadImg} />
+    <p class="wordpad-open-file" data-name="${file.name}" >${file.name}</p></div>`)
+    
+    return html;
   }
 
   static dialogFileWindoContent(files){

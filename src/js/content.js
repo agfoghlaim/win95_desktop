@@ -1,4 +1,7 @@
 import { addKeyboardListeners, dispatchClosedEvent } from './programs/tetris/tetrisUtil.js';
+import { WordpadUI } from './programs/wordpad/Wordpad';
+
+
 import wordpad from '../img/wordpad.ico';
 import textFile from '../img/text_file.ico';
 import folder from '../img/Folder.ico';
@@ -98,9 +101,9 @@ export const programConfigs = {
     wordpadInstance: undefined,
 
     Wordpad:{
-      onProgramOpen: (wordpad) => {
+      onProgramOpen: (wordpad, file) => {
         
-        wordpad.init();
+        wordpad.init(file);
 
       },
       
@@ -156,10 +159,11 @@ export const myDocuments = [
     windoParent: 'document-windo-container',
     windoClassName: 'windo-0',
     classNameToOpen: 'document-0', 
-    content: 'Document Zero Content',
+    content: WordpadUI.getDialogFileWindoContent(),
     offset:[6,11],
     img: folder,
     title: 'the_only_folder',
+    broadcastEvent: 'theOnlyFolderOpened'// need to re-add launch program listeners
   },
   {
     docId: '1',
@@ -170,6 +174,7 @@ export const myDocuments = [
     offset:[5,10],
     img: textFile,
     title: 'about.txt',
+    broadcastEvent:false
   },
   {
     docId: '2',
@@ -180,5 +185,6 @@ export const myDocuments = [
     offset:[4,12],
     title: 'dmoz.html',
     img: wordpad,
+    broadcastEvent:false
   }
 ];

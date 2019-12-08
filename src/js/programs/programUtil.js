@@ -23,7 +23,7 @@ export function launchProgram (e){
   // Return if no name of Program Class
   if(!programToLaunch) return;
 
-  // Get corresponding Windo name | Return if Windo exists (proram already launced)
+  // Get corresponding Windo name | Return if Windo exists (already launched)
   const correspondingWindoName = e.target.dataset.launchWindo || e.target.parentElement.dataset.launchWindo;
 
   // If Program in DOM, show | !And return! 
@@ -31,11 +31,23 @@ export function launchProgram (e){
     ProgramWindo.showDirect(correspondingWindoName);
     return;
   }
+
+  // This really isn't ideal - check if program (ie Wordpad) is being launched via a file icon (rather than from start menu). If so, need to get the file contents from localStorage and pass them to Wordpad so it can 'open the file'. Use data-name (of file) attribute to check.
+  let wordpadFile = false;
+  if(e.target.dataset.name){
+
+    // Get file contents
+    const fileName = e.target.dataset.name;
+    const files = JSON.parse(localStorage.getItem('files')) || [];
+    const file = files.filter(f => f.name === fileName )[0];
+    console.log(file.content)
+    wordpadFile = file || '';
+  }
  
   // Launch Program
-  launch(programToLaunch);
+  launch(programToLaunch, wordpadFile);
 
-  function launch(programName){
+  function launch(programName, wordpadEdgeCase){
 
     // Class of Program being launched
     const SomeProgram = dynamicClass(programName);
@@ -43,8 +55,8 @@ export function launchProgram (e){
     // Instatiate
     const thisProgram = new SomeProgram();
 
-    // Program's HTML
-    const html = thisProgram.getHtml();
+    // Program's HTML | Also pass wordpad file contents 
+    const html = thisProgram.getHtml( wordpadEdgeCase.content );
    
     // Program Config | content.js
     const { params, onProgramOpen }  = programConfigs[`${programName}`];
@@ -61,7 +73,8 @@ export function launchProgram (e){
 
    
     // Pass Program instance | content.js
-    onProgramOpen(thisProgram);
+    // Also pass wordpadEdgeCase which will only exist for Launch Wordpad
+    onProgramOpen(thisProgram, wordpadEdgeCase);
   
   }
   

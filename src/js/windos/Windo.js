@@ -147,12 +147,15 @@ export class Windo{
     }
   }
 
-  // adding this for save etc dialogs
+  // To close save/open dialogs | See Wordpad
   static closeDirect(selector){
-  
-  // Remove from DOM | (kill Windo)
-  const windoToRemove = document.querySelector(`.${selector}`);
-  windoToRemove.parentNode.removeChild(windoToRemove); 
+
+    console.log("For the error I can't recreate 1... ", selector);
+    
+    // Remove from DOM | (kill Windo)
+    const windoToRemove = document.querySelector(`.${selector}`);
+    console.log("For the error I can't recreate 2... ", windoToRemove)
+    windoToRemove.parentNode.removeChild(windoToRemove); 
   
   }
 
