@@ -1,5 +1,5 @@
 
-
+let currentTarget = undefined;
 import { Windo } from './Windo.js'
 
 /*
@@ -15,8 +15,10 @@ import { Windo } from './Windo.js'
 export class ProgramWindo extends Windo{
   
   constructor( config ){
+    
     super(config);
-    this.init();
+    this.target = undefined;
+
   }
 
   init(){}
@@ -44,8 +46,9 @@ export class ProgramWindo extends Windo{
       <div>${this.content}</div>
       </div>
       
-      <div class="resize-handle"></div>
+      <div data-corresponding-classname="${this.windoClassName}" class="${this.windoClassName}-resize-handle resize-handle"></div>
     </div>`;
   }
 
 }
+

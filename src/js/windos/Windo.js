@@ -23,7 +23,7 @@ export class Windo{
     this.xMinMaxBtnsHtml = this.xMinMaxBtns();
 
     this.init();
-    console.log(this.show)
+    
   }
 
   init(){
@@ -149,10 +149,11 @@ export class Windo{
 
   // adding this for save etc dialogs
   static closeDirect(selector){
-    console.log( "close ", selector)
-    // Remove from DOM | (kill Windo)
+  
+  // Remove from DOM | (kill Windo)
   const windoToRemove = document.querySelector(`.${selector}`);
   windoToRemove.parentNode.removeChild(windoToRemove); 
+  
   }
 
   static dragModal(e){

@@ -62,7 +62,7 @@ export const programConfigs = {
         windoClassName: 'windo-datetimeui', 
         classNameToOpen: 'launch-datetimeui',
         content: '', 
-        offset:[6,11],
+        offset:[3,3],
         img: 'Joy.ico',
         title: 'DateTimeUI'
       }
@@ -118,7 +118,34 @@ export const programConfigs = {
         offset:[6,11],
         img: 'wordpad.ico',
         title: 'Wordpad'
+      }, 
+      saveDialogConfig: () =>{
+        return{
+          
+            docId: 'saveDialog',
+            windoParent: 'dialog-windo-container', 
+            windoClassName: 'windo-saveDialog',
+            classNameToOpen: 'document-saveDialog', 
+            content: '',
+            offset:[4,12],
+            title: 'save',
+            img: '../img/wordpad.ico',
+          
+        }
+      },
+      openDialogConfig: () =>{
+        return{
+          docId: 'openDialog',
+          windoParent: 'dialog-windo-container', 
+          windoClassName: 'windo-openDialog',
+          classNameToOpen: 'document-openDialog', 
+          content: '',
+          offset:[4,12],
+          title: 'open',
+          img: '../img/wordpad.ico',
+        }
       }
+     
 
     }
 }
@@ -132,7 +159,7 @@ export const myDocuments = [
     content: 'Document Zero Content',
     offset:[6,11],
     img: folder,
-    title: 'New Folder',
+    title: 'the_only_folder',
   },
   {
     docId: '1',

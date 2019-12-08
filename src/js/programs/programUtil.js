@@ -57,7 +57,8 @@ export function launchProgram (e){
     const programWindoHtml = windo.getHtml();
     
     // Add to DOM
-    windo.addToDOM(programWindoHtml)
+    windo.addToDOM(programWindoHtml);
+
    
     // Pass Program instance | content.js
     onProgramOpen(thisProgram);

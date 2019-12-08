@@ -1,6 +1,10 @@
+/*
+TODO - Open-Dialog/Save-Dialog class
+*/
 
 import { Windo } from '../../windos/Windo';
 import wordpadImg from '../../../img/wordpad.ico';
+import { programConfigs } from '../../content';
 export class Wordpad{
 
   constructor(){
@@ -35,8 +39,6 @@ export class Wordpad{
       {name: 'justifyRight', icon:'../img/right.svg'}
     ];
 
-   
-    
   }
 
   init(){
@@ -103,44 +105,35 @@ export class Wordpad{
 
     let myFiles = JSON.parse(localStorage.getItem('files')) || [];
 
+    // If Editing file - quietly save - return
     if(this.state.isEditingFile){
 
-      const fileToOverwrite = myFiles.filter( file => file.name === this.state.fileName )[0];
+      this.quietlySave(myFiles, textBoxContent);
 
-      fileToOverwrite.content = textBoxContent;
-      localStorage.setItem('files', JSON.stringify(myFiles));
- 
-
-      // TODO | Show user feedback
-      // document.querySelector('.wordpad-feedback').textContent = 'Saved';
       return;
+
     }
 
-    // Windo for save dialog
-    const saveConfig =   {
-      docId: 'saveDialog',
-      windoParent: 'dialog-windo-container', 
-      windoClassName: 'windo-saveDialog',
-      classNameToOpen: 'document-saveDialog', 
-      content: WordpadUI.saveDialogHtml(),
-      offset:[4,12],
-      title: 'save',
-      img: '../img/wordpad.ico',
-    }
+    const dialogFileWindoContent = WordpadUI.dialogFileWindoContent(myFiles);
 
-    // Create new dialog Windo | with no min/max/x buttons
+    // Get config for save dialog Windo
+    const saveConfig = programConfigs.Wordpad.saveDialogConfig();
+    saveConfig.content = WordpadUI.saveDialogHtml( dialogFileWindoContent );
+ 
+    // Save dialog Windo | with no min/max/x buttons
     new Windo(saveConfig, false);
 
-    // Handle - Cancel
+    // Save-Dialog | Cancel Btn
     document.querySelector('.cancel-save-btn').addEventListener('click',()=> Windo.closeDirect('windo-document-saveDialog'))
   
-    // Handle - Save
+    // Save-Dialog | Save Btn
     document.getElementById('saveForm').addEventListener('submit', (e) =>{
       e.preventDefault();
 
-      const fileName =  document.getElementById('fileName').value;
+    // User Input
+    const fileName =  document.getElementById('fileName').value;
       
-      // BASIC Validation
+      // VERY basic validation
       if( fileName === '' ) return;
       if( fileName.length > 255 ){
         alert('Windos 95 only saves file names up to 255 characters in length!');
@@ -156,12 +149,25 @@ export class Wordpad{
 
       // File remains open after save
       this.state.isEditingFile = true;
+      this.state.fileName = fileName;
     })
     
   }
 
+  quietlySave(myFiles, textBoxContent){
+
+    const fileToOverwrite = myFiles.filter( file => file.name === this.state.fileName )[0];
+
+    fileToOverwrite.content = textBoxContent;
+
+    localStorage.setItem('files', JSON.stringify(myFiles));
+
+    // TODO | Show user feedback
+    // document.querySelector('.wordpad-feedback').textContent = 'Saved';
+  }
+
   handleOpen(){
-    let myFiles = JSON.parse(localStorage.getItem('files')) ||[];
+    let myFiles = JSON.parse(localStorage.getItem('files')) || [];
 
     this.showOpenDialog(myFiles);
   }
@@ -169,29 +175,19 @@ export class Wordpad{
   showOpenDialog(files){
     
     // Images and File names | for file window
-    let html = '';
-    files.forEach(file => html += `<div class="wordpad-open-file-wrap" data-name="${file.name}">
-    <img class="wordpad-open-file" data-name="${file.name}" src=${wordpadImg} />
-    <p class="wordpad-open-file" data-name="${file.name}" >${file.name}</p></div>`)
+    const dialogFileWindoContent = WordpadUI.dialogFileWindoContent(files);
 
     // Create new Windo | with no min/max/x buttons
-    const openConfig =   {
-      docId: 'openDialog',
-      windoParent: 'dialog-windo-container', 
-      windoClassName: 'windo-openDialog',
-      classNameToOpen: 'document-openDialog', 
-      content:  WordpadUI.openDialogHtml(html),
-      offset:[4,12],
-      title: 'open',
-      img: '../img/wordpad.ico',
-    }
+    const openConfig = programConfigs.Wordpad.openDialogConfig();
+    openConfig.content = WordpadUI.openDialogHtml( dialogFileWindoContent );
 
+    // Open dialog Windo | with no min/max/x buttons
     new Windo(openConfig, false);
 
-    // Close openFile dialog Windo
+    // Open-Dialog | Cancel Btn
     document.querySelector('.cancel-open-btn').addEventListener('click',()=> Windo.closeDirect('windo-document-openDialog'))
 
-    // Open file when clicked
+    // Open-Dialog | Open Btn
     document.querySelectorAll(`.wordpad-open-file`).forEach(file => file.addEventListener('click', e => this.openTargetFile(e) ));
     
   }
@@ -240,15 +236,25 @@ class WordpadUI{
     })
   }
 
-  static saveDialogHtml(){
+  static dialogFileWindoContent(files){
+    let html = '';
+    files.forEach(file => html += `<div class="wordpad-open-file-wrap" data-name="${file.name}">
+    <img class="wordpad-open-file" data-name="${file.name}" src=${wordpadImg} />
+    <p class="wordpad-open-file" data-name="${file.name}" >${file.name}</p></div>`)
+    
+    return html;
+  }
+
+
+  static saveDialogHtml(content){
 
     return `
       <div class="wordpad-save-wrap">
         <div class="wordpad-dialog-explorer-wrap">
           <label>Save <span class="underline-first">in:</span></label>
-          <input disabled type="text" value="your only option" class="dialog-explorer-input" />
+          <input disabled type="text" value="the_only_folder" class="dialog-explorer-input" />
         </div>
-        <div class="dialog-file-window"></div>
+        <div class="dialog-file-window">${content}</div>
         <form id="saveForm">
           <label>File <span class="underline-first">name:</span></label>
           <input type="text" id="fileName" />
@@ -266,7 +272,7 @@ class WordpadUI{
       <div class="wordpad-open-wrap">
         <div class="wordpad-dialog-explorer-wrap">
           <label>Look <span class="underline-first">in:</span></label>
-          <input disabled type="text" value="your only option" class="dialog-explorer-input" />
+          <input disabled type="text" value="the_only_folder" class="dialog-explorer-input" />
         </div>
         <div class="dialog-file-window">${content}</div>
         <button class="btn cancel-open-btn">Cancel</button>
@@ -275,9 +281,9 @@ class WordpadUI{
 
   }
 
-  static hideSaveDialog(){
-    document.querySelector('.wordpad-saveDialog').innerHTML = '';
-  }
+  // static hideSaveDialog(){
+  //   document.querySelector('.wordpad-saveDialog').innerHTML = '';
+  // }
 
   static initCmdsFontSize(cmdsFontSize){
     const selectInput = document.querySelector('.wordpad-fontsize-select');
