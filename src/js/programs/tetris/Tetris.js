@@ -14,12 +14,20 @@ export class Tetris{
   constructor() {
    
     this.ctx = undefined;
+    this.previewCtx = undefined;
     this.boardHeight = 18;
     this.boardWidth = 10;
     this.realBoardMatrix = this.getInitBoardMatrix();
     this.boardMatrix = this.getInitBoardMatrix();
+
     this.playerScore = 0;
+    this.playerLines = 0;
+    this.playerLevel = 1;
+    this.lastLevelUp = 0;
+
     this.shape = new Shape();
+
+    this.nextShape = this.preparePreviewShape();
     this.currentShape = this.shape.randomShape();
     this.currentShapeOffset = { x: 0 , y: 0 };
     this.dropCount= 0;
@@ -36,6 +44,17 @@ export class Tetris{
   /*
   initCtx() can't be called until Tetris is in the DOM. See programUtil.js launchProgram()
   */
+
+ cheat(){
+
+  const shapes = Shape.getShapes();
+  let theOneYouAlwaysWaitFor = shapes.filter( shape => shape.name === 'I');
+
+  if(theOneYouAlwaysWaitFor.length !== 1 ) return;
+
+  this.nextShape = theOneYouAlwaysWaitFor[0];
+ 
+}
  
   // Called - Tetris onProgramOpen | content.js
   initCtx(){
@@ -45,6 +64,12 @@ export class Tetris{
     ctx.scale(40, 40);
     this.ctx = ctx;
 
+    const previewCanvas = document.getElementById('previewCanvas');
+    const previewCtx = previewCanvas.getContext('2d');
+
+    previewCtx.scale(10, 10);
+    this.previewCtx = previewCtx;
+
     this.init(); 
   }
 
@@ -52,7 +77,9 @@ export class Tetris{
   getHtml(){
     return `
     <div class="tetris">
+
       <div class="tetris-left">
+
         <div class="score-box">
           <div class="tetris-game-info">
             <div class="tetris-score">
@@ -68,12 +95,16 @@ export class Tetris{
               <p id="lines">0</p>
             </div>
           </div>
-          <div class="tetris-shape-preview"></div>
+          <div class="tetris-shape-preview">
+            <canvas  width="50px" height="50px" id="previewCanvas"></canvas>
+          </div>
         </div>
       </div>
+
       <div class="tetris-canvas-wrap">
         <canvas id="tetris" width="400" height="720"></canvas>
       </div>
+
       <div class="tetris-right"></div>
 
     
@@ -92,9 +123,12 @@ export class Tetris{
   }
 
   init(){
+    
     this.drawCanvas();
     this.drawBoardMatrix();
+    this.drawPreviewShape();
     this.drawCurrentShape();
+    
     this.dropAtIntervals();
   }
 
@@ -113,6 +147,22 @@ export class Tetris{
           }
         })
       })
+  }
+
+  drawPreviewShape() {
+    this.previewCtx.clearRect(0, 0, 50, 50);
+    this.nextShape.matrix.forEach((row, y) => {
+      row.forEach((val, x) => {
+        if( val !== 0 ){
+          this.previewCtx.lineWidth = "0.05";
+          this.previewCtx.strokeStyle = "#212121";
+          this.previewCtx.strokeRect(x, y, 1,1);
+       
+          this.previewCtx.fillStyle = this.shapeColours[val];
+          this.previewCtx.fillRect(x , y, 1, 1);
+        }
+      })
+    })
   }
 
   drawBoardMatrix() {
@@ -138,20 +188,28 @@ export class Tetris{
   checkForRows(){
 
     const hasNoZeros = function(item){
+
       if(item.lastIndexOf(0) === -1){
+
         return true;
       }
+
       return false
     }
+
     let updatedBoardMatrix = this.boardMatrix.reduce((acc, row)=>{
 
       let fullRow = hasNoZeros(row)
       
       if(!fullRow){
+
         acc.push(row);
+
       }else{
+        
           acc.unshift(this.returnArrayOfNumbers(this.boardWidth, 0));
           this.updatePlayerScore(10);
+          this.updatePlayerLines(1);
       }
 
       return acc;
@@ -160,10 +218,33 @@ export class Tetris{
       this.boardMatrix = updatedBoardMatrix;
   }
 
+  checkLevelUp(){ 
+    if((this.playerLines > 0) 
+    && (this.playerLines !== this.lastLevelUp) 
+    && (this.playerLines % 10 === 0)){
+
+      this.playerLevel += 1;
+      this.lastLevelUp += 10;
+
+      document.getElementById('level').textContent = `${this.playerLevel}`;
+
+      const oldInterval = this.interval;
+      this.interval = oldInterval - 100;
+     
+    }
+  }
+
   updatePlayerScore(score){
     this.playerScore += score;
     document.getElementById('score').textContent = this.playerScore;
+  }
 
+  updatePlayerLines(lines){
+    this.playerLines += lines;
+    document.getElementById('lines').textContent = this.playerLines;
+
+    // Should work - lines updated one at a time
+    this.checkLevelUp();
   }
 
   // This method of checking just filters full rows - leftovers dont drop
@@ -236,13 +317,20 @@ export class Tetris{
    game = requestAnimationFrame((t)=>{this.dropAtIntervals(t)})
   }
 
+  preparePreviewShape(){
+    return this.shape.randomShape();
+  }
+
   initNextShape(){
-    this.currentShape =  this.shape.randomShape();
+    this.currentShape = this.nextShape;
     this.currentShapeOffset = { x: 0 , y:0 };
     this.drawBoardMatrix();
     this.drawCurrentShape();
+
+    this.nextShape = this.preparePreviewShape();
+    this.drawPreviewShape();  
   }
-  
+
   isCollission(){
     const m = this.currentShape.matrix;
     const o = this.currentShapeOffset;
@@ -296,7 +384,7 @@ export class Tetris{
  
   }
 
-  // matrix has to be square! ie 3x3, 4x4 etc
+  // Matrix has to be square! ie 3x3, 4x4 etc
   getRotatedCurrentShape() {
 
     let t = this.currentShape.matrix;

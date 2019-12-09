@@ -37,7 +37,7 @@ export const programConfigs = {
         windoClassName: 'windo-tetris', 
         classNameToOpen: 'launch-tetris',
         content: '', 
-        offset:[5,10],
+        offset:[1,1],
         img: joystick,
         title: 'Tetris'
       }

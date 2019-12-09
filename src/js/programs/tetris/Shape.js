@@ -5,11 +5,12 @@ export default class Shape{
 
   randomShape(){
     let random = Math.floor(Math.random() * (7 - 1 + 1) + 1);
-    return this.constructor.getShapes(random);
+   return this.constructor.getShapes(random);
+   //return this.getShapes(random);
   }
 
-  static getShapes(index){
-   
+  static getShapes (index){
+    
     const shapes = [
       {
         name: 'T',
@@ -91,8 +92,8 @@ export default class Shape{
             }
 
     ]
-
-    return shapes[index-1];
+ 
+    return shapes[index-1] || shapes;
   }
  
 }

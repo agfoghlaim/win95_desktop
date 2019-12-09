@@ -53,6 +53,7 @@
   padding:1rem 2rem;
   border: 0.4rem outset white;
   position:relative;
+  background: silver;
 }
 
 .score-box:before{
@@ -69,10 +70,12 @@
 }
 
 .tetris-shape-preview{
-  width:4rem;
-  height:4rem;
-  background: #d4d0c7;
-  border: 0.2rem groove white;
+  width: 50px;
+    height: 50px;
+    /* background: #d4d0c7; */
+    border: 0.2rem groove white;
+    padding-left: 10px;
+    padding-top: 5px;
 }
 
 .tetris-score h2, .tetris-level h2, .tetris-lines h2{
@@ -85,6 +88,3 @@
  font-weight: bold;
 }
 
-.score-box{
-  background:#d4d0c7;
-}
