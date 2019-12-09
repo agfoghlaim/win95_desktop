@@ -80,7 +80,7 @@ export class Tetris{
 
       <div class="tetris-left">
 
-        <div class="score-box">
+        <div class="tetris-info-box">
           <div class="tetris-game-info">
             <div class="tetris-score">
               <h2>Score:</h2>
@@ -99,13 +99,16 @@ export class Tetris{
             <canvas  width="50px" height="50px" id="previewCanvas"></canvas>
           </div>
         </div>
+       
       </div>
 
       <div class="tetris-canvas-wrap">
         <canvas id="tetris" width="400" height="720"></canvas>
       </div>
 
-      <div class="tetris-right"></div>
+      <div class="tetris-right">
+ 
+      </div>
 
     
     </div>
