@@ -38,22 +38,19 @@ function launchExplorer(e){
   // Add Listener to REMOVE Windo (Explorer) 
   help().addListenForCloseWindo();
 
-  // check config.broadcastEvent(the_only_folder needs listener to launch wordpad from the desktop)
+  // check config.broadcastEvent(the_only_folder needs listener to launch wordpad from the desktop) 
+  // main.js listens | re-adds launch-program listeners
   if(relevantDocConfig[0].broadcastEvent){
+
        // Dispatch event | main.js listening 
-       console.log("will broadcase ", relevantDocConfig[0].broadcastEvent )
         dispatchtheOnlyFolderOpened( relevantDocConfig[0].broadcastEvent );
         
         function dispatchtheOnlyFolderOpened(eventName){
         
           const event = new Event(eventName);
           document.dispatchEvent(event);
-        }
-        
-          
+        } 
   }
-  // then listen in main & re add the listeners
-
 }
 
 // Event Handler | click '.close-btn-explorer' | help() 

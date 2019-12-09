@@ -9,12 +9,19 @@ body, *{
 .wordpad-wrap{
   border:2px solid silver;
   background: silver;
+  height: 100%;
+}
+
+.wordpad-inside-wrap {
+  display: grid;
+  grid-template-rows: 3rem 3rem 3rem 1fr 1rem;
+  grid-gap: 1rem;
+  height: 100%;
 }
 
 .wordpad-topsection{
   border-bottom: 0.2rem groove white;
-  padding-bottom: 0.85rem;
-  margin-bottom: 1.7rem;
+
 }
 
 span.wordpad-menu{
@@ -185,13 +192,13 @@ span.wordpad-menu{
 }
 
 .wordpad-textBox{
- height:30vh;
  background:white;
  outline: none;
  overflow-wrap: break-word;
  overflow: scroll;
  width: 60vw;
  padding: 1rem;
+ width: 100%;
 }
 .wordpad-fontsize{
   position: relative;
@@ -201,6 +208,7 @@ span.wordpad-menu{
 .wordpad-open-file-wrap{
   display: grid;
   justify-content: center;
+  align-content: center;
 }
 
 img.wordpad-open-file{
@@ -219,7 +227,7 @@ p.wordpad-open-file{
 }
 
 .dialog-file-window{
-      min-height: 9rem;
+    min-height: 9rem;
     background: white;
     display: grid;
     border: 0.2rem inset;

@@ -258,7 +258,12 @@ ul{
 Clock
 
 */
-
+.clock{
+  position: relative;
+  display: grid;
+  padding: 1rem 0;
+  grid-area: clock;
+}
 
 .clockface{
   border-radius: 50%;

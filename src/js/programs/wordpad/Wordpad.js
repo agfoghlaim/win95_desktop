@@ -42,18 +42,13 @@ export class Wordpad{
   }
 
   init(file){
-    console.log("got file ", file);
+    
     if(file){
       this.state.fileName = file.name || '';
       this.state.fileContent = file.content || '';
       this.state.isEditingFile = true;
     }
    
-    console.log(this.state)
-
-    // state = editing false
-    // state = file name
-    // content = state.content
     WordpadUI.initDecorationCmds(this.cmdsTextDecoration);
     WordpadUI.initAlignCmds(this.cmdsTextAlign);
     WordpadUI.initCmdsTypeface(this.cmdsTypeface);
@@ -72,43 +67,50 @@ export class Wordpad{
     <div class="wordpad-wrap">
     <div class="wordpad-openDialog"></div>
     <div class="wordpad-saveDialog"></div>
-    <div class="wordpad-topsection topsection">
-        <span class="wordpad-menu">Edit</span>
-        <span class="wordpad-menu">View</span>
-        <span class="wordpad-menu">Help</span>
-    </div>
 
-    <div class="wordpad-middlesection">
-      <div class="wordpad-buttons">
-        <button class="wordpad-btn wordpad-newFile"></button>
-        <button class="wordpad-btn wordpad-openFile"></button>
-        <button class="wordpad-btn wordpad-printFile"></button>
-        <button class="wordpad-btn wordpad-saveFile"></button>
-      </div>
-      <div class="wordpad-empty"></div>
-    </div>
+    <div class="wordpad-inside-wrap">
 
-    <div class="wordpad-bottomsection">
-      <div class="wordpad-fontfamily">
-        <select name="font-family" id="" class="wordpad-fontfamily-select">
- 
-        </select>
+      <div class="wordpad-topsection topsection">
+          <span class="wordpad-menu">Edit</span>
+          <span class="wordpad-menu">View</span>
+          <span class="wordpad-menu">Help</span>
       </div>
-      <div class="wordpad-fontsize">
-          <select name="font-size" id="" class="wordpad-fontsize-select">
+
+    
+
+      <div class="wordpad-middlesection">
+        <div class="wordpad-buttons">
+          <button class="wordpad-btn wordpad-newFile"></button>
+          <button class="wordpad-btn wordpad-openFile"></button>
+          <button class="wordpad-btn wordpad-printFile"></button>
+          <button class="wordpad-btn wordpad-saveFile"></button>
+        </div>
+        <div class="wordpad-empty"></div>
+      </div>
+
+      <div class="wordpad-bottomsection">
+        <div class="wordpad-fontfamily">
+          <select name="font-family" id="" class="wordpad-fontfamily-select">
+  
           </select>
+        </div>
+        <div class="wordpad-fontsize">
+            <select name="font-size" id="" class="wordpad-fontsize-select">
+            </select>
+        </div>
+        <div class="wordpad-textdecoration">
+            <button class="wordpad-tool bold" data-cmd="bold">B</button>
+        </div>
+        <div class="wordpad-textalign"></div>
       </div>
-      <div class="wordpad-textdecoration">
-          <button class="wordpad-tool bold" data-cmd="bold">B</button>
+
+    
+      <div class="wordpad-textBox" contenteditable="true">
+        ${content || ''} 
       </div>
-      <div class="wordpad-textalign"></div>
-    </div>
 
-    <div class="wordpad-textBox" contenteditable="true">
-       ${content || ''} 
+      <div class="wordpad-feedback"></div>
     </div>
-
-    <div class="wordpad-feedback"></div>
   </div>
     `;
   }
@@ -257,7 +259,8 @@ export class WordpadUI{
     <img class="wordpad-open-file launch-program" data-launch-windo="windo-wordpad" data-launch="Wordpad" data-name="${file.name}" src=${wordpadImg} />
     <p class="wordpad-open-file" data-name="${file.name}" >${file.name}</p></div>`)
     
-    return html;
+    return `<div class="folder-file-window">${html}</div>`
+  
   }
 
   static dialogFileWindoContent(files){
@@ -305,9 +308,6 @@ export class WordpadUI{
 
   }
 
-  // static hideSaveDialog(){
-  //   document.querySelector('.wordpad-saveDialog').innerHTML = '';
-  // }
 
   static initCmdsFontSize(cmdsFontSize){
     const selectInput = document.querySelector('.wordpad-fontsize-select');

@@ -40,7 +40,7 @@ export function launchProgram (e){
     const fileName = e.target.dataset.name;
     const files = JSON.parse(localStorage.getItem('files')) || [];
     const file = files.filter(f => f.name === fileName )[0];
-    console.log(file.content)
+   
     wordpadFile = file || '';
   }
  
@@ -71,7 +71,6 @@ export function launchProgram (e){
     // Add to DOM
     windo.addToDOM(programWindoHtml);
 
-   
     // Pass Program instance | content.js
     // Also pass wordpadEdgeCase which will only exist for Launch Wordpad
     onProgramOpen(thisProgram, wordpadEdgeCase);

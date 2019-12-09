@@ -7,8 +7,9 @@ const  LASTDROPCOORDINATES = {
 export class Windo{
 
   constructor(config, showXMinMaxBtns = true){
+    
     // Temp, pass easily to new task
-    this.config = config;
+    //this.config = config;
     this.showXMinMaxBtns = showXMinMaxBtns;
     this.windoParent = config.windoParent; 
     this.classNameToOpen = config.classNameToOpen; 
@@ -67,8 +68,9 @@ export class Windo{
       </div>
   
       <div class="windo-main">
-      <div>${this.content}</div>
+      ${this.content}
       </div>
+      <div data-corresponding-classname="${this.windoClassName}" class="${this.windoClassName}-resize-handle resize-handle"></div>
   
     </div>`;
   }
@@ -150,11 +152,11 @@ export class Windo{
   // To close save/open dialogs | See Wordpad
   static closeDirect(selector){
 
-    console.log("For the error I can't recreate 1... ", selector);
-    
     // Remove from DOM | (kill Windo)
     const windoToRemove = document.querySelector(`.${selector}`);
-    console.log("For the error I can't recreate 2... ", windoToRemove)
+   
+    if(! windoToRemove ) return;
+
     windoToRemove.parentNode.removeChild(windoToRemove); 
   
   }

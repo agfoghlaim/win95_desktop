@@ -19,9 +19,12 @@ export class ProgramWindo extends Windo{
     super(config);
     this.target = undefined;
 
+    //this.ref = new ProgramWindoUI(this).listeners();
   }
 
-  init(){}
+  init(){
+    
+  }
 
   getHtml(){
     return `
@@ -43,12 +46,15 @@ export class ProgramWindo extends Windo{
       </div>
   
       <div class="windo-main">
-      <div>${this.content}</div>
+      ${this.content}
       </div>
       
       <div data-corresponding-classname="${this.windoClassName}" class="${this.windoClassName}-resize-handle resize-handle"></div>
     </div>`;
   }
+
+
+
 
 }
 
