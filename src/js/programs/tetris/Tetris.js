@@ -26,6 +26,7 @@ export class Tetris{
     this.interval = 1000;
     this.lastTime =0;
 
+    this.gamePaused = false;
     this.gameOver = false;
 
     // will never be black
@@ -196,12 +197,16 @@ export class Tetris{
     } 
   }
 
+  togglePauseGame(){
+    this.gamePaused = !this.gamePaused;
+  }
   dropAtIntervals( t = 0 ) {
+ 
     let game;
     const currentInterval = t - this.lastTime;
     this.dropCount += currentInterval;
 
-    if(this.dropCount > this.interval){
+    if(this.dropCount > this.interval && !this.gamePaused){
 
       this.currentShapeOffset.y ++;
       let isCollission = this.isCollission();
@@ -254,11 +259,12 @@ export class Tetris{
   }
  
   moveCurrentShape() {
+
     return {
       right: () => {
         this.currentShapeOffset.x ++;
         
-        if( this.isCollission() ){
+        if( this.isCollission() || this.gamePaused ){
           this.currentShapeOffset.x --;
         }
         
@@ -266,7 +272,7 @@ export class Tetris{
       left: () => {
         this.currentShapeOffset.x --;
         
-        if( this.isCollission() ){
+        if( this.isCollission() || this.gamePaused ){
           this.currentShapeOffset.x ++;
         }
 
@@ -274,13 +280,13 @@ export class Tetris{
       down: () => {
         this.currentShapeOffset.y ++;
 
-        if( this.isCollission() ){
+        if( this.isCollission() || this.gamePaused ){
           this.currentShapeOffset.y --;
         }
 
       },
       up: () => {
-        if( this.isCollission() ) return;
+        if( this.isCollission() || this.gamePaused ) return;
 
         const rotatedCurrentShape = this.getRotatedCurrentShape();
         this.currentShape.matrix = [...rotatedCurrentShape];

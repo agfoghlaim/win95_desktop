@@ -79,7 +79,9 @@ body{
 }
 
 button:active{
-	box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.1);
+	box-shadow: inset 1px 1px 2px 1px rgba(0,0,0,0.5);
+	/* box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.1); */
+	border-style: inset;
 }
 button:active, button:focus{
 	outline: none;
@@ -148,10 +150,11 @@ p.clock-p:before{
 .explorer-btn{
 	font-size:0.7rem;
 	border-radius: 0px;
+	background:silver;
 	height: 3rem;
 	min-width: 9rem;
 	text-align: right;
-	font-weight: bold;
+	font-weight: lighter;
 	font-size:0.8rem;
 	border-left: 0.15rem solid white;
   border-top: 0.15rem solid white;
@@ -325,7 +328,6 @@ p.menu-item-p:first-letter {
 	border: 0.2rem solid var(--gray);
 	max-width:90vw;
 	min-width: 30rem;
-	height: 40rem;
 	display:none;
 	box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.5);
 	overflow: auto;
@@ -393,10 +395,6 @@ img.modal-icon {
 		height: 100%;
 }
 
-/* width exception for tetris (canvas width:400px) */
-.windo-tetris{
-	width: 90vw;
-}
 
 /* width exception for clock-calendar */
 .modal-clock-p{

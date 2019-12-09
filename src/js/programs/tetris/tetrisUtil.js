@@ -3,7 +3,7 @@ export function addKeyboardListeners(instance){
 
   // when programClosed event happens, tetrisIsOpen will be set to false. 
   let tetrisIsOpen = true;
-  const keycodes = [40, 39, 37, 38];
+  const keycodes = [32, 40, 39, 37, 38];
   
   document.addEventListener('keydown', function what(e){
     
@@ -13,8 +13,13 @@ export function addKeyboardListeners(instance){
     }
     if(! keycodes.includes(e.keyCode)) return;
     
+    if(e.keyCode === 32 ){ 
+ 
+      instance.togglePauseGame();
+    }
+
     if(e.keyCode === 40 ){ 
-      console.log("down")
+
       instance.moveCurrentShape().down();
     }
 
