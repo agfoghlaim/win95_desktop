@@ -82,6 +82,7 @@ export class Windo{
     windoParent.innerHTML += html;
 
     this.addMinimiseListeners();
+    this.addMaximiseListeners();
     
   }
   
@@ -93,6 +94,12 @@ export class Windo{
     miniBtns.forEach( miniBtn => miniBtn.addEventListener('click', e => this.handleMinimise(e) ));
 
     
+  }
+
+  addMaximiseListeners(){
+    const maxiBtns = document.querySelectorAll(`.maxi-btn`)
+
+    maxiBtns.forEach( maxiBtn => maxiBtn.addEventListener('click', e => this.handleMaximise(e) ));
   }
 
   handleMinimise(e){
@@ -107,6 +114,23 @@ export class Windo{
     if( !document.querySelector(`.task-item-${e.target.dataset.windoContents}`) && !document.querySelector(`[data-task-for-class=${e.target.dataset.windoContents}]`)){
       handleInitTask(e.target.dataset.windoContents);
     }
+  }
+
+  handleMaximise(e){
+    console.log(e.target)
+    if(!e.target.classList.contains(`maxi-btn`) 
+    && !e.target.parentElement.classList.contains(`maxi-btn`)) return;
+
+    let selector = e.target.dataset.windoContents || e.target.parentElement.dataset.windoContents;
+
+    if(!selector) return;
+    
+    const windo = document.querySelector(`.windo-${selector}`);
+    windo.style.width='90vw';
+    windo.style.height='80vh';
+    windo.style.top = '0px';
+    windo.style.left = '0px';
+
   }
 
   show(e){

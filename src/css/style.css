@@ -408,10 +408,8 @@ img.modal-icon {
 .windo.show.windo-datetimeui.windo-windo-datetimeui {
 	min-width: 42rem;
 	min-height: 37rem;
-	resize: horizontal;
+	resize: both;
 }
-
-
 
 .show{
 	display:grid;
