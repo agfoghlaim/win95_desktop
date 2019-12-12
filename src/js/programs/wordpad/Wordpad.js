@@ -263,6 +263,8 @@ export class WordpadUI{
   
   }
 
+
+
   static dialogFileWindoContent(files){
     let html = '';
     files.forEach(file => html += `<div class="wordpad-open-file-wrap" data-name="${file.name}">

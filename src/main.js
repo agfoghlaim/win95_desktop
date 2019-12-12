@@ -7,6 +7,7 @@ import { showTaskbarClock } from './js/programs/dateTime/dateTimeUtil.js';
 import { initDesktopIcons, addLaunchExplorerListener } from './js/desktopIcons/desktopIconUtil.js';
 import { initStartMenu } from './js/startMenu/startMenuUtil.js';
 import { removeTaskItemOnClose } from './js/tasks/taskUtil.js';
+import { addDeleteFileListener } from './js/programs/wordpad/wordpadUtil.js';
 
 import './css/px_sans_nouveaux.woff';
 import './css/style.css';
@@ -88,8 +89,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ( 'Launch' Explorer Windo is called in desktopIconUtil.js )
 
-  // Listen for theOnlyFolderOpened
-  document.addEventListener('theOnlyFolderOpened', (e) => { addLaunchProgramListener(e) })
+  // Listen for theOnlyFolderOpened | (desktopiconUtil dispatches)
+  document.addEventListener('theOnlyFolderOpened', (e) => { 
+
+    addLaunchProgramListener(e); 
+    addDeleteFileListener(e); })
 
 });
 

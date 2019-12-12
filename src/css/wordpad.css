@@ -209,6 +209,7 @@ span.wordpad-menu{
   display: grid;
   justify-content: center;
   align-content: center;
+  position:relative;
 }
 
 img.wordpad-open-file{

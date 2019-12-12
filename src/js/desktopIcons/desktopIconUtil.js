@@ -33,6 +33,13 @@ function launchExplorer(e){
 
   if(relevantDocConfig.length !== 1) return;
 
+  // Currently this is only for 'the_only_folder'
+  // Call getContent everytime it is opened so that file icons represent the latest from localStorage
+  if(typeof relevantDocConfig[0].getContent === 'function'){
+    let content = relevantDocConfig[0].getContent()
+    relevantDocConfig[0].content = content();
+  }
+
   new Windo( relevantDocConfig[0] );
 
   // Add Listener to REMOVE Windo (Explorer) 
@@ -51,6 +58,8 @@ function launchExplorer(e){
           document.dispatchEvent(event);
         } 
   }
+
+
 }
 
 // Event Handler | click '.close-btn-explorer' | help() 
