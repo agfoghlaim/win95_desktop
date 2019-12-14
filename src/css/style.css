@@ -56,13 +56,27 @@ body{
 }
 
 .delete-context-wrap{
-	position:absolute; top:1rem; left:1rem; background:silver;width:8rem;height:4rem; display:grid; align-content:center; font-size:0.8rem;
+	position:absolute; 
+	top:1rem; 
+	left:1rem; 
+	background:silver;
+	width:8rem;
+	height:4rem; 
+	display:grid; 
+	align-content:center; 
+	font-size:0.8rem;
+	border: 0.1rem outset;
+	box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.5);
+	/* justify-items: center; */
 }
+
+
 .delete-context{
 	padding-left:0.5rem;
 }
 .delete-context:hover{
-	background:var(--white);
+	color:var(--white);
+	background: var(--blue);
 	cursor: pointer;
 }
 .button-95{
@@ -96,6 +110,63 @@ button:active{
 button:active, button:focus{
 	outline: none;
 }
+
+::-webkit-scrollbar-button:vertical:increment
+{
+	background:silver;
+	background-image: url(../img/down.svg);
+	background-position: center;
+	border-left: 0.1rem solid white;
+	border-top: 0.1rem solid white;
+	background-size:60%;
+	background-repeat: no-repeat;
+  border-bottom: 0.1rem solid rgba(0,0,0,0.9);
+	border-right: 0.1rem solid rgba(0,0,0,0.9);
+	
+}
+
+::-webkit-scrollbar-button:vertical:decrement {
+	background:silver;
+	background-image: url(../img/up.svg);
+	background-position: center;
+	border-left: 0.1rem solid white;
+	border-top: 0.1rem solid white;
+	background-size:contain;
+	background-size:60%;
+	background-repeat: no-repeat;
+  border-bottom: 0.1rem solid rgba(0,0,0,0.9);
+	border-right: 0.1rem solid rgba(0,0,0,0.9);
+
+} 
+
+::-webkit-scrollbar {
+	width: 1.5rem;
+
+}
+
+/* ::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+	-webkit-border-radius: 0;
+	border-radius: 0;
+} */
+
+::-webkit-scrollbar-thumb {
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	background: silver; 
+	border-bottom: 0.1rem solid rgba(0,0,0,0.9);
+	border-right: 0.1rem solid rgba(0,0,0,0.9);
+	border-left: 0.1rem solid white;
+	border-top: 0.1rem solid white;
+
+}
+/* ::-webkit-scrollbar-thumb:window-inactive {
+background: rgba(255,0,0,0.4); 
+} */
+/* ::-webkit-scrollbar-button {
+	background: red;
+} */
+
 
 .page-wrap{
 	display: grid;
@@ -336,12 +407,12 @@ p.menu-item-p:first-letter {
 
 .windo{
 	border: 0.2rem solid var(--gray);
-	max-width:90vw;
-	min-width: 30rem;
+	max-width:98vw;
+	min-width: 2rem;
 	display:none;
 	box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.5);
-	overflow: auto;
-	resize: both;
+	/* overflow: auto;
+	resize: both; */
 	grid-template-rows: 3rem 1fr;
 }
 
@@ -381,8 +452,8 @@ img.modal-icon {
 	width: 2.5rem;
 }
 
-/* .resize-handle should be hidden on overflowing*/
-.resize-handle{
+
+/* .resize-handle{
 	background:url(../img/resize.svg);
 	background-size: 1rem;
 	position: absolute;
@@ -391,7 +462,7 @@ img.modal-icon {
 	bottom: 0;
 	right: 0;
 	pointer-events: none;
-}
+} */
 
 /* is the same as wordpad.css .dialog-file-window */
 .folder-file-window{
@@ -406,7 +477,9 @@ img.modal-icon {
     padding: 3rem;
 		grid-gap: 3rem;
 		align-items: start;
-		height: 100%;
+		overflow:auto;
+		resize: both;
+		min-width: 25rem;
 }
 
 

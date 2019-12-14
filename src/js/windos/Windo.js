@@ -8,8 +8,6 @@ export class Windo{
 
   constructor(config, showXMinMaxBtns = true){
     
-    // Temp, pass easily to new task
-    //this.config = config;
     this.showXMinMaxBtns = showXMinMaxBtns;
     this.windoParent = config.windoParent; 
     this.classNameToOpen = config.classNameToOpen; 
@@ -38,7 +36,7 @@ export class Windo{
   }
 
   xMinMaxBtns(){
-    if(this.showXMinMaxBtns){
+   // if(this.showXMinMaxBtns){
       return `
       <button data-windo-contents="${this.classNameToOpen}" class="mini-btn mini-btn-${this.classNameToOpen}">-</button>
 
@@ -48,9 +46,9 @@ export class Windo{
 
       <button data-windo-contents="${this.classNameToOpen}" class="close-btn-explorer close-btn-explorer-${this.classNameToOpen}">X</button>
       `
-    }else{
-      return '';
-    }
+    // }else{
+    //   return '';
+    // }
   }
   getHTML(){
     return `
@@ -93,10 +91,10 @@ export class Windo{
 
     miniBtns.forEach( miniBtn => miniBtn.addEventListener('click', e => this.handleMinimise(e) ));
 
-    
   }
 
   addMaximiseListeners(){
+
     const maxiBtns = document.querySelectorAll(`.maxi-btn`)
 
     maxiBtns.forEach( maxiBtn => maxiBtn.addEventListener('click', e => this.handleMaximise(e) ));
@@ -117,7 +115,7 @@ export class Windo{
   }
 
   handleMaximise(e){
-    console.log(e.target)
+
     if(!e.target.classList.contains(`maxi-btn`) 
     && !e.target.parentElement.classList.contains(`maxi-btn`)) return;
 
@@ -145,7 +143,7 @@ export class Windo{
     .classList.add('show');
   }
 
-  // TODO - tidy up
+  
   static addDragListeners(){
     const documentWindoContainer = document.querySelector('.document-windo-container');
     const programWindoContainer = document.querySelector('.program-windo-container');
@@ -173,18 +171,6 @@ export class Windo{
     }
   }
 
-  // To close save/open dialogs | See Wordpad
-  static closeDirect(selector){
-
-    // Remove from DOM | (kill Windo)
-    const windoToRemove = document.querySelector(`.${selector}`);
-   
-    if(! windoToRemove ) return;
-
-    windoToRemove.parentNode.removeChild(windoToRemove); 
-  
-  }
-
   static dragModal(e){
     
     if(e.target.nodeType !== 1) return;
@@ -203,7 +189,7 @@ export class Windo{
     if(!e.target.classList.contains('bar')) return;
   
     const modalNo = e.target.dataset.correspondingClassname;
-    // console.log(modalNo, `.modal-${modalNo}`)
+  
     const modal = document.querySelector(`.windo-${modalNo}`);
    
     // e.clientX, e.clientY not available in Firefox - use LASTDROPCOORDINATES 
@@ -220,6 +206,37 @@ export class Windo{
 
 }
 
+export class DialogWindo extends Windo{
+
+  constructor(config){
+
+    super(config);
+
+  }
 
 
+  xMinMaxBtns(){
+    return '';
+  }
+
+  addToDOM(html = this.getHTML() ){
+
+    const windoParent = document.querySelector(`.${this.windoParent}`);
+  
+    windoParent.innerHTML += html;
+
+  }
+
+  // To close save/open dialogs | See Wordpad
+  static closeDirect(selector){
+
+    // Remove from DOM | (kill Windo)
+    const windoToRemove = document.querySelector(`.${selector}`);
+    
+    if(! windoToRemove ) return;
+
+    windoToRemove.parentNode.removeChild(windoToRemove); 
+  
+  }
+}
 

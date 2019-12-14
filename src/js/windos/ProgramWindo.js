@@ -19,7 +19,7 @@ export class ProgramWindo extends Windo{
     super(config);
     this.target = undefined;
 
-    //this.ref = new ProgramWindoUI(this).listeners();
+
   }
 
   init(){

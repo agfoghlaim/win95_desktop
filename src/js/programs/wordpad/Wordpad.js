@@ -1,10 +1,7 @@
-/*
-TODO - Open-Dialog/Save-Dialog class
-*/
-
-import { Windo } from '../../windos/Windo';
+import { DialogWindo } from '../../windos/Windo';
 import wordpadImg from '../../../img/wordpad.ico';
 import { programConfigs } from '../../content';
+
 export class Wordpad{
 
   constructor(){
@@ -115,7 +112,7 @@ export class Wordpad{
     `;
   }
 
-  handleSave(){
+  handleSaveDialogWindo(){
     const textBoxContent = document.querySelector('.wordpad-textBox').innerHTML;
 
     let myFiles = JSON.parse(localStorage.getItem('files')) || [];
@@ -136,37 +133,39 @@ export class Wordpad{
     saveConfig.content = WordpadUI.saveDialogHtml( dialogFileWindoContent );
  
     // Save dialog Windo | with no min/max/x buttons
-    new Windo(saveConfig, false);
+    new DialogWindo(saveConfig, false);
 
     // Save-Dialog | Cancel Btn
-    document.querySelector('.cancel-save-btn').addEventListener('click',()=> Windo.closeDirect('windo-document-saveDialog'))
+    document.querySelector('.cancel-save-btn').addEventListener('click', ()=> DialogWindo.closeDirect('windo-document-saveDialog'))
   
     // Save-Dialog | Save Btn
-    document.getElementById('saveForm').addEventListener('submit', (e) =>{
-      e.preventDefault();
-
-    // User Input
-    const fileName =  document.getElementById('fileName').value;
-      
-      // VERY basic validation
-      if( fileName === '' ) return;
-      if( fileName.length > 255 ){
-        alert('Windos 95 only saves file names up to 255 characters in length!');
-        return;
-      }
-
-      // Save file
-      myFiles.push( {name: fileName, content: textBoxContent} );
-      localStorage.setItem('files', JSON.stringify(myFiles));
-
-      // Close save dialog Windo
-      Windo.closeDirect('windo-document-saveDialog');
-
-      // File remains open after save
-      this.state.isEditingFile = true;
-      this.state.fileName = fileName;
-    })
+    document.getElementById('saveForm').addEventListener('submit', e => this.saveFile(e, myFiles, textBoxContent) )
     
+  }
+
+  saveFile(e, myFiles, textBoxContent){
+    e.preventDefault();
+
+  // User Input
+  const fileName =  document.getElementById('fileName').value;
+    
+    // VERY basic validation
+    if( fileName === '' ) return;
+    if( fileName.length > 255 ){
+      alert('Windos 95 only saves file names up to 255 characters in length!');
+      return;
+    }
+
+    // Save file
+    myFiles.push( {name: fileName, content: textBoxContent} );
+    localStorage.setItem('files', JSON.stringify(myFiles));
+
+    // Close save dialog Windo
+    DialogWindo.closeDirect('windo-document-saveDialog');
+
+    // File remains open after save
+    this.state.isEditingFile = true;
+    this.state.fileName = fileName;
   }
 
   quietlySave(myFiles, textBoxContent){
@@ -185,6 +184,7 @@ export class Wordpad{
     let myFiles = JSON.parse(localStorage.getItem('files')) || [];
 
     this.showOpenDialog(myFiles);
+
   }
 
   showOpenDialog(files){
@@ -197,7 +197,7 @@ export class Wordpad{
     openConfig.content = WordpadUI.openDialogHtml( dialogFileWindoContent );
 
     // Open dialog Windo | with no min/max/x buttons
-    new Windo(openConfig, false);
+    new DialogWindo(openConfig, false);
 
     // Open-Dialog | Cancel Btn
     document.querySelector('.cancel-open-btn').addEventListener('click',()=> Windo.closeDirect('windo-document-openDialog'))
@@ -218,7 +218,7 @@ export class Wordpad{
     textBoxContent.innerHTML = file.content;
 
     // Close Windo
-    Windo.closeDirect('windo-document-openDialog');
+    DialogWindo.closeDirect('windo-document-openDialog');
 
     // set isEditing to true
     this.state.isEditingFile = true;
@@ -373,7 +373,7 @@ export class WordpadUI{
   static addPrintSaveOpenNewListeners(pad){
     document.querySelector('.wordpad-printFile').addEventListener('click', () => WordpadUI.handlePrint());
   
-    document.querySelector('.wordpad-saveFile').addEventListener('click', () => pad.handleSave() );
+    document.querySelector('.wordpad-saveFile').addEventListener('click', () => pad.handleSaveDialogWindo() );
   
     document.querySelector('.wordpad-openFile').addEventListener('click', () => pad.handleOpen() );
   

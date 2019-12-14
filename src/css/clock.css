@@ -219,6 +219,7 @@ ul{
   width: 7rem;
   border: 2px inset white;
   display: inline-block;
+  padding: 0 0.2rem;
 }
 
 .up{
@@ -229,21 +230,26 @@ ul{
 .next, .prev, .nextYear, .prevYear{
   position: relative;
   width: 2rem;
+  border-bottom: 0.15rem solid rgba(0,0,0,0.9);
+  border-right: 0.15rem solid rgba(0,0,0,0.9);
+  border-left: 0.15rem solid white;
+  border-top: 0.15rem solid white;
+  background:silver;
 }
 .next:after, .nextYear:after{
-  content:'▲';
+  content: '▲';
   position: absolute;
-  top:-0.1625rem;
-  left:0.4375rem;
-  font-size:0.75rem;
+  top: 0.0375rem;
+  left: 0.4375rem;
+  font-size: 0.75rem;
   line-height: 0.75rem;
 }
 
 .prev:after, .prevYear:after{
-  content:'▼';
+  content: '▼';
   position: absolute;
-  top:-0.1625rem;
-  left:0.4375rem;
+  top: 0.1375rem;
+  left: 0.4375rem;
   font-size: 0.75rem;
   line-height: 0.75rem;
 }
