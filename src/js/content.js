@@ -163,7 +163,7 @@ export const myDocuments = [
     getContent: () => WordpadUI.getDialogFileWindoContent,
     offset:[6,11],
     img: folder,
-    title: 'the_only_folder',
+    title: 'my_only_folder',
     broadcastEvent: 'theOnlyFolderOpened'// need to re-add launch program listeners
   }
 ];

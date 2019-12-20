@@ -7,7 +7,7 @@ I'm leaving it for now cause have a feeling things will have to change as more p
 import { StartItem } from "./StartItem.js";
 import { myDocuments, programConfigs as programs } from '../content.js';
 
-// TODO - this function isn't very efficient
+
 // Event Handler | main.js
 export function toggleStartMenu(e){
 

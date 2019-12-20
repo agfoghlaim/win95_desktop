@@ -62,7 +62,7 @@ function deleteFile(e) {
     fileIconToDelete[0].parentElement.removeChild(fileIconToDelete[0])
      
     // Delete file
-    let files = JSON.parse(localStorage.getItem('files'));
+    let files = JSON.parse(localStorage.getItem('files')) || [];
     files = files.filter(file => file.name !== e.target.dataset.delete );
     localStorage.setItem('files', JSON.stringify(files));
 
@@ -87,7 +87,7 @@ function makeIconEditable(e) {
 function renameFiles(){
 
   const icons = document.querySelectorAll('.wordpad-open-file-p');
-  const files = JSON.parse(localStorage.getItem('files'));
+  const files = JSON.parse(localStorage.getItem('files')) || [];
   const renamedIcons = Array.from(icons).filter( icon => icon.contentEditable === 'true');
 
   if( renamedIcons.length <= 0 ) return;

@@ -56,7 +56,7 @@ export function launchProgram (e){
     const thisProgram = new SomeProgram();
 
     // Program's HTML | Also pass wordpad file contents 
-    const html = thisProgram.getHtml( wordpadEdgeCase.content );
+    const html = thisProgram.getHtml( wordpadEdgeCase );
    
     // Program Config | content.js
     const { params, onProgramOpen }  = programConfigs[`${programName}`];

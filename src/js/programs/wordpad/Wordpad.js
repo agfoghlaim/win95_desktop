@@ -58,7 +58,7 @@ export class Wordpad{
     WordpadUI.addPrintSaveOpenNewListeners(this);
   }
 
-  getHtml(content){
+  getHtml(file){
     
     return `
     <div class="wordpad-wrap">
@@ -103,10 +103,10 @@ export class Wordpad{
 
     
       <div class="wordpad-textBox" contenteditable="true">
-        ${content || ''} 
+        ${file.content || ''} 
       </div>
 
-      <div class="wordpad-feedback"></div>
+      <div class="wordpad-feedback"><p class="wordpad-feedback-p">${file.name || ''}</p></div>
     </div>
   </div>
     `;
@@ -149,7 +149,7 @@ export class Wordpad{
     // User Input
     const fileName =  document.getElementById('fileName').value;
     
-    const files = JSON.parse(localStorage.getItem('files'));
+    const files = JSON.parse(localStorage.getItem('files')) || [];
     let potentialFile = files.filter(file => file.name === fileName );
     if(potentialFile.length !==0) {
 
@@ -209,7 +209,7 @@ export class Wordpad{
     new DialogWindo(openConfig, false);
 
     // Open-Dialog | Cancel Btn
-    document.querySelector('.cancel-open-btn').addEventListener('click',()=> Windo.closeDirect('windo-document-openDialog'))
+    document.querySelector('.cancel-open-btn').addEventListener('click',()=> DialogWindo.closeDirect('windo-document-openDialog'))
 
     // Open-Dialog | Open file
     document.querySelectorAll(`.wordpad-open-file`).forEach(file => file.addEventListener('click', e => this.openTargetFile(e) ));
@@ -221,10 +221,13 @@ export class Wordpad{
     // Find file in localStorage and show in textBoxContent
     const name = e.target.dataset.name;
     const textBoxContent = document.querySelector('.wordpad-textBox');
+    const feedback = document.querySelector('.wordpad-feedback');
     let myFiles = JSON.parse(localStorage.getItem('files')) || [];
     let file = myFiles.filter(f => f.name === name )[0];
 
     textBoxContent.innerHTML = file.content;
+    
+    feedback.innerHTML = `<p class="wordpad-feedback-p">${file.name}</p>`;
 
     // Close Windo
     DialogWindo.closeDirect('windo-document-openDialog');
@@ -237,6 +240,7 @@ export class Wordpad{
   handleNewFile(){
 
     document.querySelector('.wordpad-textBox').innerHTML = '';
+    document.querySelector('.wordpad-feedback').innerHTML = '';
 
     // File is new, not saved
     this.state.isEditingFile = false;
@@ -272,8 +276,6 @@ export class WordpadUI{
   
   }
 
-
-
   static dialogFileWindoContent(files){
     let html = '';
     files.forEach(file => html += `<div class="wordpad-open-file-wrap" data-name="${file.name}">
@@ -282,7 +284,6 @@ export class WordpadUI{
     
     return html;
   }
-
 
   static saveDialogHtml(content){
 
@@ -318,7 +319,6 @@ export class WordpadUI{
     `;
 
   }
-
 
   static initCmdsFontSize(cmdsFontSize){
     const selectInput = document.querySelector('.wordpad-fontsize-select');

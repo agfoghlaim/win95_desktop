@@ -300,7 +300,13 @@ p.wordpad-open-file{
   height:1rem;
   font-size:0.8rem;
   padding-left:1rem;
+  display: grid;
+  align-content: center;
+}
 
+.wordpad-feedback-p{
+  margin:0;
+  padding:0;
 }
 
 @media print {
