@@ -135,31 +135,24 @@ span.wordpad-menu{
 .windo-wordpad{
   border: 0.2rem solid var(--gray);
   max-width: 98vw; 
-   min-width: 2rem;
+  min-width: 2rem;
+  width: 60vw;
+  height: 40vh;
   
   box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.5);
   grid-template-rows: 3rem 1fr;
-  resize: none;
+  resize: both;
   overflow: hidden;
 }
 
 .wordpad-textBox{
-  /* background:white;
-  outline: none;
-  overflow-wrap: break-word;
-  overflow: scroll;
-  width: 60vw;
-  padding: 1rem;
-  width: 100%; */
   background: white;
   outline: none;
   overflow-wrap: break-word;
   overflow: auto;
-  /* width: 60vw; */
   padding: 1rem;
-  /* width: 100%; */
-  resize: both;
-  min-width: 20rem;
+
+  
  }
 
 

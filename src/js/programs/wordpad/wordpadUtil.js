@@ -1,8 +1,18 @@
+/*
+
+Would make more sense for these to be in desktopIconUtil. 
+
+*/
+
 export function addDeleteFileListener() {
 
-  document.querySelectorAll('.wordpad-open-file-wrap').forEach( icon => {
+  document.querySelectorAll('.wordpad-open-file-wrap')
+  
+  .forEach( icon => {
 
-    icon.addEventListener('contextmenu', handleContext )});
+    icon.addEventListener('contextmenu', handleContext );
+
+  });
 
 }
 
@@ -11,9 +21,28 @@ function handleContext(e) {
 
     if(!e.target.classList.contains('wordpad-open-file') && !e.target.parentElement.classList.contains('wordpad-open-file-wrap')) return;
     
-    
     addContextMenuToDOM(e);
     addDeleteFileListenerToContextMenu(e);
+
+}
+
+export function clickAnywhereToCloseContextMenu(e){
+
+  // Event Handler | main.js
+  const contextMenu = document.querySelector('.context-menu-wrap');
+  if(!contextMenu) return;
+
+  // TODO - use .context-menu-wrap and children
+  if( e.target.classList.contains('delete-context') ||
+    e.target.classList.contains('context-menu-wrap') ){
+      console.log("returning")
+    return;
+  }
+
+  // Remove all context menus onclick  (allow multiple opened)
+  const contextMenus = document.querySelectorAll('.context-menu-wrap');
+  contextMenus.forEach(menu=>menu.parentElement.removeChild(menu));
+
 }
 
 function addDeleteFileListenerToContextMenu(ev) {
@@ -30,7 +59,8 @@ function deleteFile(e) {
 
     const allFileIcons = document.querySelectorAll('.wordpad-open-file-wrap');
 
-    const fileIconToDelete = Array.from(allFileIcons).filter(icon => icon.dataset.name === targetDelete)[0];
+    const fileIconToDelete = Array.from(allFileIcons)
+    .filter(icon => icon.dataset.name === targetDelete)[0];
     
     // Remove Icon
     fileIconToDelete.parentElement.removeChild(fileIconToDelete)
@@ -55,8 +85,8 @@ function addContextMenuToDOM(e) {
   p.appendChild( document.createTextNode('Delete'));
   p.style="display:block;";
 
-  div.id= `delete-wrap-${e.target.dataset.name}`;
-  div.className = 'delete-context-wrap';
+  div.id= `context-menu-wrap-${e.target.dataset.name}`;
+  div.className = 'context-menu-wrap';
 
 
   div.appendChild(p);

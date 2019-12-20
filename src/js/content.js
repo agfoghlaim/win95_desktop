@@ -165,29 +165,5 @@ export const myDocuments = [
     img: folder,
     title: 'the_only_folder',
     broadcastEvent: 'theOnlyFolderOpened'// need to re-add launch program listeners
-  },
-  {
-    docId: '1',
-    windoParent: 'document-windo-container',
-    windoClassName: 'windo-1', 
-    classNameToOpen: 'document-1',
-    content: '<h1>Marie</h1>',
-    getContent: false,
-    offset:[5,10],
-    img: textFile,
-    title: 'about.txt',
-    broadcastEvent:false
-  },
-  {
-    docId: '2',
-    windoParent: 'document-windo-container',
-    windoClassName: 'windo-2',
-    classNameToOpen: 'document-2', 
-    content: 'Document One Content',
-    getContent: false,
-    offset:[4,12],
-    title: 'dmoz.html',
-    img: wordpad,
-    broadcastEvent:false
   }
 ];

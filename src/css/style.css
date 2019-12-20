@@ -55,7 +55,11 @@ body{
 	box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.1);
 }
 
-.delete-context-wrap{
+.disabled{
+	color: gray;
+  text-shadow: 1px 1px #fff;
+}
+.context-menu-wrap{
 	position:absolute; 
 	top:1rem; 
 	left:1rem; 
