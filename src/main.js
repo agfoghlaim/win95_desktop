@@ -7,7 +7,7 @@ import { showTaskbarClock } from './js/programs/dateTime/dateTimeUtil.js';
 import { initDesktopIcons, addLaunchExplorerListener } from './js/desktopIcons/desktopIconUtil.js';
 import { initStartMenu } from './js/startMenu/startMenuUtil.js';
 import { removeTaskItemOnClose } from './js/tasks/taskUtil.js';
-import { addDeleteFileListener, clickAnywhereToCloseContextMenu } from './js/programs/wordpad/wordpadUtil.js';
+import { addContextMenuFileListeners, clickAnywhereToCloseContextMenu } from './js/programs/wordpad/wordpadUtil.js';
 
 import './css/px_sans_nouveaux.woff';
 import './css/style.css';
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('theOnlyFolderOpened', (e) => { 
 
     addLaunchProgramListener(e); 
-    addDeleteFileListener(e); })
+    addContextMenuFileListeners(e); })
 
 });
 

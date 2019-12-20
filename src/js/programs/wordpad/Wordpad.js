@@ -146,9 +146,18 @@ export class Wordpad{
   saveFile(e, myFiles, textBoxContent){
     e.preventDefault();
 
-  // User Input
-  const fileName =  document.getElementById('fileName').value;
+    // User Input
+    const fileName =  document.getElementById('fileName').value;
     
+    const files = JSON.parse(localStorage.getItem('files'));
+    let potentialFile = files.filter(file => file.name === fileName );
+    if(potentialFile.length !==0) {
+
+      // TODO alertWindo
+      alert("File already exists");
+      return;
+    }
+   
     // VERY basic validation
     if( fileName === '' ) return;
     if( fileName.length > 255 ){
@@ -257,7 +266,7 @@ export class WordpadUI{
     let html = '';
     files.forEach(file => html += `<div class="wordpad-open-file-wrap" data-name="${file.name}">
     <img class="wordpad-open-file launch-program" data-launch-windo="windo-wordpad" data-launch="Wordpad" data-name="${file.name}" src=${wordpadImg} />
-    <p class="wordpad-open-file" data-name="${file.name}" >${file.name}</p></div>`)
+    <p class="wordpad-open-file wordpad-open-file-p" data-name="${file.name}" >${file.name}</p></div>`)
     
     return `<div class="folder-file-window">${html}</div>`
   
