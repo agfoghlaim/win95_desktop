@@ -3,6 +3,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './src/main.js',
+  output: {
+    filename: 'main.js',
+    path: __dirname + '/.netlify/build'
+  },
   mode: "development",
   module: {
     
@@ -13,6 +17,10 @@ module.exports = {
         loader: 'html-loader',
         options: {minimize: true}
       }],
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader','css-loader'],
       },
       {
         test: /\.(eot|ttf|woff|woff2)$/i,
@@ -34,10 +42,7 @@ module.exports = {
         ],
         
       },
-      {
-        test: /\.css$/i,
-        use: ['style-loader','css-loader'],
-      },
+      
     ]
   },
   plugins: [

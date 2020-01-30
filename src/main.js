@@ -9,18 +9,19 @@ import { initStartMenu } from './js/startMenu/startMenuUtil.js';
 import { removeTaskItemOnClose } from './js/tasks/taskUtil.js';
 import { addContextMenuFileListeners, clickAnywhereToCloseContextMenu } from './js/programs/wordpad/wordpadUtil.js';
 
-import './css/px_sans_nouveaux.woff';
+
 import './css/style.css';
 import './css/clock.css';
 import  './css/calculator.css';
 import './css/tetris.css';
 import './css/wordpad.css';
+import './css/px_sans_nouveaux.woff';
 
 
 
-document.addEventListener('DOMContentLoaded', () => {
+//document.addEventListener('DOMContentLoaded', () => {
 
- 
+ //(function(){
   /*
    Init 
   */ 
@@ -98,7 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
     addLaunchProgramListener(e); 
     addContextMenuFileListeners(e); })
 
-});
+//});
+//})()
 
 
 

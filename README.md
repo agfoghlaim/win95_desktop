@@ -1,4 +1,4 @@
-# Windos 95 Website
+# [Windos 95 Website](https://mycomputer.rocks/)
 
 - Tetris ('c' for cheat!)
 - Wordpad

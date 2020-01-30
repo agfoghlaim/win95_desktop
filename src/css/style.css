@@ -4,6 +4,7 @@
 	url('px_sans_nouveaux.woff') format('woff');
 	font-weight: normal;
 	font-style: normal;
+	font-display: swap;
 }
 
 :root{
