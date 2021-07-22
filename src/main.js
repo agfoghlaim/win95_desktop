@@ -17,15 +17,15 @@ import './css/tetris.css';
 import './css/wordpad.css';
 import './css/px_sans_nouveaux.woff';
 
+// Quick fix to hide the html until everything is loaded. These properties are set in index.html. 
+window.onload = function(){
+    document.body.style.setProperty('background', 'none');
+    document.getElementsByClassName('page-wrap')[0].style.setProperty('opacity', 1);
+}
 
-
-//document.addEventListener('DOMContentLoaded', () => {
-
- //(function(){
   /*
    Init 
   */ 
-
   
   // Taskbar Clock 
   setInterval( showTaskbarClock, 1000 );
