@@ -28,6 +28,15 @@ export class Windo {
 		//this.addOpenDocumentListeners();
 	}
 
+	manageFocus() {
+		const theNewWindo = document.querySelector(`.${this.windoClassName}`);
+
+		if (theNewWindo) {
+			const forFocus = theNewWindo.getElementsByTagName('button');
+			forFocus.length && forFocus[0].focus();
+		}
+	}
+
 	getIconHtml() {
 		if (this.img) return `<img class="modal-icon" src="${this.img}"/>`;
 		return '';
@@ -140,6 +149,15 @@ export class Windo {
 		document
 			.querySelector(`.windo-${this.classNameToOpen}`)
 			.classList.add('show');
+	}
+
+	// Called when an already launched program is being maximised
+	static manageFocusDirect(windoClassName) {
+		const theNewWindo = document.querySelector(`.${windoClassName}`);
+		if (theNewWindo) {
+			const forFocus = theNewWindo.getElementsByTagName('button');
+			forFocus.length && forFocus[0].focus();
+		}
 	}
 
 	static addDragListeners() {

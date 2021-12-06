@@ -36,7 +36,10 @@ function launchExplorer(e) {
 		relevantDocConfig[0].content = content();
 	}
 
-	new Windo(relevantDocConfig[0]);
+	const win = new Windo(relevantDocConfig[0]);
+
+	// New Dec 2021.
+	win.manageFocus();
 
 	// Add Listener to REMOVE Windo (Explorer)
 	help().addListenForCloseWindo();
@@ -80,8 +83,10 @@ function help() {
 				!e.target.classList.contains('launchExplorer') &&
 				!e.target.parentElement.classList.contains('launchExplorer')
 			) {
+			
 				return true;
 			} else {
+			
 				return false;
 			}
 		},

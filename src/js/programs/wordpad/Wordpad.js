@@ -268,7 +268,8 @@ export class WordpadUI {
 		files.forEach(
 			(file) =>
 				(html += `<div class="wordpad-open-file-wrap" data-name="${file.name}">
-    <img class="wordpad-open-file launch-program" data-launch-windo="windo-wordpad" data-launch="Wordpad" data-name="${file.name}" src=${wordpadImg} />
+				<button class="wordpad-open-file launch-program" data-launch-windo="windo-wordpad" data-launch="Wordpad">
+    <img  data-name="${file.name}" src=${wordpadImg} /></button>
     <p class="wordpad-open-file wordpad-open-file-p" data-name="${file.name}" >${file.name}</p></div>`)
 		);
 

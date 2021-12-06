@@ -4,11 +4,12 @@ Recreation of Windows 95 with plain JavaScript, HTML & CSS.
 
 ⚠️Not even remotely mobile friendly!
 
-[Windos 95 Website](https://mycomputer.rocks/)
+#### Live Site
+[mycomputer.rocks](https://mycomputer.rocks/)
 
 ### Features
 
-- #### Tetris for Windows.
+- #### Tetris for Windows
 
   Press 'C' for cheat to make your dreams come true 😉!
 

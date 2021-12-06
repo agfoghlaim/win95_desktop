@@ -28,6 +28,9 @@ export function launchProgram(e) {
 	// If Program in DOM, show | !And return!
 	if (document.querySelector(`.${correspondingWindoName}`)) {
 		ProgramWindo.showDirect(correspondingWindoName);
+
+		// Dec 2021, send focus to windo being maximised
+		ProgramWindo.manageFocusDirect(correspondingWindoName);
 		return;
 	}
 
@@ -67,6 +70,9 @@ export function launchProgram(e) {
 
 		// Add to DOM
 		windo.addToDOM(programWindoHtml);
+
+		// New Dec 2021.
+		windo.manageFocus();
 
 		// Pass Program instance | content.js
 		// Also pass wordpadEdgeCase which will only exist for Launch Wordpad

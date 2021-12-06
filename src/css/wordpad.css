@@ -226,8 +226,10 @@ span.wordpad-menu {
 	position: relative;
 }
 
-img.wordpad-open-file {
+button.wordpad-open-file {
 	min-width: 4rem;
+	background: none;
+	border: none;
 }
 
 p.wordpad-open-file {

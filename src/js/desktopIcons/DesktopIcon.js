@@ -16,13 +16,13 @@ export class DesktopIcon {
 	// See addIconToDOM() | desktopIconUtil.js
 	getHtml(i) {
 		return `
-    <div class="desktopIcon">
+    <button class="desktopIcon launchExplorer" data-class-name="${this.classNameToOpen}" data-corresponding-windo="${this.windoClassName}">
     
-      <img draggable="true" class="desktop-icon-img launchExplorer" data-class-name="${this.classNameToOpen}" data-corresponding-windo="${this.windoClassName}" src="${this.img}" alt="">
+      <img draggable="true" class="desktop-icon-img"  src="${this.img}" alt="">
 
       <p class="item-p" id="${this.classNameToOpen}">${this.title}</p>
 
-    </div>`;
+    </button>`;
 	}
 
 	// main.js
