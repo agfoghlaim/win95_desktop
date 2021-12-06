@@ -4,14 +4,14 @@
   background: url(../img/tetris-bg.png);
   background-repeat: repeat;
 } */
-.tetris{
-  display:grid;
-  grid-template-columns: 1fr 460px 1fr;
-  padding-top: 1rem;
-  height: 100%;
-  position: relative;
-  background: url(../img/tetris-bg.png);
-  background-repeat: repeat;
+.tetris {
+	display: grid;
+	grid-template-columns: 1fr 460px 1fr;
+	padding-top: 1rem;
+	height: 100%;
+	position: relative;
+	background: url(../img/tetris-bg.png);
+	background-repeat: repeat;
 }
 
 /* Should make 'dim', less pink option, will have to switch background image with js */
@@ -53,89 +53,91 @@
   border-bottom: 0.15rem solid white;
 } */
 
-.inset{
-  border:0.2rem inset white;
-  padding:1rem;
+.inset {
+	border: 0.2rem inset white;
+	padding: 1rem;
 }
-.tetris-canvas-wrap{
-  width: 460px;
-  height: 780px;
-  background: silver;
-  display: grid;
-  align-items: center;
-  justify-items: center;
-  border: 5px outset white;
-  position: relative; 
-}
-
-.tetris-canvas-wrap:after{
-  content: '';
-  position:absolute;
-  width: 420px;
-  height: 740px;
-  background:silver;
-  z-index: 0;
-  border-top: 2px inset #212121;
-  border-left: 2px inset #212121;
-  border-bottom: 2px inset white;
-  border-right: 2px inset white;
- 
+.tetris-canvas-wrap {
+	width: 460px;
+	height: 780px;
+	background: silver;
+	display: grid;
+	align-items: center;
+	justify-items: center;
+	border: 5px outset white;
+	position: relative;
 }
 
-#tetris{
-  z-index: 9;
+.tetris-canvas-wrap:after {
+	content: '';
+	position: absolute;
+	width: 420px;
+	height: 740px;
+	background: silver;
+	z-index: 0;
+	border-top: 2px inset #212121;
+	border-left: 2px inset #212121;
+	border-bottom: 2px inset white;
+	border-right: 2px inset white;
 }
 
-.tetris-left{
-  display: grid;
-  justify-content: center;
-  align-items: start;
-  margin-top:10vh;
+#tetris {
+	z-index: 9;
 }
 
-.tetris-info-box{
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 2fr 1fr;
-  align-items: center;
-  justify-items: center;
-  height:25rem;
-  width:10rem;
-  padding:1rem 2rem;
-  border: 0.4rem outset white;
-  position:relative;
-  background: silver;
+.tetris-left {
+	display: grid;
+	justify-content: center;
+	align-items: start;
+	margin-top: 10vh;
 }
 
-.tetris-info-box:before{
-  content: '';
-  position: absolute;
-  top: 0.8rem;
-  left: 0.8rem;
-  height:22.6rem;
-  width: 7.6rem;
-  border-top: 0.15rem solid var(--black);
-  border-left: 0.15rem solid var(--black);
-  border-right: 0.15rem solid white;
-  border-bottom: 0.15rem solid white;
+.tetris-info-box {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 2fr 1fr;
+	align-items: center;
+	justify-items: center;
+	height: 25rem;
+	width: 10rem;
+	padding: 1rem 2rem;
+	border: 0.4rem outset white;
+	position: relative;
+	background: silver;
 }
 
-.tetris-shape-preview{
-  width: 50px;
-    height: 50px;
-    /* background: #d4d0c7; */
-    border: 0.2rem groove white;
-    padding-left: 10px;
-    padding-top: 5px;
+.tetris-info-box:before {
+	content: '';
+	position: absolute;
+	top: 0.8rem;
+	left: 0.8rem;
+	height: 22.6rem;
+	width: 7.6rem;
+	border-top: 0.15rem solid var(--black);
+	border-left: 0.15rem solid var(--black);
+	border-right: 0.15rem solid white;
+	border-bottom: 0.15rem solid white;
 }
 
-.tetris-score h2, .tetris-level h2, .tetris-lines h2{
-  font-size: 1rem;
+.tetris-shape-preview {
+	width: 50px;
+	height: 50px;
+	/* background: #d4d0c7; */
+	border: 0.2rem groove white;
+	padding-left: 10px;
+	padding-top: 5px;
 }
 
-.tetris-score p, .tetris-level p, .tetris-lines p{
- color:blue;
- font-size: 0.9rem;
- font-weight: bold;
+.tetris-score h2,
+.tetris-level h2,
+.tetris-lines h2 {
+	font-size: 1rem;
 }
 
+.tetris-score p,
+.tetris-level p,
+.tetris-lines p {
+	color: blue;
+	font-size: 0.9rem;
+	font-weight: bold;
+}

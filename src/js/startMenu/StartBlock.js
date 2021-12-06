@@ -1,9 +1,9 @@
-export class StartBlock{
-  constructor(blockClass){
-    this.blockClass = blockClass;
-  }
+export class StartBlock {
+	constructor(blockClass) {
+		this.blockClass = blockClass;
+	}
 
-  getHtml(){
-    return `<ul class="start-menu ${this.blockClass}"></ul>`
-  }
+	getHtml() {
+		return `<ul class="start-menu ${this.blockClass}"></ul>`;
+	}
 }

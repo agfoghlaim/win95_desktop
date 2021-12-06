@@ -1,6 +1,5 @@
-
 let currentTarget = undefined;
-import { Windo } from './Windo.js'
+import { Windo } from './Windo.js';
 
 /*
 
@@ -12,22 +11,16 @@ import { Windo } from './Windo.js'
 
 */
 
-export class ProgramWindo extends Windo{
-  
-  constructor( config ){
-    
-    super(config);
-    this.target = undefined;
+export class ProgramWindo extends Windo {
+	constructor(config) {
+		super(config);
+		this.target = undefined;
+	}
 
+	init() {}
 
-  }
-
-  init(){
-    
-  }
-
-  getHtml(){
-    return `
+	getHtml() {
+		return `
     <div draggable="false"  style="position:absolute; top:${this.top}rem; left:${this.left}rem; "class="windo show  ${this.windoClassName} windo-${this.windoClassName} ">
   
       <div draggable="true" class="bar" data-corresponding-classname="${this.windoClassName}">
@@ -51,10 +44,5 @@ export class ProgramWindo extends Windo{
       
       <div data-corresponding-classname="${this.windoClassName}" class="${this.windoClassName}-resize-handle resize-handle"></div>
     </div>`;
-  }
-
-
-
-
+	}
 }
-

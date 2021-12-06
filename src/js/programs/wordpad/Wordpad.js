@@ -2,65 +2,61 @@ import { DialogWindo } from '../../windos/Windo';
 import wordpadImg from '../../../img/wordpad.ico';
 import { programConfigs } from '../../content';
 
-export class Wordpad{
+export class Wordpad {
+	constructor() {
+		this.state = { isEditingFile: false, fileName: '', fileContent: '' };
 
-  constructor(){
-    this.state = {isEditingFile: false, fileName: '', fileContent: ''};
-    
-    this.cmdsTextDecoration = [
-      {name: 'bold', icon:'../img/bold.svg'}, 
-      {name: 'italic', icon:'../img/italic.svg'},
-      {name: 'underline', icon:'../img/underline.svg'}
-    ];
-    
-    this.cmdsTypeface = [
-      {name: 'serif'},
-      {name: 'sans-serif'},
-      {name: 'arial'},
-      {name: 'georgia'}
-    ];
-    
-    this.cmdsFontSize = [
-      {name: '1', show:'7'},
-      {name: '2', show:'8'},
-      {name: '3', show:'9'},
-      {name: '4', show:'10'},
-      {name: '5', show:'11'},
-      {name: '6', show:'12'},
-      {name: '7', show:'14'},
-    ];
+		this.cmdsTextDecoration = [
+			{ name: 'bold', icon: '../img/bold.svg' },
+			{ name: 'italic', icon: '../img/italic.svg' },
+			{ name: 'underline', icon: '../img/underline.svg' },
+		];
 
-    this.cmdsTextAlign = [ 
-      {name: 'justifyLeft', icon:'../img/left.svg'},
-      {name: 'justifyCenter', icon:'../img/center.svg'},
-      {name: 'justifyRight', icon:'../img/right.svg'}
-    ];
+		this.cmdsTypeface = [
+			{ name: 'serif' },
+			{ name: 'sans-serif' },
+			{ name: 'arial' },
+			{ name: 'georgia' },
+		];
 
-  }
+		this.cmdsFontSize = [
+			{ name: '1', show: '7' },
+			{ name: '2', show: '8' },
+			{ name: '3', show: '9' },
+			{ name: '4', show: '10' },
+			{ name: '5', show: '11' },
+			{ name: '6', show: '12' },
+			{ name: '7', show: '14' },
+		];
 
-  init(file){
-    
-    if(file){
-      this.state.fileName = file.name || '';
-      this.state.fileContent = file.content || '';
-      this.state.isEditingFile = true;
-    }
-   
-    WordpadUI.initDecorationCmds(this.cmdsTextDecoration);
-    WordpadUI.initAlignCmds(this.cmdsTextAlign);
-    WordpadUI.initCmdsTypeface(this.cmdsTypeface);
-    WordpadUI.initCmdsFontSize(this.cmdsFontSize);
+		this.cmdsTextAlign = [
+			{ name: 'justifyLeft', icon: '../img/left.svg' },
+			{ name: 'justifyCenter', icon: '../img/center.svg' },
+			{ name: 'justifyRight', icon: '../img/right.svg' },
+		];
+	}
 
-    WordpadUI.listenCmdButtons();
-    WordpadUI.listenFontFamily();
-    WordpadUI.listenFontSize();
+	init(file) {
+		if (file) {
+			this.state.fileName = file.name || '';
+			this.state.fileContent = file.content || '';
+			this.state.isEditingFile = true;
+		}
 
-    WordpadUI.addPrintSaveOpenNewListeners(this);
-  }
+		WordpadUI.initDecorationCmds(this.cmdsTextDecoration);
+		WordpadUI.initAlignCmds(this.cmdsTextAlign);
+		WordpadUI.initCmdsTypeface(this.cmdsTypeface);
+		WordpadUI.initCmdsFontSize(this.cmdsFontSize);
 
-  getHtml(file){
-    
-    return `
+		WordpadUI.listenCmdButtons();
+		WordpadUI.listenFontFamily();
+		WordpadUI.listenFontSize();
+
+		WordpadUI.addPrintSaveOpenNewListeners(this);
+	}
+
+	getHtml(file) {
+		return `
     <div class="wordpad-wrap">
     <div class="wordpad-openDialog"></div>
     <div class="wordpad-saveDialog"></div>
@@ -68,12 +64,10 @@ export class Wordpad{
     <div class="wordpad-inside-wrap">
 
       <div class="wordpad-topsection topsection">
-          <span class="wordpad-menu">Edit</span>
-          <span class="wordpad-menu">View</span>
-          <span class="wordpad-menu">Help</span>
+        <span class="wordpad-menu">Edit</span>
+        <span class="wordpad-menu">View</span>
+        <span class="wordpad-menu">Help</span>
       </div>
-
-    
 
       <div class="wordpad-middlesection">
         <div class="wordpad-buttons">
@@ -88,206 +82,213 @@ export class Wordpad{
       <div class="wordpad-bottomsection">
         <div class="wordpad-fontfamily">
           <select name="font-family" id="" class="wordpad-fontfamily-select">
-  
           </select>
         </div>
         <div class="wordpad-fontsize">
-            <select name="font-size" id="" class="wordpad-fontsize-select">
-            </select>
+          <select name="font-size" id="" class="wordpad-fontsize-select">
+          </select>
         </div>
         <div class="wordpad-textdecoration">
-            <button class="wordpad-tool bold" data-cmd="bold">B</button>
+          <button class="wordpad-tool bold" data-cmd="bold">B</button>
         </div>
         <div class="wordpad-textalign"></div>
       </div>
 
-    
       <div class="wordpad-textBox" contenteditable="true">
         ${file.content || ''} 
       </div>
 
-      <div class="wordpad-feedback"><p class="wordpad-feedback-p">${file.name || ''}</p></div>
+      <div class="wordpad-feedback"><p class="wordpad-feedback-p">${
+				file.name || ''
+			}</p></div>
     </div>
   </div>
     `;
-  }
+	}
 
-  handleSaveDialogWindo(){
-    const textBoxContent = document.querySelector('.wordpad-textBox').innerHTML;
+	handleSaveDialogWindo() {
+		const textBoxContent = document.querySelector('.wordpad-textBox').innerHTML;
 
-    let myFiles = JSON.parse(localStorage.getItem('files')) || [];
+		let myFiles = JSON.parse(localStorage.getItem('files')) || [];
 
-    // If Editing file - quietly save - return
-    if(this.state.isEditingFile){
+		// If Editing file - quietly save - return
+		if (this.state.isEditingFile) {
+			this.quietlySave(myFiles, textBoxContent);
 
-      this.quietlySave(myFiles, textBoxContent);
+			return;
+		}
 
-      return;
+		const dialogFileWindoContent = WordpadUI.dialogFileWindoContent(myFiles);
 
-    }
+		// Get config for save dialog Windo
+		const saveConfig = programConfigs.Wordpad.saveDialogConfig();
+		saveConfig.content = WordpadUI.saveDialogHtml(dialogFileWindoContent);
 
-    const dialogFileWindoContent = WordpadUI.dialogFileWindoContent(myFiles);
+		// Save dialog Windo | with no min/max/x buttons
+		new DialogWindo(saveConfig, false);
 
-    // Get config for save dialog Windo
-    const saveConfig = programConfigs.Wordpad.saveDialogConfig();
-    saveConfig.content = WordpadUI.saveDialogHtml( dialogFileWindoContent );
- 
-    // Save dialog Windo | with no min/max/x buttons
-    new DialogWindo(saveConfig, false);
+		// Save-Dialog | Cancel Btn
+		document
+			.querySelector('.cancel-save-btn')
+			.addEventListener('click', () =>
+				DialogWindo.closeDirect('windo-document-saveDialog')
+			);
 
-    // Save-Dialog | Cancel Btn
-    document.querySelector('.cancel-save-btn').addEventListener('click', ()=> DialogWindo.closeDirect('windo-document-saveDialog'))
-  
-    // Save-Dialog | Save Btn
-    document.getElementById('saveForm').addEventListener('submit', e => this.saveFile(e, myFiles, textBoxContent) )
-    
-  }
+		// Save-Dialog | Save Btn
+		document
+			.getElementById('saveForm')
+			.addEventListener('submit', (e) =>
+				this.saveFile(e, myFiles, textBoxContent)
+			);
+	}
 
-  saveFile(e, myFiles, textBoxContent){
-    e.preventDefault();
+	saveFile(e, myFiles, textBoxContent) {
+		e.preventDefault();
 
-    // User Input
-    const fileName =  document.getElementById('fileName').value;
-    
-    const files = JSON.parse(localStorage.getItem('files')) || [];
-    let potentialFile = files.filter(file => file.name === fileName );
-    if(potentialFile.length !==0) {
+		// User Input
+		const fileName = document.getElementById('fileName').value;
 
-      // TODO alertWindo
-      alert("File already exists");
-      return;
-    }
-   
-    // VERY basic validation
-    if( fileName === '' ) return;
-    if( fileName.length > 255 ){
-      alert('Windos 95 only saves file names up to 255 characters in length!');
-      return;
-    }
+		const files = JSON.parse(localStorage.getItem('files')) || [];
+		let potentialFile = files.filter((file) => file.name === fileName);
+		if (potentialFile.length !== 0) {
+			// TODO alertWindo
+			alert('File already exists');
+			return;
+		}
 
-    // Save file
-    myFiles.push( {name: fileName, content: textBoxContent} );
-    localStorage.setItem('files', JSON.stringify(myFiles));
+		// VERY basic validation
+		if (fileName === '') return;
+		if (fileName.length > 255) {
+			alert('Windos 95 only saves file names up to 255 characters in length!');
+			return;
+		}
 
-    // Close save dialog Windo
-    DialogWindo.closeDirect('windo-document-saveDialog');
+		// Save file
+		myFiles.push({ name: fileName, content: textBoxContent });
+		localStorage.setItem('files', JSON.stringify(myFiles));
 
-    // File remains open after save
-    this.state.isEditingFile = true;
-    this.state.fileName = fileName;
-  }
+		// Close save dialog Windo
+		DialogWindo.closeDirect('windo-document-saveDialog');
 
-  quietlySave(myFiles, textBoxContent){
+		// File remains open after save
+		this.state.isEditingFile = true;
+		this.state.fileName = fileName;
+	}
 
-    const fileToOverwrite = myFiles.filter( file => file.name === this.state.fileName )[0];
+	quietlySave(myFiles, textBoxContent) {
+		const fileToOverwrite = myFiles.filter(
+			(file) => file.name === this.state.fileName
+		)[0];
 
-    fileToOverwrite.content = textBoxContent;
+		fileToOverwrite.content = textBoxContent;
 
-    localStorage.setItem('files', JSON.stringify(myFiles));
+		localStorage.setItem('files', JSON.stringify(myFiles));
 
-    // TODO | Show user feedback
-    // document.querySelector('.wordpad-feedback').textContent = 'Saved';
-  }
+		// TODO | Show user feedback
+		// document.querySelector('.wordpad-feedback').textContent = 'Saved';
+	}
 
-  handleOpen(){
-    let myFiles = JSON.parse(localStorage.getItem('files')) || [];
+	handleOpen() {
+		let myFiles = JSON.parse(localStorage.getItem('files')) || [];
+		this.showOpenDialog(myFiles);
+	}
 
-    this.showOpenDialog(myFiles);
+	showOpenDialog(files) {
+		// Images and File names | for file window
+		const dialogFileWindoContent = WordpadUI.dialogFileWindoContent(files);
 
-  }
+		// Create new Windo | with no min/max/x buttons
+		const openConfig = programConfigs.Wordpad.openDialogConfig();
+		openConfig.content = WordpadUI.openDialogHtml(dialogFileWindoContent);
 
-  showOpenDialog(files){
-    
-    // Images and File names | for file window
-    const dialogFileWindoContent = WordpadUI.dialogFileWindoContent(files);
+		// Open dialog Windo | with no min/max/x buttons
+		new DialogWindo(openConfig, false);
 
-    // Create new Windo | with no min/max/x buttons
-    const openConfig = programConfigs.Wordpad.openDialogConfig();
-    openConfig.content = WordpadUI.openDialogHtml( dialogFileWindoContent );
+		// Open-Dialog | Cancel Btn
+		document
+			.querySelector('.cancel-open-btn')
+			.addEventListener('click', () =>
+				DialogWindo.closeDirect('windo-document-openDialog')
+			);
 
-    // Open dialog Windo | with no min/max/x buttons
-    new DialogWindo(openConfig, false);
+		// Open-Dialog | Open file
+		document
+			.querySelectorAll(`.wordpad-open-file`)
+			.forEach((file) =>
+				file.addEventListener('click', (e) => this.openTargetFile(e))
+			);
+	}
 
-    // Open-Dialog | Cancel Btn
-    document.querySelector('.cancel-open-btn').addEventListener('click',()=> DialogWindo.closeDirect('windo-document-openDialog'))
+	openTargetFile(e) {
+		// Find file in localStorage and show in textBoxContent
+		const name = e.target.dataset.name;
+		const textBoxContent = document.querySelector('.wordpad-textBox');
+		const feedback = document.querySelector('.wordpad-feedback');
+		let myFiles = JSON.parse(localStorage.getItem('files')) || [];
+		let file = myFiles.filter((f) => f.name === name)[0];
 
-    // Open-Dialog | Open file
-    document.querySelectorAll(`.wordpad-open-file`).forEach(file => file.addEventListener('click', e => this.openTargetFile(e) ));
-    
-  }
+		textBoxContent.innerHTML = file.content;
 
-  openTargetFile(e){
+		feedback.innerHTML = `<p class="wordpad-feedback-p">${file.name}</p>`;
 
-    // Find file in localStorage and show in textBoxContent
-    const name = e.target.dataset.name;
-    const textBoxContent = document.querySelector('.wordpad-textBox');
-    const feedback = document.querySelector('.wordpad-feedback');
-    let myFiles = JSON.parse(localStorage.getItem('files')) || [];
-    let file = myFiles.filter(f => f.name === name )[0];
+		// Close Windo
+		DialogWindo.closeDirect('windo-document-openDialog');
 
-    textBoxContent.innerHTML = file.content;
-    
-    feedback.innerHTML = `<p class="wordpad-feedback-p">${file.name}</p>`;
+		// set isEditing to true
+		this.state.isEditingFile = true;
+		this.state.fileName = file.name;
+	}
 
-    // Close Windo
-    DialogWindo.closeDirect('windo-document-openDialog');
+	handleNewFile() {
+		document.querySelector('.wordpad-textBox').innerHTML = '';
+		document.querySelector('.wordpad-feedback').innerHTML = '';
 
-    // set isEditing to true
-    this.state.isEditingFile = true;
-    this.state.fileName = file.name;
-  }
-
-  handleNewFile(){
-
-    document.querySelector('.wordpad-textBox').innerHTML = '';
-    document.querySelector('.wordpad-feedback').innerHTML = '';
-
-    // File is new, not saved
-    this.state.isEditingFile = false;
-    this.state.fileName = '';
-  }
-
+		// File is new, not saved
+		this.state.isEditingFile = false;
+		this.state.fileName = '';
+	}
 } // end Wordpad
 
 // Need WordpadUI.dialogFileWindoContent() in content.js
-export class WordpadUI{
-  
-  static initCmdsTypeface(cmdsTypeface){
-    const selectInput = document.querySelector('.wordpad-fontfamily-select');
+export class WordpadUI {
+	static initCmdsTypeface(cmdsTypeface) {
+		const selectInput = document.querySelector('.wordpad-fontfamily-select');
 
-    cmdsTypeface.forEach(typeface => {
+		cmdsTypeface.forEach((typeface) => {
+			let opt = `<option data-typeface=${typeface.name}>${typeface.name}</option`;
 
-      let opt = `<option data-typeface=${typeface.name}>${typeface.name}</option`;
-
-      selectInput.innerHTML += opt;
-
-    })
-  }
-  // For Desktop Icon the_only_folder  | content.js
-  static getDialogFileWindoContent(){
-    let files = JSON.parse(localStorage.getItem('files')) || [];
-    //return WordpadUI.dialogFileWindoContent( myFiles );
-    let html = '';
-    files.forEach(file => html += `<div class="wordpad-open-file-wrap" data-name="${file.name}">
+			selectInput.innerHTML += opt;
+		});
+	}
+	// For Desktop Icon the_only_folder  | content.js
+	static getDialogFileWindoContent() {
+		let files = JSON.parse(localStorage.getItem('files')) || [];
+		//return WordpadUI.dialogFileWindoContent( myFiles );
+		let html = '';
+		files.forEach(
+			(file) =>
+				(html += `<div class="wordpad-open-file-wrap" data-name="${file.name}">
     <img class="wordpad-open-file launch-program" data-launch-windo="windo-wordpad" data-launch="Wordpad" data-name="${file.name}" src=${wordpadImg} />
     <p class="wordpad-open-file wordpad-open-file-p" data-name="${file.name}" >${file.name}</p></div>`)
-    
-    return `<div class="folder-file-window">${html}</div>`
-  
-  }
+		);
 
-  static dialogFileWindoContent(files){
-    let html = '';
-    files.forEach(file => html += `<div class="wordpad-open-file-wrap" data-name="${file.name}">
+		return `<div class="folder-file-window">${html}</div>`;
+	}
+
+	static dialogFileWindoContent(files) {
+		let html = '';
+		files.forEach(
+			(file) =>
+				(html += `<div class="wordpad-open-file-wrap" data-name="${file.name}">
     <img class="wordpad-open-file" data-name="${file.name}" src=${wordpadImg} />
     <p class="wordpad-open-file" data-name="${file.name}" >${file.name}</p></div>`)
-    
-    return html;
-  }
+		);
 
-  static saveDialogHtml(content){
+		return html;
+	}
 
-    return `
+	static saveDialogHtml(content) {
+		return `
       <div class="wordpad-save-wrap">
         <div class="wordpad-dialog-explorer-wrap">
           <label>Save <span class="underline-first">in:</span></label>
@@ -302,12 +303,10 @@ export class WordpadUI{
         <button class=" btn cancel-save-btn">Cancel</button>
       </div>
     `;
+	}
 
-  }
-
-  static openDialogHtml(content){
-
-    return `
+	static openDialogHtml(content) {
+		return `
       <div class="wordpad-open-wrap">
         <div class="wordpad-dialog-explorer-wrap">
           <label>Look <span class="underline-first">in:</span></label>
@@ -317,77 +316,96 @@ export class WordpadUI{
         <button class="btn cancel-open-btn">Cancel</button>
       </div>
     `;
+	}
 
-  }
+	static initCmdsFontSize(cmdsFontSize) {
+		const selectInput = document.querySelector('.wordpad-fontsize-select');
 
-  static initCmdsFontSize(cmdsFontSize){
-    const selectInput = document.querySelector('.wordpad-fontsize-select');
+		cmdsFontSize.forEach((size) => {
+			let opt = `<option value="${size.name}" >${size.show}</option`;
+			selectInput.innerHTML += opt;
+		});
+	}
 
-    cmdsFontSize.forEach(size => {
-      let opt = `<option value="${size.name}" >${size.show}</option`;
-      selectInput.innerHTML += opt;
-    });
-  }
+	static initDecorationCmds(cmdsTextDecoration) {
+		const buttonArea = document.querySelector('.wordpad-textdecoration');
 
-  static initDecorationCmds(cmdsTextDecoration){
-    const buttonArea = document.querySelector('.wordpad-textdecoration');
+		const cmdButtons = cmdsTextDecoration
+			.map(
+				(cmd) =>
+					`<button class="cmd-btn cmd-${cmd.name} cmd-decorate" data-cmd="${cmd.name}"></button>`
+			)
+			.join('');
 
-    const cmdButtons = cmdsTextDecoration.map(cmd => `<button class="cmd-btn cmd-${cmd.name} cmd-decorate" data-cmd="${cmd.name}"></button>`).join('');
+		buttonArea.innerHTML = cmdButtons;
+	}
 
-    buttonArea.innerHTML = cmdButtons;
-  }
+	static initAlignCmds(cmdsTextAlign) {
+		const buttonArea = document.querySelector('.wordpad-textalign');
+		const cmdButtons = cmdsTextAlign
+			.map(
+				(cmd) =>
+					`<button class="cmd-btn ${cmd.name} cmd-${cmd.name} cmd-align" data-cmd="${cmd.name}"></button>`
+			)
+			.join('');
 
-  static initAlignCmds(cmdsTextAlign){
-    const buttonArea = document.querySelector('.wordpad-textalign');
-    const cmdButtons = cmdsTextAlign.map(cmd => `<button class="cmd-btn ${cmd.name} cmd-${cmd.name} cmd-align" data-cmd="${cmd.name}"></button>`).join('');
+		buttonArea.innerHTML = cmdButtons;
+	}
 
-    buttonArea.innerHTML = cmdButtons;
-  }
+	static doCmd(e) {
+		const cmd = e.target.dataset.cmd || e.target.parentElement.dataset.cmd;
+		document.execCommand(cmd, false, '');
+	}
 
-  static  doCmd(e){
-    const cmd = e.target.dataset.cmd || e.target.parentElement.dataset.cmd;
-    document.execCommand(cmd, false, '');
-  }
+	static changeFont(e) {
+		const val = e.target.options[e.target.selectedIndex].value;
+		document.execCommand('fontname', false, val);
+	}
 
-  static changeFont(e){
-    const val =  e.target.options[e.target.selectedIndex].value;
-    document.execCommand('fontname', false, val);
-  }
+	static changeFontSize(e) {
+		const val = e.target.options[e.target.selectedIndex].value;
+		document.execCommand('fontsize', false, val);
+	}
 
-  static changeFontSize(e){
-    const val =  e.target.options[e.target.selectedIndex].value;
-    document.execCommand('fontsize', false, val);
-  }
+	static listenCmdButtons() {
+		const btns = document.querySelectorAll('.cmd-btn');
+		btns.forEach((btn) =>
+			btn.addEventListener('click', (e) => WordpadUI.doCmd(e))
+		);
+	}
 
-  static listenCmdButtons(){
-    const btns = document.querySelectorAll('.cmd-btn')
-    btns.forEach(btn => btn.addEventListener('click', e => WordpadUI.doCmd(e) ))
-  }
-  
-  static listenFontFamily(){
-    document.querySelector('.wordpad-fontfamily-select').addEventListener('change', e => WordpadUI.changeFont(e) );
-  }
-  
-  static listenFontSize(){
-    document.querySelector('.wordpad-fontsize-select').addEventListener('change', e => WordpadUI.changeFontSize(e) );
-  }
+	static listenFontFamily() {
+		document
+			.querySelector('.wordpad-fontfamily-select')
+			.addEventListener('change', (e) => WordpadUI.changeFont(e));
+	}
 
-  static handlePrint(){
-    
-    // See media query in wordpad.css
-    window.print();
+	static listenFontSize() {
+		document
+			.querySelector('.wordpad-fontsize-select')
+			.addEventListener('change', (e) => WordpadUI.changeFontSize(e));
+	}
 
-  }
+	static handlePrint() {
+		// See media query in wordpad.css
+		window.print();
+	}
 
-  static addPrintSaveOpenNewListeners(pad){
-    document.querySelector('.wordpad-printFile').addEventListener('click', () => WordpadUI.handlePrint());
-  
-    document.querySelector('.wordpad-saveFile').addEventListener('click', () => pad.handleSaveDialogWindo() );
-  
-    document.querySelector('.wordpad-openFile').addEventListener('click', () => pad.handleOpen() );
-  
-    document.querySelector('.wordpad-newFile').addEventListener('click', () => pad.handleNewFile() );
-  }
+	static addPrintSaveOpenNewListeners(pad) {
+		document
+			.querySelector('.wordpad-printFile')
+			.addEventListener('click', () => WordpadUI.handlePrint());
 
+		document
+			.querySelector('.wordpad-saveFile')
+			.addEventListener('click', () => pad.handleSaveDialogWindo());
+
+		document
+			.querySelector('.wordpad-openFile')
+			.addEventListener('click', () => pad.handleOpen());
+
+		document
+			.querySelector('.wordpad-newFile')
+			.addEventListener('click', () => pad.handleNewFile());
+	}
 }
-

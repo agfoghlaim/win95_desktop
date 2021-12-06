@@ -1,321 +1,317 @@
-:root{
-  box-sizing: border-box;
+:root {
+	box-sizing: border-box;
 }
 
-body, *{
-  box-sizing: border-box;
+body,
+* {
+	box-sizing: border-box;
 }
 
-.wordpad-wrap{
-  border:2px solid silver;
-  background: silver;
-  height: 100%;
+.wordpad-wrap {
+	border: 2px solid silver;
+	background: silver;
+	height: 100%;
 }
 
 .wordpad-inside-wrap {
-  display: grid;
-  grid-template-rows: 3rem 3rem 3rem 1fr 1rem;
-  grid-gap: 1rem;
-  height: 100%;
+	display: grid;
+	grid-template-rows: 3rem 3rem 3rem 1fr 1rem;
+	grid-gap: 1rem;
+	height: 100%;
 }
 
-.wordpad-topsection{
-  border-bottom: 0.2rem groove white;
-
+.wordpad-topsection {
+	border-bottom: 0.2rem groove white;
 }
 
-span.wordpad-menu{
-  margin-right: 0.85rem;
-  display: inline-block;
-  font-size: 0.85rem;
-  line-height: 0.85rem;
+span.wordpad-menu {
+	margin-right: 0.85rem;
+	display: inline-block;
+	font-size: 0.85rem;
+	line-height: 0.85rem;
 }
 
-.wordpad-buttons button{
-  width:2rem;
-  height:2rem;
+.wordpad-buttons button {
+	width: 2rem;
+	height: 2rem;
 }
 
-.wordpad-newFile{
-  /* background:url(img/blank_file.ico); */
-  background:url(../img/blank_file.ico);
- 
+.wordpad-newFile {
+	/* background:url(img/blank_file.ico); */
+	background: url(../img/blank_file.ico);
 }
 
-.wordpad-printFile{
-  /* background:url(img/print.ico); */
-  background:url(../img/print.ico);
+.wordpad-printFile {
+	/* background:url(img/print.ico); */
+	background: url(../img/print.ico);
 }
 
-.wordpad-openFile{
-  /* background:url(img/open.ico); */
-  background:url(../img/open.ico);
+.wordpad-openFile {
+	/* background:url(img/open.ico); */
+	background: url(../img/open.ico);
 }
 
-.wordpad-saveFile{
-  /* background:url(img/floppy.svg); */
-  background:url(../img/floppy.svg);
+.wordpad-saveFile {
+	/* background:url(img/floppy.svg); */
+	background: url(../img/floppy.svg);
 }
 
-.wordpad-btn{
-  background-size: 1.5rem;
-  background-repeat: no-repeat;
-  background-position:center;
+.wordpad-btn {
+	background-size: 1.5rem;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
-.cmd-bold{
-  /* background-image:url(img/bold.svg); */
-  background-image:url(../img/bold.svg);
+.cmd-bold {
+	/* background-image:url(img/bold.svg); */
+	background-image: url(../img/bold.svg);
 }
 
-.cmd-underline{
-  /* background-image:url(img/underline.svg); */
-  background-image:url(../img/underline.svg);
+.cmd-underline {
+	/* background-image:url(img/underline.svg); */
+	background-image: url(../img/underline.svg);
 }
 
-.cmd-italic{
-  /* background-image:url(img/italic.svg); */
-  background-image:url(../img/italic.svg);
+.cmd-italic {
+	/* background-image:url(img/italic.svg); */
+	background-image: url(../img/italic.svg);
 }
 
-.cmd-justifyRight{
-  background-image:url(../img/right.svg);
-  background-size:1rem;
+.cmd-justifyRight {
+	background-image: url(../img/right.svg);
+	background-size: 1rem;
 }
 
-.cmd-justifyLeft{
-  background-image:url(../img/left.svg);
-  background-size:1rem;
+.cmd-justifyLeft {
+	background-image: url(../img/left.svg);
+	background-size: 1rem;
 }
 
-.cmd-justifyCenter{
-  background-image:url(../img/center.svg);
-  /* background-size:1rem; */
+.cmd-justifyCenter {
+	background-image: url(../img/center.svg);
+	/* background-size:1rem; */
 }
 
-.cmd-decorate{
-  background-size: 1.3rem;
-  background-repeat: no-repeat;
-  background-position:center;
+.cmd-decorate {
+	background-size: 1.3rem;
+	background-repeat: no-repeat;
+	background-position: center;
 }
-.cmd-align{
-  background-size: 1rem;
-  background-repeat: no-repeat;
-  background-position:center;
-}
-
-.wordpad-bottomsection{
-  display:grid;
-  grid-auto-flow: column;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  grid-gap:1rem;
+.cmd-align {
+	background-size: 1rem;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
-.wordpad-fontfamily-select{
-  width:100%;
-  height:1.5rem;
+.wordpad-bottomsection {
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-columns: 2fr 1fr 1fr 1fr;
+	grid-gap: 1rem;
 }
 
-.wordpad-fontsize-select, .wordpad-fontfamily-select{
-  height:1.5rem;
-  width:100%;
-  font-size: 0.7rem;
-  border-bottom: 0.1rem inset white;
-  border-right: 0.1rem inset white;
-  border-top: 0.1rem inset rgba(0,0,0,0.9);
-  border-left: 0.1rem inset rgba(0,0,0,0.9);
+.wordpad-fontfamily-select {
+	width: 100%;
+	height: 1.5rem;
 }
 
-.wordpad-fontfamily{
-  position: relative;
-  display: grid;
+.wordpad-fontsize-select,
+.wordpad-fontfamily-select {
+	height: 1.5rem;
+	width: 100%;
+	font-size: 0.7rem;
+	border-bottom: 0.1rem inset white;
+	border-right: 0.1rem inset white;
+	border-top: 0.1rem inset rgba(0, 0, 0, 0.9);
+	border-left: 0.1rem inset rgba(0, 0, 0, 0.9);
 }
 
-
-.windo-wordpad{
-  border: 0.2rem solid var(--gray);
-  max-width: 98vw; 
-  min-width: 2rem;
-  width: 60vw;
-  height: 40vh;
-  
-  box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.5);
-  grid-template-rows: 3rem 1fr;
-  resize: both;
-  overflow: hidden;
+.wordpad-fontfamily {
+	position: relative;
+	display: grid;
 }
 
-.wordpad-textBox{
-  background: white;
-  outline: none;
-  overflow-wrap: break-word;
-  overflow: auto;
-  padding: 1rem;
+.windo-wordpad {
+	border: 0.2rem solid var(--gray);
+	max-width: 98vw;
+	min-width: 2rem;
+	width: 60vw;
+	height: 40vh;
 
-  
- }
-
-
-.wordpad-fontfamily:after, .wordpad-fontsize:after{
-  content:'▼';
-  position: absolute;
-  width:1.3rem;
-  height:1.3rem;
-  background:silver;
-  border-left: 0.1rem solid white;
-  border-top: 0.1rem solid white;
-  border-bottom: 0.1rem solid rgba(0,0,0,0.9);
-  border-right: 0.1rem solid rgba(0,0,0,0.9);
-  top:0.1rem;
-  right:0.1rem;
-  display:grid;
-  font-size:0.8rem;
-  align-content: center;
-  justify-content: center;
-  box-sizing: border-box;
-  pointer-events: none;
+	box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.5);
+	grid-template-rows: 3rem 1fr;
+	resize: both;
+	overflow: hidden;
 }
 
-.wordpad-textalign, .wordpad-textdecoration{
-  grid-auto-flow: column;
-  display: grid;
-  height: 2rem;
-  width:2rem;
+.wordpad-textBox {
+	background: white;
+	outline: none;
+	overflow-wrap: break-word;
+	overflow: auto;
+	padding: 1rem;
 }
 
-.cmd-btn{
-  font-family: serif;
-  font-weight: 900;
-  display: grid;
-  justify-content: center;
-  justify-items: center;
-  width:1.5rem;
-  height:1.5rem;
-  border-left: 0.1rem solid white;
-  border-top: 0.1rem solid white;
-  border-bottom: 0.1rem solid rgba(0,0,0,0.5);
-  border-right: 0.1rem solid rgba(0,0,0,0.5);
-  box-shadow: 0.1px 0.1px 2px 0.1px rgba(0,0,0,0.5);
-  padding: 0.1rem;
+.wordpad-fontfamily:after,
+.wordpad-fontsize:after {
+	content: '▼';
+	position: absolute;
+	width: 1.3rem;
+	height: 1.3rem;
+	background: silver;
+	border-left: 0.1rem solid white;
+	border-top: 0.1rem solid white;
+	border-bottom: 0.1rem solid rgba(0, 0, 0, 0.9);
+	border-right: 0.1rem solid rgba(0, 0, 0, 0.9);
+	top: 0.1rem;
+	right: 0.1rem;
+	display: grid;
+	font-size: 0.8rem;
+	align-content: center;
+	justify-content: center;
+	box-sizing: border-box;
+	pointer-events: none;
 }
 
-.cmd-btn:active{
-  border:none
+.wordpad-textalign,
+.wordpad-textdecoration {
+	grid-auto-flow: column;
+	display: grid;
+	height: 2rem;
+	width: 2rem;
 }
 
-.cmd-btn img{
-  width: 1.1rem;
-  height: 1.1rem;
-} 
-
-.cmd-underline{
-  text-decoration: underline;
+.cmd-btn {
+	font-family: serif;
+	font-weight: 900;
+	display: grid;
+	justify-content: center;
+	justify-items: center;
+	width: 1.5rem;
+	height: 1.5rem;
+	border-left: 0.1rem solid white;
+	border-top: 0.1rem solid white;
+	border-bottom: 0.1rem solid rgba(0, 0, 0, 0.5);
+	border-right: 0.1rem solid rgba(0, 0, 0, 0.5);
+	box-shadow: 0.1px 0.1px 2px 0.1px rgba(0, 0, 0, 0.5);
+	padding: 0.1rem;
 }
 
-.cmd-italic{
-  font-style:italic;
+.cmd-btn:active {
+	border: none;
 }
 
-
-.wordpad-fontsize{
-  position: relative;
-  display: grid;
+.cmd-btn img {
+	width: 1.1rem;
+	height: 1.1rem;
 }
 
-.wordpad-open-file-wrap{
-  display: grid;
-  justify-content: center;
-  align-content: center;
-  position:relative;
+.cmd-underline {
+	text-decoration: underline;
 }
 
-img.wordpad-open-file{
-  min-width: 4rem;
+.cmd-italic {
+	font-style: italic;
 }
 
-p.wordpad-open-file{
-  font-size:0.7rem;
-}
-.wordpad-save-wrap, .wordpad-open-wrap{
-  min-height: 12rem;
-  display:grid;
-  background:silver;
-  padding:1rem;
-  grid-gap: 2rem;
+.wordpad-fontsize {
+	position: relative;
+	display: grid;
 }
 
-.dialog-file-window{
-    min-height: 9rem;
-    background: white;
-    display: grid;
-    border: 0.2rem inset;
-    overflow: scroll;
-    grid-template-columns: repeat(4, 1fr);
-    max-height: 23rem;
-    grid-gap: 2rem;
-    padding: 3rem;
-    grid-gap: 3rem;
+.wordpad-open-file-wrap {
+	display: grid;
+	justify-content: center;
+	align-content: center;
+	position: relative;
 }
 
-.wordpad-dialog-explorer-wrap{
-  display: grid;
-  align-items: center;
-  grid-auto-flow: column;
+img.wordpad-open-file {
+	min-width: 4rem;
 }
 
-#saveForm{
-  display: grid;
-    grid-template-columns: 1fr 2fr 6rem;
-    grid-gap: 1rem;
+p.wordpad-open-file {
+	font-size: 0.7rem;
+}
+.wordpad-save-wrap,
+.wordpad-open-wrap {
+	min-height: 12rem;
+	display: grid;
+	background: silver;
+	padding: 1rem;
+	grid-gap: 2rem;
 }
 
-#saveForm #fileName{
-  border:0.2rem inset;
-  outline: none;
+.dialog-file-window {
+	min-height: 9rem;
+	background: white;
+	display: grid;
+	border: 0.2rem inset;
+	overflow: scroll;
+	grid-template-columns: repeat(4, 1fr);
+	max-height: 23rem;
+	grid-gap: 2rem;
+	padding: 3rem;
+	grid-gap: 3rem;
 }
 
-.underline-first{
-  display: inline-block;
-}
-.underline-first:first-letter{
-  text-decoration: underline;
-}
-
-.cancel-save-btn{
-  display: grid;
-  justify-self: end;
+.wordpad-dialog-explorer-wrap {
+	display: grid;
+	align-items: center;
+	grid-auto-flow: column;
 }
 
-.dialog-explorer-input{
-  border:0.2rem inset;
-  background-image: url(../img/open.ico),linear-gradient(white,white);
-  background-repeat: no-repeat;
-  background-position: left;
-  background-size: 2rem;
-  padding-left:3rem;
- 
+#saveForm {
+	display: grid;
+	grid-template-columns: 1fr 2fr 6rem;
+	grid-gap: 1rem;
 }
 
-.wordpad-feedback{
-  height:1rem;
-  font-size:0.8rem;
-  padding-left:1rem;
-  display: grid;
-  align-content: center;
+#saveForm #fileName {
+	border: 0.2rem inset;
+	outline: none;
 }
 
-.wordpad-feedback-p{
-  margin:0;
-  padding:0;
+.underline-first {
+	display: inline-block;
+}
+.underline-first:first-letter {
+	text-decoration: underline;
+}
+
+.cancel-save-btn {
+	display: grid;
+	justify-self: end;
+}
+
+.dialog-explorer-input {
+	border: 0.2rem inset;
+	background-image: url(../img/open.ico), linear-gradient(white, white);
+	background-repeat: no-repeat;
+	background-position: left;
+	background-size: 2rem;
+	padding-left: 3rem;
+}
+
+.wordpad-feedback {
+	height: 1rem;
+	font-size: 0.8rem;
+	padding-left: 1rem;
+	display: grid;
+	align-content: center;
+}
+
+.wordpad-feedback-p {
+	margin: 0;
+	padding: 0;
 }
 
 @media print {
-  .wordpad-textBox {
-    position:fixed;
-    top:0;
-    left:0;
-    width:100vw;
-    height:100vh;
-  }
+	.wordpad-textBox {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+	}
 }
-

@@ -1,352 +1,350 @@
-.calendar-wrap{
-  display:none;
-  background : var(--gray);
-  position:fixed;
-  bottom: 12vh;
-  right: 4vh;
-  min-width: 44rem;
-  border: 3px solid var(--gray);
-  box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.5);
+.calendar-wrap {
+	display: none;
+	background: var(--gray);
+	position: fixed;
+	bottom: 12vh;
+	right: 4vh;
+	min-width: 44rem;
+	border: 3px solid var(--gray);
+	box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.5);
 }
 
-.calendar-wrap.show{
+.calendar-wrap.show {
 	display: grid;
 }
 
-.digitalclock{
-  display:grid;
-  grid-auto-flow: column;
-  max-height: 2rem;
+.digitalclock {
+	display: grid;
+	grid-auto-flow: column;
+	max-height: 2rem;
 }
 
-.digital-time{
-  display:grid;
-  background:white;
-  border:2px inset white;
-  align-items: center;
-  align-content:center;
-  justify-content: center;
-  justify-items: center;
-  width: 10rem;
+.digital-time {
+	display: grid;
+	background: white;
+	border: 2px inset white;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+	justify-items: center;
+	width: 10rem;
 }
 
-.blue-heading{
-  color: var(--white);
-  font-size: 1rem;
-  margin: 0;
-  padding: 0;
-  margin-left:3px;
+.blue-heading {
+	color: var(--white);
+	font-size: 1rem;
+	margin: 0;
+	padding: 0;
+	margin-left: 3px;
 }
 
-.insideDiv{
-  margin:2rem 1rem;
-  box-shadow: 3px 3px 10px #404040;
-  border-radius:4px;
-  display:grid;
-  background:var(--gray);
-  max-height: 100%;
-  grid-template-columns: 50% 50%;
-  grid-template-rows: 3fr 3rem;
-  grid-template-areas: 'calendar clock' 'timezone timezone';
-  border:5px groove var(--gray);
+.insideDiv {
+	margin: 2rem 1rem;
+	box-shadow: 3px 3px 10px #404040;
+	border-radius: 4px;
+	display: grid;
+	background: var(--gray);
+	max-height: 100%;
+	grid-template-columns: 50% 50%;
+	grid-template-rows: 3fr 3rem;
+	grid-template-areas: 'calendar clock' 'timezone timezone';
+	border: 5px groove var(--gray);
 }
 
-.timezone{
-  grid-area:timezone;
-  margin-left: 30px;
-  display:grid;
-  align-content: center;
+.timezone {
+	grid-area: timezone;
+	margin-left: 30px;
+	display: grid;
+	align-content: center;
 }
 
-.calendar:before{
-  box-sizing: border-box;
-  content: 'Date & Time';
-  border-radius:4px;
-  position:absolute;
-  top:-1.533333rem;
-  font-size:0.8rem;
-  left:-5px;
-  height:2rem;
-  padding:2px 5px;
-  border-width: 0 1px 1px 0;
-  background:var(--gray);
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-  border-left:5px groove var(--gray);
-  border-top:5px groove var(--gray);
-  border-right:5px groove var(--gray);
+.calendar:before {
+	box-sizing: border-box;
+	content: 'Date & Time';
+	border-radius: 4px;
+	position: absolute;
+	top: -1.533333rem;
+	font-size: 0.8rem;
+	left: -5px;
+	height: 2rem;
+	padding: 2px 5px;
+	border-width: 0 1px 1px 0;
+	background: var(--gray);
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-left: 5px groove var(--gray);
+	border-top: 5px groove var(--gray);
+	border-right: 5px groove var(--gray);
 }
 
-.calendar{
-  grid-area: calendar;
-  position: relative;
-  display: grid;
-  padding: 1rem 0;
+.calendar {
+	grid-area: calendar;
+	position: relative;
+	display: grid;
+	padding: 1rem 0;
 }
 
-.calendar-window{
-  background: white;
-  display: grid;
-  grid-template-rows: 3rem 1fr;
-  border: 3px ridge gray;
-  height: 16rem;
+.calendar-window {
+	background: white;
+	display: grid;
+	grid-template-rows: 3rem 1fr;
+	border: 3px ridge gray;
+	height: 16rem;
 }
 
-.insideRidgeCalendar{
-  margin: 1rem;
-  position: relative;
-  border: 3px groove var(--white);
-  display: grid;
-  padding: 0.625rem;
-  grid-template-rows: 1fr 4fr;
+.insideRidgeCalendar {
+	margin: 1rem;
+	position: relative;
+	border: 3px groove var(--white);
+	display: grid;
+	padding: 0.625rem;
+	grid-template-rows: 1fr 4fr;
 }
 
-.insideRidgeClock{
-  margin: 1rem;
-  position: relative;
-  border: 3px groove #e1e1e1;
-  display: grid;
-  padding: 0.625rem;
-  grid-template-rows: 4fr 1fr;
-  justify-content: center;
+.insideRidgeClock {
+	margin: 1rem;
+	position: relative;
+	border: 3px groove #e1e1e1;
+	display: grid;
+	padding: 0.625rem;
+	grid-template-rows: 4fr 1fr;
+	justify-content: center;
 }
 
-.insideRidgeCalendar:after{
-  content:'Date';
-  position: absolute;
-  top:-1rem;
-  left:8px;
-  font-weight: lighter;
-  font-size: 0.8rem;
-  background:var(--gray);
-  padding: 0 4px;
+.insideRidgeCalendar:after {
+	content: 'Date';
+	position: absolute;
+	top: -1rem;
+	left: 8px;
+	font-weight: lighter;
+	font-size: 0.8rem;
+	background: var(--gray);
+	padding: 0 4px;
 }
 
-.insideRidgeClock:after{
-  content:'Time';
-  position: absolute;
-  top:-1rem;
-  left:8px;
-  font-weight: lighter;
-  font-size: 0.8rem;
-  background:var(--gray);
-  padding: 0 4px;
+.insideRidgeClock:after {
+	content: 'Time';
+	position: absolute;
+	top: -1rem;
+	left: 8px;
+	font-weight: lighter;
+	font-size: 0.8rem;
+	background: var(--gray);
+	padding: 0 4px;
 }
 
 .weekdays {
-  width: 100%;
-  background: gray;
-  color: var(--white);
-  margin: 0;
-  padding: 1rem 0;
-  display: grid;
-  grid-template-columns: repeat(7, 14.2857%);
-  padding: 1rem;
-  overflow: hidden;
-  align-content: center;
+	width: 100%;
+	background: gray;
+	color: var(--white);
+	margin: 0;
+	padding: 1rem 0;
+	display: grid;
+	grid-template-columns: repeat(7, 14.2857%);
+	padding: 1rem;
+	overflow: hidden;
+	align-content: center;
 }
 
-.weekdays li{
-  display: inline-block;
-  width: 14.2857%;
-  color: #000;
-  text-align: center;
+.weekdays li {
+	display: inline-block;
+	width: 14.2857%;
+	color: #000;
+	text-align: center;
 }
 
 .days {
-  padding: 1rem;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(7, 14.2857%);
+	padding: 1rem;
+	margin: 0;
+	display: grid;
+	grid-template-columns: repeat(7, 14.2857%);
 }
 
 .days li {
-  list-style-type: none;
-  display: inline-block;
-  width: 13.6%;
-  display: grid;
-  align-content: center;
-  font-size: 1rem;
-  color: black;
-  min-height: 1.6rem;
+	list-style-type: none;
+	display: inline-block;
+	width: 13.6%;
+	display: grid;
+	align-content: center;
+	font-size: 1rem;
+	color: black;
+	min-height: 1.6rem;
 }
-
 
 .days li .active {
-  padding: 0.5rem;
-  background: #1abc9c;
-  color: white !important;
+	padding: 0.5rem;
+	background: #1abc9c;
+	color: white !important;
 }
 
-.taskbar-clock{
-  grid-area:clock;
-  position: relative;
-  max-height: 400px;
-  display: grid;
-  padding: 1rem 0;
+.taskbar-clock {
+	grid-area: clock;
+	position: relative;
+	max-height: 400px;
+	display: grid;
+	padding: 1rem 0;
 }
 
-ul{
-  list-style-type: none;
-  display:flex;
+ul {
+	list-style-type: none;
+	display: flex;
 }
 
-.monthYearDiv{
-  display: grid;
-  grid-template-columns: 50% 50%;
-  grid-auto-flow: column;
-  justify-content: space-between;
-  align-content: center;
-  padding: 12px 0;
+.monthYearDiv {
+	display: grid;
+	grid-template-columns: 50% 50%;
+	grid-auto-flow: column;
+	justify-content: space-between;
+	align-content: center;
+	padding: 12px 0;
 }
 
-.monthYearInput{
-  max-width: 100%;
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: start;
-  max-height: 2rem;
+.monthYearInput {
+	max-width: 100%;
+	display: grid;
+	grid-auto-flow: column;
+	justify-content: start;
+	max-height: 2rem;
 }
 
-.yearInput{
-  display: grid;
-  justify-self: flex-end;
+.yearInput {
+	display: grid;
+	justify-self: flex-end;
 }
 
-.monthname, .year{
-  background: white;
-  width: 7rem;
-  border: 2px inset white;
-  display: inline-block;
-  padding: 0 0.2rem;
+.monthname,
+.year {
+	background: white;
+	width: 7rem;
+	border: 2px inset white;
+	display: inline-block;
+	padding: 0 0.2rem;
 }
 
-.up{
-  position:relative;
-  height:1rem;
+.up {
+	position: relative;
+	height: 1rem;
 }
 
-.next, .prev, .nextYear, .prevYear{
-  position: relative;
-  width: 2rem;
-  border-bottom: 0.15rem solid rgba(0,0,0,0.9);
-  border-right: 0.15rem solid rgba(0,0,0,0.9);
-  border-left: 0.15rem solid white;
-  border-top: 0.15rem solid white;
-  background:silver;
+.next,
+.prev,
+.nextYear,
+.prevYear {
+	position: relative;
+	width: 2rem;
+	border-bottom: 0.15rem solid rgba(0, 0, 0, 0.9);
+	border-right: 0.15rem solid rgba(0, 0, 0, 0.9);
+	border-left: 0.15rem solid white;
+	border-top: 0.15rem solid white;
+	background: silver;
 }
-.next:after, .nextYear:after{
-  content: '▲';
-  position: absolute;
-  top: 0.0375rem;
-  left: 0.4375rem;
-  font-size: 0.75rem;
-  line-height: 0.75rem;
-}
-
-.prev:after, .prevYear:after{
-  content: '▼';
-  position: absolute;
-  top: 0.1375rem;
-  left: 0.4375rem;
-  font-size: 0.75rem;
-  line-height: 0.75rem;
+.next:after,
+.nextYear:after {
+	content: '▲';
+	position: absolute;
+	top: 0.0375rem;
+	left: 0.4375rem;
+	font-size: 0.75rem;
+	line-height: 0.75rem;
 }
 
-.upDownArrowsDiv{
-  display: grid;
+.prev:after,
+.prevYear:after {
+	content: '▼';
+	position: absolute;
+	top: 0.1375rem;
+	left: 0.4375rem;
+	font-size: 0.75rem;
+	line-height: 0.75rem;
 }
 
+.upDownArrowsDiv {
+	display: grid;
+}
 
 /* 
 
 Clock
 
 */
-.clock{
-  position: relative;
-  display: grid;
-  padding: 1rem 0;
-  grid-area: clock;
+.clock {
+	position: relative;
+	display: grid;
+	padding: 1rem 0;
+	grid-area: clock;
 }
 
-.clockface{
-  border-radius: 50%;
-  width: 12.5rem;
-  height: 16rem;
-  position: relative; 
+.clockface {
+	border-radius: 50%;
+	width: 12.5rem;
+	height: 16rem;
+	position: relative;
 }
 
-.quarter{ 
-  width:1rem;
-  height:1rem;
-  background:var(--windows-green);
+.quarter {
+	width: 1rem;
+	height: 1rem;
+	background: var(--windows-green);
 }
 
-.hand-min{
-  position: absolute;
-  left: 47%;
-  top: 0.625rem;
-  transform:rotate(90deg);
-  transform-origin:bottom;
-  height:5.625rem;
+.hand-min {
+	position: absolute;
+	left: 47%;
+	top: 0.625rem;
+	transform: rotate(90deg);
+	transform-origin: bottom;
+	height: 5.625rem;
 }
 
-.hand-min img{
-  height: 6.25rem;
+.hand-min img {
+	height: 6.25rem;
 }
 
-.hand-hour{
-  position: absolute;
-  left: 44%;
-  top: 1.25rem;
-  transform-origin:bottom;
-  height: 5rem;
+.hand-hour {
+	position: absolute;
+	left: 44%;
+	top: 1.25rem;
+	transform-origin: bottom;
+	height: 5rem;
 }
 
-.hand-hour img{
-  height: 6.25rem;
+.hand-hour img {
+	height: 6.25rem;
 }
 
-.hand-sec{
-  position: absolute;
-  left: 48.5%;
-  top: 0.625rem;
-  transform-origin: bottom;
-  height: 5.625rem;
+.hand-sec {
+	position: absolute;
+	left: 48.5%;
+	top: 0.625rem;
+	transform-origin: bottom;
+	height: 5.625rem;
 }
 
-.hand-sec img{
-  height: 6.875rem;
+.hand-sec img {
+	height: 6.875rem;
 }
-
 
 @media only screen and (max-width: 560px) {
+	.calendar-wrap {
+		width: 96vw;
+		right: 2vw;
+	}
 
-  .calendar-wrap{
-    width: 96vw;
-    right: 2vw;
-  }
-
-  .insideDiv{
-    margin-left: 0;
-    margin-right: 0;
-  }
-  
+	.insideDiv {
+		margin-left: 0;
+		margin-right: 0;
+	}
 }
 
 @media only screen and (max-width: 390px) {
- 
-  .insideDiv{
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 3rem;
-    grid-template-areas:
-    'calendar' 'clock' 'timezone';
-  }
+	.insideDiv {
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr 1fr 3rem;
+		grid-template-areas: 'calendar' 'clock' 'timezone';
+	}
 
-  .calendar-wrap{
-    min-width: 22rem;
-  }
-
+	.calendar-wrap {
+		min-width: 22rem;
+	}
 }

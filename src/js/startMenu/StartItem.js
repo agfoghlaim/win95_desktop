@@ -1,23 +1,19 @@
- // ▶ = &#9654;
-export class StartItem{
+export class StartItem {
+	constructor(classes, dataAttributes, img, text, arrow) {
+		this.classes = classes;
+		this.img = img;
+		this.text = text;
+		this.arrow = this.handleArrow(arrow);
+		this.dataAttributes = dataAttributes;
+	}
 
-  constructor(classes, dataAttributes, img, text, arrow){
-    this.classes = classes;
-    this.img = img;
-    this.text = text;
-    this.arrow = this.handleArrow(arrow);
-    this.dataAttributes = dataAttributes;
-  }
+	handleArrow(arrow) {
+		const arrowHtml = `<span class="arrow">▶</span>`;
+		return arrow ? arrowHtml : '';
+	}
 
-  handleArrow(arrow){
-    const arrowHtml = `<span class="arrow">▶</span>`;
-    return arrow ? arrowHtml : '';
-  }
-  
-  getHtml(){
-
- 
-      return `<li  ${this.classes} ${this.dataAttributes} >
+	getHtml() {
+		return `<li  ${this.classes} ${this.dataAttributes} >
 
       <img src="${this.img}" alt="">
 
@@ -25,7 +21,6 @@ export class StartItem{
 
       ${this.arrow}
 
-    </li>`
-
-  }
+    </li>`;
+	}
 }
