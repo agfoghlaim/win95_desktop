@@ -5,7 +5,7 @@ module.exports = {
   entry: './src/main.js',
   output: {
     filename: 'main.js',
-    path: __dirname + '/.netlify/build'
+    path: __dirname + '/dist'
   },
   mode: "development",
   module: {

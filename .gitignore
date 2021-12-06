@@ -1,3 +1,5 @@
 notes.txt
-node_modules
+/node_modules
 .netlify
+/dist
+netlify.toml
