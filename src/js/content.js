@@ -145,5 +145,5 @@ export const myDocuments = [
 		img: folder,
 		title: 'my_only_folder',
 		broadcastEvent: 'theOnlyFolderOpened', // need to re-add launch program listeners
-	},
+	}
 ];

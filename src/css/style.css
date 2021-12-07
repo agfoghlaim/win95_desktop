@@ -26,10 +26,6 @@ html {
 	font-family: 'px_sans_nouveauxregular', sans-serif;
 }
 
-/* .hideUntilLoaded {
-  opacity: 0;
-} */
-
 body {
 	margin: 0;
 }
@@ -38,13 +34,11 @@ body {
 *:before,
 *:after {
 	box-sizing: inherit;
-	/* font-family: 'px_sans_nouveauxregular', sans-serif; */
 }
 
 .btn {
 	background: silver;
 	border: none;
-	/* outline: none; */
 	color: var(--black);
 	font-weight: bolder;
 	font-size: 0.8rem;
@@ -89,7 +83,6 @@ body {
 .button-95 {
 	background: silver;
 	border: none;
-	/* outline: none; */
 	color: var(--black);
 	font-weight: bolder;
 	font-size: 1.1rem;
@@ -109,14 +102,9 @@ body {
 	box-shadow: inset 1px 1px 2px 1px rgba(255, 255, 255, 0.8);
 }
 
-button:active{
+button:active {
 	box-shadow: inset 1px 1px 2px 1px rgba(0, 0, 0, 0.5);
-	/* box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.1); */
 	border-style: inset;
-}
-button:active,
-button:focus {
-	/* outline: none; */
 }
 
 ::-webkit-scrollbar-button:vertical:increment {
@@ -148,12 +136,6 @@ button:focus {
 	width: 1.5rem;
 }
 
-/* ::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-	-webkit-border-radius: 0;
-	border-radius: 0;
-} */
-
 ::-webkit-scrollbar-thumb {
 	-webkit-border-radius: 0;
 	border-radius: 0;
@@ -163,12 +145,6 @@ button:focus {
 	border-left: 0.1rem solid white;
 	border-top: 0.1rem solid white;
 }
-/* ::-webkit-scrollbar-thumb:window-inactive {
-background: rgba(255,0,0,0.4); 
-} */
-/* ::-webkit-scrollbar-button {
-	background: red;
-} */
 
 .page-wrap {
 	display: grid;
@@ -203,6 +179,10 @@ background: rgba(255,0,0,0.4);
 	position: relative;
 	background: none;
 	border: none;
+	font-family: inherit;
+}
+.right-taskbar:focus {
+	outline: 2px dotted var(--black);
 }
 
 p.clock-p {
@@ -285,8 +265,24 @@ start-menu
 	border-right: 0.15rem solid var(--black);
 	box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.5);
 	font-family: inherit;
+	position: relative;
 }
-
+.start-btn .pseudo-focus {
+	content: '';
+	position: absolute;
+	width: 96%;
+	height: 90%;
+	top: 5%;
+	left: 2%;
+	border: none;
+	pointer-events: none;
+}
+.start-btn:focus {
+	outline: none;
+}
+.start-btn:focus .pseudo-focus {
+	border: 0.2rem dotted var(--black);
+}
 .start-menu {
 	position: fixed;
 	bottom: 10vh;
@@ -299,10 +295,43 @@ start-menu
 	box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.5);
 }
 
-.start-menu .with-subitem:hover > ul {
+.sub-menu-toggle[aria-expanded='true'] ~ ul.start-menu {
+	display: grid;
+}
+.start-btn[aria-expanded='true'] ~ nav > ul.start-menu {
 	display: grid;
 }
 
+.start-menu button:focus {
+	outline: 2px dotted var(--black);
+}
+.start-menu .with-subitem button {
+	background: none;
+	border: none;
+	font-size: 0.8rem;
+}
+.start-menu .launch-program button,
+.start-menu .launchExplorer button {
+	display: grid;
+	grid-auto-flow: column;
+	font-family: inherit;
+	grid-template-columns: 3rem 3fr 1fr;
+	align-content: center;
+	align-items: center;
+	justify-content: flex-start;
+	color: var(--black);
+	position: relative;
+	max-height: 4rem;
+	width: 100%;
+	height: 100%;
+	justify-items: flex-start;
+}
+.start-menu img {
+	width: 2.5rem;
+}
+.start-item.dummy-item {
+	filter: saturate(0);
+}
 .start-menu-1 {
 	position: absolute;
 	bottom: 4vh;
@@ -374,19 +403,32 @@ span.ninetyfive-text {
 	display: grid;
 }
 
-.start-item {
+.start-item:not(.launch-program, .launchExplorer) {
 	display: grid;
 	grid-template-columns: 3rem 3fr 1fr;
 	align-content: center;
 	align-items: center;
 	padding: 0 0.5rem;
 	color: black;
+	position: relative;
+	max-height: 4rem;
 }
 
-.start-item:hover {
+.start-item.launchExplorer,
+.start-item.launch-program {
+	max-height: 4rem;
+}
+.start-item:hover,
+.start-item:hover > button {
 	background: var(--blue);
 	color: var(--white);
 	cursor: default;
+}
+
+.start-item button:hover {
+	background: var(--blue);
+	color: var(--white);
+	cursor: pointer;
 }
 
 span.arrow {
@@ -397,8 +439,19 @@ span.arrow {
 .desktopIcon {
 	background: none;
 	border: none;
+	font-family: inherit;
 }
-.desktopIcon:active{
+.desktopIcon:focus {
+	outline: none;
+}
+.desktopIcon:focus img {
+	outline: 0.5px dotted white;
+}
+.desktopIcon:focus p {
+	outline: 0.5px dotted white;
+	background: var(--blue);
+}
+.desktopIcon:active {
 	border: none;
 	box-shadow: none;
 }
@@ -423,8 +476,6 @@ p.menu-item-p:first-letter {
 	min-width: 2rem;
 	display: none;
 	box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.5);
-	/* overflow: auto;
-	resize: both; */
 	grid-template-rows: 3rem 1fr;
 }
 
@@ -462,20 +513,8 @@ img.modal-icon {
 	width: 2.5rem;
 }
 
-/* .resize-handle{
-	background:url(../img/resize.svg);
-	background-size: 1rem;
-	position: absolute;
-	width: 1rem;
-	height: 1rem;
-	bottom: 0;
-	right: 0;
-	pointer-events: none;
-} */
-
 /* is the same as wordpad.css .dialog-file-window */
 .folder-file-window {
-	/* min-height: 9rem; */
 	background: white;
 	display: grid;
 	border: 0.2rem inset;

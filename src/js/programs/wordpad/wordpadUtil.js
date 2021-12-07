@@ -1,4 +1,4 @@
-// Would make more sense for these to be in desktopIconUtil. Since there are only Wordpad files I'm leaving them here for now. 
+// Would make more sense for these to be in desktopIconUtil. Since there are only Wordpad files I'm leaving them here for now.
 
 export function addContextMenuFileListeners() {
 	document
@@ -69,6 +69,9 @@ function deleteFile(e) {
 
 function makeIconEditable(e) {
 	const icons = document.querySelectorAll('.wordpad-open-file-p');
+
+	// New Dec 2021 make it so only one can be editable at a time
+	icons.forEach((icon) => (icon.contentEditable = 'false'));
 	const targetRename = e.target.dataset.rename;
 	const targetIcon = Array.from(icons).filter(
 		(icon) => icon.dataset.name === targetRename
@@ -84,25 +87,76 @@ function makeIconEditable(e) {
 		.addEventListener('click', renameFiles);
 }
 
-// TODO - I don't think there is a check that files can't have the same name, will need to add for this to work
 function renameFiles() {
-	const icons = document.querySelectorAll('.wordpad-open-file-p');
+	const icons = document.querySelectorAll('.wordpad-open-file-p'); // file names
 	const files = JSON.parse(localStorage.getItem('files')) || [];
+
+	// renamedIcons is always length 1?
 	const renamedIcons = Array.from(icons).filter(
 		(icon) => icon.contentEditable === 'true'
 	);
-
 	if (renamedIcons.length <= 0) return;
+	const icon = renamedIcons[0];
+	selectText(icon);
+	let renamedFile = files.filter((file) => file.name === icon.dataset.name);
 
-	renamedIcons.forEach((icon) => {
-		let renamedFile = files.filter((file) => file.name === icon.dataset.name);
+	if (renamedFile.length !== 1) return;
+	const ogTextContent = renamedFile[0].name;
 
-		if (renamedFile.length !== 1) return;
+	addListeners();
 
-		renamedFile[0].name = icon.textContent;
-	});
+	// part of renameFiles()
+	function addListeners() {
+		// Handle pressing 'return' or 'tab' during file rename.
+		icon.addEventListener('keydown', handleRenameKeydown, false);
 
-	localStorage.setItem('files', JSON.stringify(files));
+		// Handle clicking anywhere during file rename.
+		icon.addEventListener('blur', handleRenameBlur, false);
+	}
+	// part of renameFiles()
+	function removeListeners() {
+		icon.removeEventListener('keydown', handleRenameKeydown, false);
+		icon.removeEventListener('blur', handleRenameBlur, false);
+	}
+	// part of renameFiles()
+	function selectText(el) {
+		const range = document.createRange();
+		range.selectNodeContents(el);
+		const selectedText = window.getSelection();
+		selectedText.removeAllRanges();
+		selectedText.addRange(range);
+	}
+	// part of renameFiles()
+	function handleRenameKeydown(e) {
+		if (e.key !== 'Enter' && e.key !== 'Tab') {
+			return;
+		}
+		e.preventDefault();
+		if (icon.textContent.length > 0) {
+			renamedFile[0].name = icon.textContent;
+			localStorage.setItem('files', JSON.stringify(files));
+		} else {
+			icon.textContent = ogTextContent;
+		}
+
+		icon.previousElementSibling.focus();
+		icon.contentEditable = 'false';
+		removeListeners();
+	}
+	// part of renameFiles()
+	function handleRenameBlur(e) {
+		e.preventDefault();
+		if (icon.textContent.length > 0) {
+			renamedFile[0].name = icon.textContent;
+			localStorage.setItem('files', JSON.stringify(files));
+		} else {
+			icon.textContent = ogTextContent;
+		}
+
+		icon.previousElementSibling.focus();
+		icon.contentEditable = 'false';
+		removeListeners();
+	}
 }
 
 function addContextMenuToDOM(e) {

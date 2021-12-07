@@ -56,7 +56,8 @@ window.addEventListener('resize', () => initDesktopIcons());
 // Re-add Explorer listeners on dragend (overwritten)
 window.addEventListener('dragend', () => addLaunchExplorerListener());
 
-// Toggle Start Menu | ( the rest is CSS )
+// Toggle Start Menu
+// document.querySelector('.start-btn').addEventListener('click', toggleStartMenu);
 document.addEventListener('click', toggleStartMenu);
 
 // Close context menu
@@ -120,3 +121,4 @@ document.addEventListener('theOnlyFolderOpened', (e) => {
 	addLaunchProgramListener(e);
 	addContextMenuFileListeners(e);
 });
+

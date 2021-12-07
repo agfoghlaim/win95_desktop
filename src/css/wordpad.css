@@ -231,6 +231,21 @@ button.wordpad-open-file {
 	background: none;
 	border: none;
 }
+button.wordpad-open-file:focus,
+button.wordpad-open-file:active {
+	outline: none;
+	border: none;
+	box-shadow: none;
+}
+button.wordpad-open-file:focus > img, 
+button.wordpad-open-file:hover > img {
+	outline: 2px dotted var(--black);
+}
+button.wordpad-open-file:focus ~ p {
+	outline: 2px dotted var(--black);
+	background: var(--blue);
+	color: white;
+}
 
 p.wordpad-open-file {
 	font-size: 0.7rem;

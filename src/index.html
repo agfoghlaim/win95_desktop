@@ -3,9 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<title>Fuinneog95</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- <link rel="shortcut icon" type="image/jpg" href="/favicon.ico"/> -->
-		<link rel="preload">
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 	</head>
 
@@ -19,91 +17,99 @@
 
 			<div class="taskbar-container">
 				<div class="left-taskbar">
-					<button class="start-btn">Start</button>
+					<button class="start-btn" aria-expanded="false"><span class="pseudo-focus"></span>Start</button>
+					<nav>
+						<ul
+							id="start-menu-nav"
+							class="start-menu start-menu-1"
+							data-menu-level="1"
+						>
+							<div class="windos-logo">
+								<span class="windos-text">Fuinneoga</span>
+								<span class="ninetyfive-text">95</span>
+							</div>
 
-					<ul class="start-menu start-menu-1" data-menu-level="1">
-						<div class="windos-logo">
-							<span class="windos-text">Fuinneoga</span>
-							<span class="ninetyfive-text">95</span>
-						</div>
-
-						<li class="start-item with-subitem programs-item">
-							<img src="img/programs.ico" alt="" />
-							<p class="menu-item-p">Programs</p>
-							<span class="arrow">▶</span>
-							<ul class="start-menu start-menu-2" data-menu-level="2">
-								<li class="start-item with-subitem">
-									<img src="img/programs.ico" alt="" />
-									<p class="menu-item-p">Accessories</p>
+							<li class="start-item with-subitem programs-item">
+								<img src="img/programs.ico" alt="" />
+								<p class="menu-item-p">Programs</p>
+								<button class="sub-menu-toggle" aria-expanded="false">
 									<span class="arrow">▶</span>
+								</button>
+								<ul class="start-menu start-menu-2 sub-menu" data-menu-level="2">
+									<li class="start-item with-subitem">
+										<img src="img/programs.ico" alt="" />
+										<p class="menu-item-p">Accessories</p>
+										<button class="sub-menu-toggle" aria-expanded="false">
+											<span class="arrow">▶</span>
+										</button>
 
-									<ul class="start-menu start-menu-3" data-menu-level="3">
-										<li class="start-item games-item with-subitem">
-											<img src="img/programs.ico" alt="" />
-											<p class="menu-item-p">Game(s)</p>
-											<span class="arrow">▶</span>
-										</li>
-										<li class="start-item">
-											<img src="img/midi.ico" alt="" />
-											<p class="menu-item-p">Multimedia</p>
-											<span class="arrow">▶</span>
-										</li>
-										<li
-											class="start-item launch-program"
-											data-launch-windo="windo-calculator"
-											data-launch="Calculator"
-										>
-											<img src="img/calculator.ico" alt="" />
-											<p class="menu-item-p">Calculator</p>
-										</li>
-										<li
-											class="start-item launch-program"
-											data-launch-windo="windo-wordpad"
-											data-launch="Wordpad"
-										>
-											<img src="img/wordpad.ico" alt="" />
-											<p class="menu-item-p">Wordpad</p>
-										</li>
-									</ul>
-								</li>
-								<li class="start-item">
-									<img src="img/programs.ico" alt="" />
-									<p class="menu-item-p">Startup</p>
+										<ul class="start-menu start-menu-3 sub-menu" data-menu-level="3">
+											<li class="start-item games-item with-subitem">
+												<img src="img/programs.ico" alt="" />
+												<p class="menu-item-p">Game(s)</p>
+												<button class="sub-menu-toggle" aria-expanded="false">
+													<span class="arrow">▶</span>
+												</button>
+											</li>
+											<li
+												class="start-item launch-program"
+												data-launch-windo="windo-calculator"
+												data-launch="Calculator"
+											>
+												<button>
+													<img src="img/calculator.ico" alt="" />
+													<p class="menu-item-p">Calculator</p>
+												</button>
+											</li>
+											<li
+												class="start-item launch-program"
+												data-launch-windo="windo-wordpad"
+												data-launch="Wordpad"
+											>
+												<button>
+													<img src="img/wordpad.ico" alt="" />
+													<p class="menu-item-p">Wordpad</p>
+												</button>
+											</li>
+										</ul>
+									</li>
+
+									<li class="start-item dummy-item">
+										<img src="img/help.ico" alt="" />
+										<p class="menu-item-p">MS-DOS Prompt</p>
+									</li>
+								</ul>
+							</li>
+							<li class="start-item with-subitem documents-item">
+								<img src="img/documents.ico" alt="" />
+								<p class="menu-item-p">Documents</p>
+								<button class="sub-menu-toggle doc-btn" aria-expanded="false">
 									<span class="arrow">▶</span>
-								</li>
-								<li class="start-item">
-									<img src="img/help.ico" alt="" />
-									<p class="menu-item-p">MS-DOS Prompt</p>
-								</li>
-							</ul>
-						</li>
-						<li class="start-item with-subitem documents-item">
-							<img src="img/documents.ico" alt="" />
-							<p class="menu-item-p">Documents</p>
-							<span class="arrow">▶</span>
-							<!-- inject here -->
-						</li>
-						<li class="start-item">
-							<img src="img/settings.ico" alt="" />
-							<p class="menu-item-p">Settings</p>
-						</li>
-						<li class="start-item">
-							<img src="img/find.ico" alt="" />
-							<p class="">Find</p>
-						</li>
-						<li class="start-item">
-							<img src="img/help.ico" alt="" />
-							<p class="">Help</p>
-						</li>
-						<li class="start-item">
-							<img src="img/run.ico" alt="" />
-							<p class="">Run</p>
-						</li>
-						<li class="start-item shutdown">
-							<img src="img/shut-down.ico" alt="" />
-							<p class="">Shut Down...</p>
-						</li>
-					</ul>
+								</button>
+								<!-- inject here -->
+							</li>
+							<li class="start-item dummy-item">
+								<img src="img/settings.ico" alt="" />
+								<p class="menu-item-p">Settings</p>
+							</li>
+							<li class="start-item dummy-item">
+								<img src="img/find.ico" alt="" />
+								<p class="">Find</p>
+							</li>
+							<li class="start-item dummy-item">
+								<img src="img/help.ico" alt="" />
+								<p class="">Help</p>
+							</li>
+							<li class="start-item dummy-item">
+								<img src="img/run.ico" alt="" />
+								<p class="">Run</p>
+							</li>
+							<li class="start-item shutdown dummy-item">
+								<img src="img/shut-down.ico" alt="" />
+								<p class="">Shut Down...</p>
+							</li>
+						</ul>
+					</nav>
 				</div>
 
 				<div class="mid-taskbar"></div>

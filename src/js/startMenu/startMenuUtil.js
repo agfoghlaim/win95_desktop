@@ -1,36 +1,53 @@
 /*
-TODO - this works but the addPrograms/addDocuments is a mess, it's not DRY & StartBlock isn't used. Also menuLevels CSS should be defined in js.
-I'm leaving it for now cause have a feeling things will have to change as more programs are added. Also I'm sick of the sight of it. 
+TODO - this works but the addPrograms/addDocuments is a mess, it's not DRY & StartBlock isn't used.
 */
 
 //import { StartBlock } from "./StartBlock.js";
 import { StartItem } from './StartItem.js';
 import { myDocuments, programConfigs as programs } from '../content.js';
+import { navigationHandlers } from './startHelpers';
 
 // Event Handler | main.js
 export function toggleStartMenu(e) {
+	// Return if it's part of the menu but not the start button.
 	if (
 		e.target.classList.contains('start-menu') ||
 		e.target.classList.contains('menu-item') ||
-		e.target.classList.contains('menu-item-p')
+		e.target.classList.contains('menu-item-p') ||
+		e.target.classList.contains('sub-menu-toggle')
 	) {
 		return;
 	}
 
-	const mainMenu = document.querySelector('.start-menu');
-	const menus = document.querySelectorAll('.start-menu');
 	if (e.target.classList.contains('start-btn')) {
-		mainMenu.classList.toggle('show');
+		navigationHandlers.toggleAriaExpanded(e.target);
 	} else {
-		menus.forEach((m) => m.classList.remove('show'));
+		// clicked anywhere else
+		const el = document.querySelector('#start-menu-nav');
+		if (!el) {
+			return;
+		}
+		const allToggles = document.querySelectorAll('.sub-menu-toggle');
+
+		allToggles.forEach((m) =>
+			navigationHandlers.toggleAriaExpanded(m, 'close')
+		);
+
+		const startBtn = document.querySelector('.start-btn');
+
+		navigationHandlers.toggleAriaExpanded(startBtn, 'close');
 	}
 }
 
 export function initStartMenu() {
 	addDocumentsBlock();
 	addPrograms();
+	subMenuToggle();
+	menuKeyboardNavigation();
+	mouseNavigation();
 }
 
+// TODO this and addPrograms() should just be hardcoded?
 function addDocumentsBlock() {
 	const docMenu = document.querySelector('.documents-item');
 	const currentMenuLevel = docMenu.parentElement.dataset.menuLevel;
@@ -85,7 +102,6 @@ function addPrograms() {
 			ul: checkIfAlreadyHasChildUl(menuItemParent),
 			menuLevel: menuLevel,
 		};
-
 		const startItem = new StartItem(
 			classes,
 			dataAttributes,
@@ -117,4 +133,138 @@ function checkIfAlreadyHasChildUl(parent) {
 	let m = children.filter((child) => child.nodeName === 'UL');
 
 	return m.length === 1 ? m[0] : '';
+}
+
+function subMenuToggle() {
+	// 1. Listen or Un-Listen to all button.sub-menu-toggles.
+	const allSubMenuToggleButtons = document.querySelectorAll(
+		'#start-menu-nav .sub-menu-toggle'
+	);
+
+	if (allSubMenuToggleButtons && allSubMenuToggleButtons.length) {
+		allSubMenuToggleButtons.forEach((button) => {
+			button.addEventListener(
+				'click',
+				navigationHandlers.handleExpandAppropiateSubMenu,
+				false
+			);
+		});
+	}
+}
+
+function menuKeyboardNavigation() {
+	document.addEventListener('keydown', function (event) {
+		const startBtn = document.querySelector('.start-btn');
+		let isExpanded = false;
+		if (startBtn && startBtn.getAttribute('aria-expanded') === 'true') {
+			isExpanded = true;
+		}
+		const mainNavMenu = document.querySelector('#start-menu-nav');
+		const selectors = 'input, a, button';
+
+		const tabKey = event.key === 'Tab';
+		const shiftKey = event.shiftKey;
+		const escKey = event.key === 'Escape';
+
+		const els = mainNavMenu.querySelectorAll(selectors);
+		const elements = Array.prototype.slice.call(els);
+		const activeEl = document.activeElement;
+		const lastEl = elements[elements.length - 1];
+
+		// Get the last button.sub-menu-toggle without a tabindex=-1 attribute.
+		function getLastRelevantToggleBtn() {
+			const subBtns = mainNavMenu.querySelectorAll(
+				'nav ul .sub-menu-toggle:not([tabindex="-1"]'
+			); // TODO tabindexes...
+
+			//  const subBtns = mainNavMenu.querySelectorAll( ':scope button.sub-menu-toggle:not([tabindex="-1"]' ); // TODO tabindexes...
+			if (!subBtns || !subBtns.length) {
+				return false;
+			}
+
+			// Get non nested togglebtns & nested togglebtns in tab order.
+			const activeBtns = Array.from(subBtns).filter(
+				(btn) => btn.getAttribute('aria-expanded') === 'false'
+			);
+			if (!activeBtns || !activeBtns.length) {
+				return false;
+			}
+
+			const lastActiveBtn = activeBtns[activeBtns.length - 1];
+			return lastActiveBtn;
+		}
+
+		const firstEl = elements[0];
+
+		// Close mobile menu with escape key. TODO also close everything (tabindex is good..?)
+		if (escKey && isExpanded) {
+			event.preventDefault();
+			// navigationHandlers.toggleAriaExpanded(startBtn);
+			navigationHandlers.toggleAriaExpanded(startBtn);
+			startBtn.focus();
+		}
+
+		if (!isExpanded) {
+			return;
+		}
+
+		// Keep tabbing inside the menu (last item to first item). The Element to use to send the tab back to firstEl is either lastEl OR lastRelevantToggleBtn if lastEl[tabindex=-1].
+		let lastRelevantLinkOrToggleBtn = lastEl;
+
+		if (lastEl.getAttribute('tabindex') === '-1') {
+			lastRelevantLinkOrToggleBtn = getLastRelevantToggleBtn();
+		}
+
+		if (!shiftKey && tabKey && activeEl === lastRelevantLinkOrToggleBtn) {
+			event.preventDefault();
+			firstEl.focus();
+		}
+
+		// Keep tabbing inside the menu (first item to last item). The element to send focus to is either lastEl or LastRelevantToggleBtn if lastEl[tabindex=-1].
+		if (shiftKey && tabKey && firstEl === activeEl) {
+			event.preventDefault();
+
+			// el to focus is
+			let elToFocus = lastEl;
+			if (lastEl.getAttribute('tabindex') === '-1') {
+				elToFocus = getLastRelevantToggleBtn();
+			}
+			elToFocus.focus();
+		}
+
+		// If there are no elements in the menu, don't move the focus
+		if (tabKey && firstEl === lastEl) {
+			event.preventDefault();
+		}
+	});
+}
+
+function mouseNavigation() {
+	// Get ALL <li.with-subitem> items with nested ul.sub-menus
+	const lisWithChildren = document.querySelectorAll('ul li.with-subitem');
+
+	if (!lisWithChildren || !lisWithChildren.length) {
+		return;
+	}
+
+	// Show onMouseEnter.
+	lisWithChildren.forEach((li) => {
+		li.addEventListener('mouseenter', function showSubMenu() {
+			this.querySelector('.sub-menu-toggle').setAttribute(
+				'aria-expanded',
+				'true'
+			);
+
+			// change css class if sub-menu goes off screen.
+			// keepSubMenusVisible( li );
+		});
+
+		// hide onMouseLeave
+		li.addEventListener('mouseleave', function hideSubMenu() {
+			this.querySelector('.sub-menu-toggle').setAttribute(
+				'aria-expanded',
+				'false'
+			);
+		});
+	});
 }

@@ -13,13 +13,15 @@ export class StartItem {
 	}
 
 	getHtml() {
-		return `<li  ${this.classes} ${this.dataAttributes} >
 
+		return `<li  ${this.classes} ${this.dataAttributes} >
+			<button>
       <img src="${this.img}" alt="">
 
       <p class="menu-item-p">${this.text}</p>
 
       ${this.arrow}
+			</button>
 
     </li>`;
 	}
